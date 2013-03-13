@@ -17,7 +17,12 @@ class App < Sinatra::Base
     send_file settings.public_folder + '/index.html'
   end
 
-  get '/api/*' do
-    "gurka"
+  get '/api/prices' do
+    [
+      200, 
+      {
+        'Content-Type' => 'application/json'
+      }, [ IO.read(File.dirname(__FILE__) + '/prices.json') ] 
+    ]
   end
 end
