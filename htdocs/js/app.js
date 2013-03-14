@@ -8,8 +8,30 @@
 
   App.Views.Prices = {};
 
+  App.Views.Prices.PricesController = Ember.Controller.extend({
+    items: [],
+    init: function() {
+      var _this = this;
+      return $.ajax({
+        type: 'GET',
+        cache: false,
+        url: '/api/prices',
+        success: function(result) {
+          return _this.set('items', eval(result));
+        }
+      });
+    }
+  });
+
   App.Views.Prices.PricesView = Ember.View.extend({
-    templateName: 'prices'
+    templateName: 'prices',
+    init: function() {
+      var controller;
+      this._super();
+      controller = App.Views.Prices.PricesController.create();
+      this.set('_context', controller);
+      return this.set('controller', controller);
+    }
   });
 
   App.Router = Ember.Router.extend({

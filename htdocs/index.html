@@ -55,7 +55,7 @@
 
         <footer id="footer">
           <small>
-            Baseras på <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap</a> med temat <a href="http://bootswatch.com/slate/">Slate</a>.
+            Baseras på <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap</a> med temat <a href="http://bootswatch.com/simplex/">Simplex</a>.
           </small>
         </footer>
       </div><!-- /#container -->
@@ -63,6 +63,18 @@
 
     <script type="text/x-handlebars" data-template-name="prices">
       Här kommer priserna:
+
+      <table class="table table-striped">
+        {{#each item in items}}
+        <tr>
+          <th>{{item.name}}</th>
+          {{#each store in item.prices}}
+          <td>{{store.name}}</td>
+          <td>{{store.price}}</td>
+          {{/each}}
+        </tr>
+        {{/each}}
+      </table>
     </script>
 
     <script src="js/jquery-1.8.3.js"></script>

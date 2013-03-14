@@ -5,6 +5,23 @@
       {
         "name": "Minimani",
         "price": 0.85
+      },
+      {
+        "name": "Citymarket",
+        "price": 0.99
+      }
+    ]
+  },
+  {
+    "name": "Surmjölkslimpa Vaasan",
+    "prices": [
+      {
+        "name": "Minimani",
+        "price": 1.49
+      },
+      {
+        "name": "Citymarket",
+        "price": 1.99
       }
     ]
   }
