@@ -31,7 +31,7 @@
             <ul class="nav nav-list">
               <li class="nav-header">Innehåll</li>
               <li><a href="#">Priser</a></li>
-              <li><a href="#">Kassen</a></li>
+              <li><a href="#/redigera">Redigera</a></li>
             </ul>
           </div>
 
@@ -45,8 +45,7 @@
             </div>
 
             <div>
-              <h2>Priser</h2>
-              {{outlet prices}}
+              {{outlet content}}
             </div>
           </div>
         </div>
@@ -62,6 +61,8 @@
     </script>
 
     <script type="text/x-handlebars" data-template-name="prices">
+      <h2>Priser</h2>
+
       <ul class="nav nav-tabs">
         <li class="active">
           <a href="#alla" data-toggle="tab">Alla</a>
