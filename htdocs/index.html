@@ -62,19 +62,42 @@
     </script>
 
     <script type="text/x-handlebars" data-template-name="prices">
-      Här kommer priserna:
+      <ul class="nav nav-tabs">
+        <li class="active">
+          <a href="#alla" data-toggle="tab">Alla</a>
+        </li>
+        <li>
+          <a href="#frukt-och-gront" data-toggle="tab">Frukt och grönt</a>
+        </li>
+        <li>
+          <a href="#mejeri" data-toggle="tab">Mejeri</a>
+        </li>
+      </ul>
 
-      <table class="table table-striped">
-        {{#each item in items}}
-        <tr>
-          <th>{{item.name}}</th>
-          {{#each store in item.prices}}
-          <td>{{store.name}}</td>
-          <td>{{store.price}}</td>
-          {{/each}}
-        </tr>
-        {{/each}}
-      </table>
+      <div class="tabbable">
+        <div class="tab-content">
+          <div class="tab-pane active" id="alla">
+          </div>
+
+          <div class="tab-pane" id="frukt-och-gront">
+            <table class="table table-striped">
+              {{#each item in items}}
+              <tr>
+                <th>{{item.name}}</th>
+                <td>{{item.brand}}</td>
+                {{#each store in item.prices}}
+                <td>{{store.name}}</td>
+                <td><span class="label label-important">{{store.price}}</span></td>
+                {{/each}}
+              </tr>
+              {{/each}}
+            </table>
+          </div>
+
+          <div class="tab-pane" id="mejeri">
+          </div>
+        </div>
+      </div>
     </script>
 
     <script src="js/jquery-1.8.3.js"></script>
