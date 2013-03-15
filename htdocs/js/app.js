@@ -41,10 +41,19 @@
         connectOutlets: function(router, context) {
           var ctrl;
           ctrl = router.get('applicationController');
+          ctrl.disconnectOutlet('content');
           return ctrl.connectOutlet({
             viewClass: App.Views.Prices.PricesView,
-            outletName: 'prices'
+            outletName: 'content'
           });
+        }
+      }),
+      admin: Ember.Route.extend({
+        route: '/redigera',
+        connectOutlets: function(router, context) {
+          var ctrl;
+          ctrl = router.get('applicationController');
+          return ctrl.disconnectOutlet('content');
         }
       })
     })

@@ -33,10 +33,22 @@ App.Router = Ember.Router.extend({
       connectOutlets: (router, context) ->
         ctrl = router.get('applicationController')
 
+        ctrl.disconnectOutlet('content')
+
         ctrl.connectOutlet({
           viewClass: App.Views.Prices.PricesView
-          outletName: 'prices'
+          outletName: 'content'
         })
+    })
+
+    admin: Ember.Route.extend({
+      route: '/redigera'
+      connectOutlets: (router, context) ->
+        ctrl = router.get('applicationController')
+
+        ctrl.disconnectOutlet('content')
+
+        # TODO.
     })
   })
 })
