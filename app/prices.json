@@ -1,6 +1,9 @@
 [
   {
-    "name": "Lättmjölk 1L",
+    "name": "Lättmjölk",
+    "amount": 1,
+    "brand": "Arla Ingman",
+    "category": "Mejeri och ost",
     "prices": [
       {
         "name": "Minimani",
@@ -13,7 +16,10 @@
     ]
   },
   {
-    "name": "Surmjölkslimpa Vaasan",
+    "name": "Surmjölkslimpa",
+    "amount": 0.4,
+    "brand": "Vaasan",
+    "category": "Bröd",
     "prices": [
       {
         "name": "Minimani",
