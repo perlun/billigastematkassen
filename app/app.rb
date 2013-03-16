@@ -7,7 +7,7 @@ require 'json'
 class App < Sinatra::Base
   set :server, 'mizuno'
 
-  set :port, 8081
+  set :port, 8082
   set :root, Pathname.new(settings.root + '/..').cleanpath.to_s
   set :public_folder, settings.root + '/htdocs'
 
