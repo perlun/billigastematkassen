@@ -7,6 +7,13 @@
       body {
         padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
       }
+
+      /* To get rid of spinners in Chrome. */
+      input[type=number]::-webkit-inner-spin-button,
+      input[type=number]::-webkit-outer-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+      }      
     </style>
   </head>
 
@@ -30,20 +37,13 @@
           <div class="span2">
             <ul class="nav nav-list">
               <li class="nav-header">Innehåll</li>
-              <li><a href="#">Priser</a></li>
-              <li><a href="#redigera">Redigera</a></li>
+              <li><a href="#/">Priser</a></li>
+              <li><a href="#/redigera">Redigera</a></li>
             </ul>
           </div>
 
           <div class="span10">
             <!--Body content-->
-            <div id="home">
-              <h1>Billigaste Matkassen</h1>
-              <p>
-                Denna side hjälper dig att hitta det billigaste priset på din matkasse, baserat på priser som tidigare har registrerats.
-              </p>
-            </div>
-
             <div>
               {{outlet content}}
             </div>
@@ -61,7 +61,12 @@
     </script>
 
     <script type="text/x-handlebars" data-template-name="prices">
-      <h2>Priser</h2>
+      <div>
+        <h1>Billigaste Matkassen - Priser</h1>
+        <p>
+          Denna side hjälper dig att hitta det billigaste priset på din matkasse, baserat på priser som har registrerats på <a href="#/redigera">redigeringssidan</a>.
+        </p>
+      </div>
 
       <ul class="nav nav-tabs">
         <li class="active">
@@ -99,6 +104,45 @@
           </div>
         </div>
       </div>
+    </script>
+
+    <script type="text/x-handlebars" data-template-name="edit_prices">
+      <div>
+        <h1>Billigaste Matkassen - Redigera priser</h1>
+      </div>      
+
+      <form>
+        <table class="table table-striped">
+          <tr>
+            <th>Artikel</th>
+            <th>Varumärke</th>
+            <th>Axet</th>
+            <th>Citymarket</th>
+            <th>Lidl</th>
+            <th>Minimani</th>
+            <th>Prisma</th>
+          </tr>
+
+          {{#each item in items}}
+          <tr>
+            <th>{{view Ember.TextField valueBinding="item.name" size="15"}}</th>
+            <td>{{view Ember.TextField valueBinding="item.brand" size="15"}}</td>
+            <td>{{view App.Controls.MoneyTextField valueBinding="item.price_axet"}}</td>
+            <td>{{view App.Controls.MoneyTextField valueBinding="item.price_citymarket"}}</td>
+            <td>{{view App.Controls.MoneyTextField valueBinding="item.price_lidl"}}</td>
+            <td>{{view App.Controls.MoneyTextField valueBinding="item.price_minimani"}}</td>
+            <td>{{view App.Controls.MoneyTextField valueBinding="item.price_prisma"}}</td>
+          </tr>
+          {{/each}}
+        </table>
+
+        <div>
+          <button class="btn">Lägg till ny rad</button>
+        </div>
+        <div style="margin-top: 12px;">
+          <button class="btn">Spara</button>
+        </div>
+      </form>
     </script>
 
     <script src="js/jquery-1.8.3.js"></script>

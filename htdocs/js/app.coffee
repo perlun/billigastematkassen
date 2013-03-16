@@ -4,6 +4,18 @@ App.Views = {}
 App.Views.Prices = {}
 
 #
+# Controls
+#
+App.Controls = {}
+App.Controls.MoneyTextField = Ember.TextField.extend({
+  type: 'number'
+  attributeBindings: [ 'step', 'style' ]
+  step: 0.01
+  size: 5
+  style: 'width: 60px; padding: 0px 6px;'
+})
+
+#
 # Viewmodels and views.
 #
 App.Views.Prices.PricesViewModel = Ember.Controller.extend({
@@ -25,6 +37,29 @@ App.Views.Prices.PricesView = Ember.View.extend({
     this._super()
 
     controller = App.Views.Prices.PricesViewModel.create()
+    @set('_context', controller)
+    @set('controller', controller)
+})
+
+App.Views.Prices.EditPricesViewModel = Ember.Controller.extend({
+  items: []
+
+  init: () ->
+    $.ajax({
+      type: 'GET'
+      cache: false
+      url: '/api/prices'
+      success: (result) =>
+        @set('items', eval result)
+    })
+})
+
+App.Views.Prices.EditPricesView = Ember.View.extend({
+  templateName: 'edit_prices'
+  init: () ->
+    this._super()
+
+    controller = App.Views.Prices.EditPricesViewModel.create()
     @set('_context', controller)
     @set('controller', controller)
 })
@@ -54,7 +89,10 @@ App.Router = Ember.Router.extend({
 
         ctrl.disconnectOutlet('content')
 
-        # TODO.
+        ctrl.connectOutlet({
+          viewClass: App.Views.Prices.EditPricesView
+          outletName: 'content'
+        })
     })
   })
 })
