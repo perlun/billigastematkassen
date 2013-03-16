@@ -4,31 +4,15 @@
     "amount": 1,
     "brand": "Arla Ingman",
     "category": "Mejeri och ost",
-    "prices": [
-      {
-        "name": "Minimani",
-        "price": 0.85
-      },
-      {
-        "name": "Citymarket",
-        "price": 0.99
-      }
-    ]
+    "price_minimani": 0.85,
+    "price_citymarket": 0.99
   },
   {
     "name": "Surmjölkslimpa",
     "amount": 0.4,
     "brand": "Vaasan",
     "category": "Bröd",
-    "prices": [
-      {
-        "name": "Minimani",
-        "price": 1.49
-      },
-      {
-        "name": "Citymarket",
-        "price": 1.99
-      }
-    ]
+    "price_minimani": 1.49,
+    "price_citymarket": 1.99
   }
 ]
