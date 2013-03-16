@@ -58,6 +58,18 @@ App.Views.Prices.EditPricesViewModel = Ember.Controller.extend({
 
   removeRow: (row) ->
     @items.removeObject(row.context)
+
+  saveRows: ->
+    $.ajax({
+      type: 'POST'
+      cache: false
+      url: '/api/prices'
+      data: JSON.stringify(@get('items'))
+      contentType: 'application/json; charset=utf-8',
+      dataType: 'json',
+      failure: (errMsg) ->
+        alert('Ett fel uppstod när priserna skulle sparas: ' + errMsg)
+    })
 })
 
 App.Views.Prices.EditPricesView = Ember.View.extend({

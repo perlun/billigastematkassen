@@ -25,4 +25,10 @@ class App < Sinatra::Base
       }, [ IO.read(File.dirname(__FILE__) + '/prices.json') ] 
     ]
   end
+
+  post '/api/prices' do
+    IO.write(File.dirname(__FILE__) + '/prices.json', request.body.read)
+
+    'Success'
+  end
 end

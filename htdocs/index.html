@@ -83,21 +83,24 @@
       <div class="tabbable">
         <div class="tab-content">
           <div class="tab-pane active" id="alla">
+            <table class="table table-striped">
+              <tbody>
+                {{#each item in items}}
+                <tr>
+                  <th>{{item.name}}</th>
+                  <td>{{item.brand}}</td>
+                  <td>{{item.price_axet}}</td>
+                  <td>{{item.price_citymarket}}</td>
+                  <td>{{item.price_lidl}}</td>
+                  <td>{{item.price_minimani}}</td>
+                  <td>{{item.price_prisma}}</td>
+                </tr>
+                {{/each}}
+              </tbody>
+            </table>
           </div>
 
           <div class="tab-pane" id="frukt-och-gront">
-            <table class="table table-striped">
-              {{#each item in items}}
-              <tr>
-                <th>{{item.name}}</th>
-                <td>{{item.brand}}</td>
-                {{#each store in item.prices}}
-                <td>{{store.name}}</td>
-                <td><span class="label label-important">{{store.price}}</span></td>
-                {{/each}}
-              </tr>
-              {{/each}}
-            </table>
           </div>
 
           <div class="tab-pane" id="mejeri">
@@ -143,7 +146,7 @@
           <button class="btn" {{action addNewRow}}>Lägg till ny rad</button>
         </div>
         <div style="margin-top: 12px;">
-          <button class="btn">Spara</button>
+          <button class="btn" {{action saveRows}}>Spara</button>
         </div>
       </form>
     </script>

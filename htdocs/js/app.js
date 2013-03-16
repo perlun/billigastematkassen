@@ -61,6 +61,19 @@ App.Views.Prices.EditPricesViewModel = Ember.Controller.extend({
   },
   removeRow: function(row) {
     return this.items.removeObject(row.context);
+  },
+  saveRows: function() {
+    return $.ajax({
+      type: 'POST',
+      cache: false,
+      url: '/api/prices',
+      data: JSON.stringify(this.get('items')),
+      contentType: 'application/json; charset=utf-8',
+      dataType: 'json',
+      failure: function(errMsg) {
+        return alert('Ett fel uppstod när priserna skulle sparas: ' + errMsg);
+      }
+    });
   }
 });
 
