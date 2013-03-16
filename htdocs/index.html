@@ -49,8 +49,8 @@
           <div class="span2">
             <ul class="nav nav-list">
               <li class="nav-header">Innehåll</li>
-              <li><a href="#/">Priser</a></li>
-              <li><a href="#/redigera">Redigera</a></li>
+              <li {{bindAttr class="pricesLinkClass"}}"><a href="#">Priser</a></li>
+              <li {{bindAttr class="editLinkClass"}}"><a href="#/redigera">Redigera</a></li>
             </ul>
           </div>
 
@@ -173,6 +173,7 @@
     </script>
 
     <script src="js/jquery-1.8.3.js"></script>
+    <script src="js/purl.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/handlebars-1.0.rc.1.js"></script>
     <script src="js/ember.js"></script>

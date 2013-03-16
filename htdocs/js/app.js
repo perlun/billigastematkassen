@@ -126,6 +126,26 @@ App.Router = Ember.Router.extend({
   })
 });
 
-App.ApplicationController = Ember.Controller.extend();
+App.ApplicationController = Ember.Controller.extend({
+  pricesLinkClass: false,
+  editLinkClass: false,
+  init: function() {
+    var _this = this;
+    window.addEventListener("hashchange", function(event) {
+      return _this.updateActiveClasses(event.newURL);
+    }, false);
+    return this.updateActiveClasses(window.location);
+  },
+  updateActiveClasses: function(url) {
+    var fragment, parsedUrl;
+    parsedUrl = $.url(url);
+    fragment = parsedUrl.attr('fragment');
+    console.log(fragment);
+    this.set('pricesLinkClass', (fragment === '' ? 'active' : ''));
+    this.set('editLinkClass', (fragment === '/redigera' ? 'active' : ''));
+    console.log(this.get('pricesLinkClass'));
+    return console.log(this.get('editLinkClass'));
+  }
+});
 
 App.initialize();

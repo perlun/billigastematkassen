@@ -43,7 +43,7 @@ App.Views.Prices.PricesViewModel = Ember.Controller.extend({
 App.Views.Prices.PricesView = Ember.View.extend({
   templateName: 'prices'
   init: () ->
-    this._super()
+    @_super()
 
     controller = App.Views.Prices.PricesViewModel.create()
     @set('_context', controller)
@@ -88,7 +88,7 @@ App.Views.Prices.EditPricesViewModel = Ember.Controller.extend({
 App.Views.Prices.EditPricesView = Ember.View.extend({
   templateName: 'edit_prices'
   init: () ->
-    this._super()
+    @_super()
 
     controller = App.Views.Prices.EditPricesViewModel.create()
     @set('_context', controller)
@@ -128,5 +128,28 @@ App.Router = Ember.Router.extend({
   })
 })
 
-App.ApplicationController = Ember.Controller.extend()
+App.ApplicationController = Ember.Controller.extend({
+  pricesLinkClass: false
+  editLinkClass: false
+
+  init: () ->
+    window.addEventListener("hashchange", (event) =>
+      @updateActiveClasses event.newURL
+    false)
+
+    # Must call for initial URL also.
+    @updateActiveClasses window.location
+
+  updateActiveClasses: (url) ->
+    parsedUrl = $.url(url)
+
+    fragment = parsedUrl.attr('fragment')
+    console.log fragment
+    @set('pricesLinkClass', (if fragment == '' then 'active' else ''))
+    @set('editLinkClass', (if fragment == '/redigera' then 'active' else ''))
+
+    console.log @get('pricesLinkClass')
+    console.log @get('editLinkClass')
+})
+
 App.initialize()
