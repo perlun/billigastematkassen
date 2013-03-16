@@ -13,7 +13,19 @@
       input[type=number]::-webkit-outer-spin-button {
           -webkit-appearance: none;
           margin: 0;
-      }      
+      }
+
+      .editName {
+        width: 100px;
+      }
+
+      .editBrand {
+        width: 100px;
+      }
+
+      .editQty {
+        width: 50px;
+      }
     </style>
   </head>
 
@@ -89,6 +101,8 @@
                 <tr>
                   <th>{{item.name}}</th>
                   <td>{{item.brand}}</td>
+                  <td>{{item.qty}}</td>
+                  <td>{{item.unitOfMeasure}}</td>
                   <td>{{item.price_axet}}</td>
                   <td>{{item.price_citymarket}}</td>
                   <td>{{item.price_lidl}}</td>
@@ -115,11 +129,13 @@
       </div>      
 
       <form>
-        <table class="table table-striped table-hover">
+        <table class="table table-striped table-hover table-condensed">
           <tbody>
             <tr>
               <th>Artikel</th>
               <th>Varumärke</th>
+              <th>Vikt/volym</th>
+              <th>Enhet</th>
               <th>Axet</th>
               <th>Citymarket</th>
               <th>Lidl</th>
@@ -129,8 +145,13 @@
 
             {{#each item in items}}
             <tr>
-              <th>{{view Ember.TextField valueBinding="item.name" size="15"}}</th>
-              <td>{{view Ember.TextField valueBinding="item.brand" size="15"}}</td>
+              <th>{{view Ember.TextField valueBinding="item.name" classNames="editName"}}</th>
+              <td>{{view Ember.TextField valueBinding="item.brand" classNames="editBrand"}}</td>
+              <td>{{view App.Controls.AmountTextField valueBinding="item.qty"}}</td>
+              <td>{{view Ember.Select contentBinding="unitOfMeasures"
+                                      prompt=" "
+                                      valueBinding="item.unitOfMeasure"
+                                      classNames="editQty"}}</td>
               <td>{{view App.Controls.MoneyTextField valueBinding="item.price_axet"}}</td>
               <td>{{view App.Controls.MoneyTextField valueBinding="item.price_citymarket"}}</td>
               <td>{{view App.Controls.MoneyTextField valueBinding="item.price_lidl"}}</td>

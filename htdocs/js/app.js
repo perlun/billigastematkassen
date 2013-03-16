@@ -17,6 +17,14 @@ App.Controls.MoneyTextField = Ember.TextField.extend({
   style: 'width: 60px; padding: 0px 6px;'
 });
 
+App.Controls.AmountTextField = Ember.TextField.extend({
+  type: 'number',
+  attributeBindings: ['step', 'style'],
+  step: 0.001,
+  size: 5,
+  style: 'width: 60px; padding: 0px 6px;'
+});
+
 App.Views.Prices.PricesViewModel = Ember.Controller.extend({
   items: [],
   init: function() {
@@ -45,6 +53,7 @@ App.Views.Prices.PricesView = Ember.View.extend({
 
 App.Views.Prices.EditPricesViewModel = Ember.Controller.extend({
   items: [],
+  unitOfMeasures: ['kg', 'l'],
   init: function() {
     var _this = this;
     return $.ajax({
