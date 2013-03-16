@@ -52,6 +52,12 @@ App.Views.Prices.EditPricesViewModel = Ember.Controller.extend({
       success: (result) =>
         @set('items', eval result)
     })
+
+  addNewRow: () ->
+    @items.pushObject({})
+
+  removeRow: (row) ->
+    @items.removeObject(row.context)
 })
 
 App.Views.Prices.EditPricesView = Ember.View.extend({

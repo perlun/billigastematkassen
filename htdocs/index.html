@@ -112,32 +112,35 @@
       </div>      
 
       <form>
-        <table class="table table-striped">
-          <tr>
-            <th>Artikel</th>
-            <th>Varumärke</th>
-            <th>Axet</th>
-            <th>Citymarket</th>
-            <th>Lidl</th>
-            <th>Minimani</th>
-            <th>Prisma</th>
-          </tr>
+        <table class="table table-striped table-hover">
+          <tbody>
+            <tr>
+              <th>Artikel</th>
+              <th>Varumärke</th>
+              <th>Axet</th>
+              <th>Citymarket</th>
+              <th>Lidl</th>
+              <th>Minimani</th>
+              <th>Prisma</th>
+            </tr>
 
-          {{#each item in items}}
-          <tr>
-            <th>{{view Ember.TextField valueBinding="item.name" size="15"}}</th>
-            <td>{{view Ember.TextField valueBinding="item.brand" size="15"}}</td>
-            <td>{{view App.Controls.MoneyTextField valueBinding="item.price_axet"}}</td>
-            <td>{{view App.Controls.MoneyTextField valueBinding="item.price_citymarket"}}</td>
-            <td>{{view App.Controls.MoneyTextField valueBinding="item.price_lidl"}}</td>
-            <td>{{view App.Controls.MoneyTextField valueBinding="item.price_minimani"}}</td>
-            <td>{{view App.Controls.MoneyTextField valueBinding="item.price_prisma"}}</td>
-          </tr>
-          {{/each}}
+            {{#each item in items}}
+            <tr>
+              <th>{{view Ember.TextField valueBinding="item.name" size="15"}}</th>
+              <td>{{view Ember.TextField valueBinding="item.brand" size="15"}}</td>
+              <td>{{view App.Controls.MoneyTextField valueBinding="item.price_axet"}}</td>
+              <td>{{view App.Controls.MoneyTextField valueBinding="item.price_citymarket"}}</td>
+              <td>{{view App.Controls.MoneyTextField valueBinding="item.price_lidl"}}</td>
+              <td>{{view App.Controls.MoneyTextField valueBinding="item.price_minimani"}}</td>
+              <td>{{view App.Controls.MoneyTextField valueBinding="item.price_prisma"}}</td>
+              <td><a href="#" {{action "removeRow" item}}><i class="icon-trash"></a></i></td>
+            </tr>
+            {{/each}}
+          </tbody>
         </table>
 
         <div>
-          <button class="btn">Lägg till ny rad</button>
+          <button class="btn" {{action addNewRow}}>Lägg till ny rad</button>
         </div>
         <div style="margin-top: 12px;">
           <button class="btn">Spara</button>

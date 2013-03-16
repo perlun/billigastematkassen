@@ -55,6 +55,12 @@ App.Views.Prices.EditPricesViewModel = Ember.Controller.extend({
         return _this.set('items', eval(result));
       }
     });
+  },
+  addNewRow: function() {
+    return this.items.pushObject({});
+  },
+  removeRow: function(row) {
+    return this.items.removeObject(row.context);
   }
 });
 
