@@ -1,3 +1,3 @@
-app.js: app.coffee
-	coffee -c app.coffee
+app.js: app.coffee Makefile
+	coffee -b -c app.coffee
 
