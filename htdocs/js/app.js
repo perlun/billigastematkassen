@@ -8,7 +8,7 @@
 
   App.Views.Prices = {};
 
-  App.Views.Prices.PricesController = Ember.Controller.extend({
+  App.Views.Prices.PricesViewModel = Ember.Controller.extend({
     items: [],
     init: function() {
       var _this = this;
@@ -28,7 +28,7 @@
     init: function() {
       var controller;
       this._super();
-      controller = App.Views.Prices.PricesController.create();
+      controller = App.Views.Prices.PricesViewModel.create();
       this.set('_context', controller);
       return this.set('controller', controller);
     }

@@ -3,7 +3,10 @@ App = Ember.Application.create()
 App.Views = {}
 App.Views.Prices = {}
 
-App.Views.Prices.PricesController = Ember.Controller.extend({
+#
+# Viewmodels and views.
+#
+App.Views.Prices.PricesViewModel = Ember.Controller.extend({
   items: []
 
   init: () ->
@@ -21,11 +24,14 @@ App.Views.Prices.PricesView = Ember.View.extend({
   init: () ->
     this._super()
 
-    controller = App.Views.Prices.PricesController.create()
+    controller = App.Views.Prices.PricesViewModel.create()
     @set('_context', controller)
     @set('controller', controller)
 })
 
+#
+# Routing
+#
 App.Router = Ember.Router.extend({
   root: Ember.Route.extend({
     index: Ember.Route.extend({
