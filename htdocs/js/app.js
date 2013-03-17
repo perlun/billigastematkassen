@@ -61,7 +61,12 @@ App.Views.Prices.EditPricesViewModel = Ember.Controller.extend({
       cache: false,
       url: '/api/prices',
       success: function(result) {
-        return _this.set('items', eval(result));
+        var items;
+        items = eval(result);
+        items = _.sortBy(items, function(i) {
+          return "" + i.name + "_" + i.brand;
+        });
+        return _this.set('items', items);
       }
     });
   },
@@ -142,9 +147,7 @@ App.ApplicationController = Ember.Controller.extend({
     fragment = parsedUrl.attr('fragment');
     console.log(fragment);
     this.set('pricesLinkClass', (fragment === '' ? 'active' : ''));
-    this.set('editLinkClass', (fragment === '/redigera' ? 'active' : ''));
-    console.log(this.get('pricesLinkClass'));
-    return console.log(this.get('editLinkClass'));
+    return this.set('editLinkClass', (fragment === '/redigera' ? 'active' : ''));
   }
 });
 

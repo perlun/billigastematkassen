@@ -63,7 +63,11 @@ App.Views.Prices.EditPricesViewModel = Ember.Controller.extend({
       cache: false
       url: '/api/prices'
       success: (result) =>
-        @set('items', eval result)
+        items = eval result
+        items = _.sortBy(items, (i) ->
+          "#{i.name}_#{i.brand}"
+        )
+        @set('items', items)
     })
 
   addNewRow: () ->
@@ -147,9 +151,6 @@ App.ApplicationController = Ember.Controller.extend({
     console.log fragment
     @set('pricesLinkClass', (if fragment == '' then 'active' else ''))
     @set('editLinkClass', (if fragment == '/redigera' then 'active' else ''))
-
-    console.log @get('pricesLinkClass')
-    console.log @get('editLinkClass')
 })
 
 App.initialize()
