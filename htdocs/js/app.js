@@ -54,6 +54,7 @@ App.Views.Prices.PricesView = Ember.View.extend({
 App.Views.Prices.EditPricesViewModel = Ember.Controller.extend({
   items: [],
   unitOfMeasures: ['kg', 'l'],
+  productGroups: ['Frukt och grönt', 'Mejeri', 'Bröd', 'Kolonial'],
   init: function() {
     var _this = this;
     return $.ajax({
