@@ -88,10 +88,12 @@ App.Views.Prices.EditPricesViewModel = Ember.Controller.extend({
       cache: false
       url: '/api/prices'
       data: JSON.stringify(@get('items'))
-      contentType: 'application/json; charset=utf-8',
-      dataType: 'json',
+      contentType: 'application/json; charset=utf-8'
+      dataType: 'json'
       failure: (errMsg) ->
         alert('Ett fel uppstod när priserna skulle sparas: ' + errMsg)
+      success: () ->
+        alert('Ändringarna har sparats.')
     })
 })
 
@@ -154,7 +156,6 @@ App.ApplicationController = Ember.Controller.extend({
     parsedUrl = $.url(url)
 
     fragment = parsedUrl.attr('fragment')
-    console.log fragment
     @set('pricesLinkClass', (if fragment == '' then 'active' else ''))
     @set('editLinkClass', (if fragment == '/redigera' then 'active' else ''))
 })

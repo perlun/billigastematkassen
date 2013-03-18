@@ -87,6 +87,10 @@ App.Views.Prices.EditPricesViewModel = Ember.Controller.extend({
       dataType: 'json',
       failure: function(errMsg) {
         return alert('Ett fel uppstod när priserna skulle sparas: ' + errMsg);
+      },
+      success: function() {
+        console.log('boo');
+        return alert('Ändringarna har sparats.');
       }
     });
   }
@@ -146,7 +150,6 @@ App.ApplicationController = Ember.Controller.extend({
     var fragment, parsedUrl;
     parsedUrl = $.url(url);
     fragment = parsedUrl.attr('fragment');
-    console.log(fragment);
     this.set('pricesLinkClass', (fragment === '' ? 'active' : ''));
     return this.set('editLinkClass', (fragment === '/redigera' ? 'active' : ''));
   }
