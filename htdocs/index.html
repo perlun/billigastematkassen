@@ -103,15 +103,11 @@
               <tbody>
                 {{#each item in items}}
                 <tr>
-                  <th>{{item.name}}</th>
-                  <td>{{item.brand}}</td>
-                  <td>{{item.qty}}</td>
-                  <td>{{item.unitOfMeasure}}</td>
-                  <td>{{item.price_axet}}</td>
-                  <td>{{item.price_citymarket}}</td>
-                  <td>{{item.price_lidl}}</td>
-                  <td>{{item.price_minimani}}</td>
-                  <td>{{item.price_prisma}}</td>
+                  <td>
+                    <div><img {{bindAttr src="item.imageUrl"}} style="width: 200px;"/></div>
+                    <div style="font-weight: bold;">{{item.name}}</div>
+                    <div>{{item.qty}} {{item.unitOfMeasure}} {{item.brand}}</td></div>
+                  </td>
                 </tr>
                 {{/each}}
               </tbody>

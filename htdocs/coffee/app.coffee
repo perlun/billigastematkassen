@@ -36,8 +36,19 @@ App.Views.Prices.PricesViewModel = Ember.Controller.extend({
       cache: false
       url: '/api/prices'
       success: (result) =>
-        @set('items', eval result)
+        items = eval result
+
+        _.each(items, (i) =>
+          i.imageUrl = "/img/items/#{i.name}_#{@localizeValue(i.qty)}_#{i.unitOfMeasure}_#{i.brand}.jpg"
+        )
+
+        console.log items
+
+        @set('items', items)
     })
+
+  localizeValue: (s) ->
+    s?.replace('.', ',')    
 })
 
 App.Views.Prices.PricesView = Ember.View.extend({
@@ -78,6 +89,7 @@ App.Views.Prices.EditPricesViewModel = Ember.Controller.extend({
         items = _.sortBy(items, (i) ->
           "#{i.name}_#{i.brand}"
         )
+
         @set('items', items)
     })
 

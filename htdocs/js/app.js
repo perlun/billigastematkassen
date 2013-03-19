@@ -34,9 +34,19 @@ App.Views.Prices.PricesViewModel = Ember.Controller.extend({
       cache: false,
       url: '/api/prices',
       success: function(result) {
-        return _this.set('items', eval(result));
+        var items;
+
+        items = eval(result);
+        _.each(items, function(i) {
+          return i.imageUrl = "/img/items/" + i.name + "_" + (_this.localizeValue(i.qty)) + "_" + i.unitOfMeasure + "_" + i.brand + ".jpg";
+        });
+        console.log(items);
+        return _this.set('items', items);
       }
     });
+  },
+  localizeValue: function(s) {
+    return s != null ? s.replace('.', ',') : void 0;
   }
 });
 
