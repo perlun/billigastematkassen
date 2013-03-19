@@ -137,9 +137,10 @@
           <thead>
             <tr>
               <th>Artikel</th>
-              <th>Varumärke</th>
               <th>Vikt/volym</th>
               <th>Enhet</th>
+              <th>Varumärke</th>
+              <th>Tillverkare</th>
               <th>Produktgrupp</th>
               <th>Axet</th>
               <th>Citymarket</th>
@@ -152,12 +153,13 @@
             {{#each item in items}}
             <tr>
               <td>{{view Ember.TextField valueBinding="item.name" classNames="editName"}}</td>
-              <td>{{view Ember.TextField valueBinding="item.brand" classNames="editBrand"}}</td>
               <td>{{view App.Controls.AmountTextField valueBinding="item.qty"}}</td>
               <td>{{view Ember.Select contentBinding="unitOfMeasures"
                                       prompt=" "
                                       valueBinding="item.unitOfMeasure"
                                       classNames="editQty"}}</td>
+              <td>{{view Ember.TextField valueBinding="item.brand" classNames="editBrand"}}</td>
+              <td>{{view Ember.TextField valueBinding="item.manufacturer" classNames="editBrand"}}</td>
               <td>{{view Ember.Select contentBinding="productGroups"
                                       prompt=" "
                                       valueBinding="item.productGroup"
