@@ -58,9 +58,14 @@ App.Views.Prices.EditPricesViewModel = Ember.Controller.extend({
   ]
   productGroups: [
     'Frukt och grönt',
-    'Mejeri',
-    'Bröd',
-    'Kolonial'
+    'Kött & chark',
+    'Mejeri & ost',
+    'Bageri',
+    'Dryck',
+    'Glass, godis och snacks',
+    'Hem & hygien',
+    'Skafferi',
+    'Halvfabrikat & färdigmat'
   ]
 
   init: () ->
