@@ -104,7 +104,7 @@
                 {{#each item in items}}
                 <tr>
                   <td>
-                    <div><img {{bindAttr src="item.imageUrl"}} style="width: 200px;"/></div>
+                    {{#if item.imageUrl}}<div><img {{bindAttr src="item.imageUrl"}} style="width: 200px;"/></div>{{/if}}
                     <div style="font-weight: bold;">{{item.name}}</div>
                     <div>{{item.qty}} {{item.unitOfMeasure}} {{item.brand}}</td></div>
                   </td>

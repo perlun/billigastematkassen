@@ -18,11 +18,21 @@ class App < Sinatra::Base
   end
 
   get '/api/prices' do
+    prices = JSON.parse(IO.read(File.dirname(__FILE__) + '/prices.json'), 
+      { :symbolize_names => true }
+    )
+    prices.each do |price|
+      next unless price[:name]
+
+      file_name = "img/items/#{price[:name].downcase}_#{localize price[:qty]}_#{price[:unitOfMeasure]}_#{price[:brand]}.jpg"
+      price['imageUrl'] = '/' + file_name if File.exist?("#{settings.public_folder}/#{file_name}")
+    end
+
     [
       200, 
       {
         'Content-Type' => 'application/json'
-      }, [ IO.read(File.dirname(__FILE__) + '/prices.json') ] 
+      }, [ prices.to_json ] 
     ]
   end
 
@@ -30,5 +40,11 @@ class App < Sinatra::Base
     IO.write(File.dirname(__FILE__) + '/prices.json', request.body.read)
 
     { 'result' => 'Success' }.to_json
+  end
+
+private
+
+  def localize(str)
+    str.gsub('.', ',')    
   end
 end
