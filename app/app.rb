@@ -18,7 +18,7 @@ class App < Sinatra::Base
   end
 
   get '/api/prices' do
-    prices = JSON.parse(IO.read(File.dirname(__FILE__) + '/prices.json'), 
+    prices = JSON.parse(IO.read('db/prices.json'), 
       { :symbolize_names => true }
     )
     prices.each do |price|
@@ -37,7 +37,7 @@ class App < Sinatra::Base
   end
 
   post '/api/prices' do
-    IO.write(File.dirname(__FILE__) + '/prices.json', request.body.read)
+    IO.write('db/prices.json', request.body.read)
 
     { 'result' => 'Success' }.to_json
   end
