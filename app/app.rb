@@ -24,7 +24,7 @@ class App < Sinatra::Base
     prices.each do |price|
       next unless price[:name]
 
-      file_name = "img/items/#{price[:name].downcase}_#{localize price[:qty]}_#{price[:unitOfMeasure]}_#{price[:brand]}.jpg"
+      file_name = "img/items/#{price[:name].downcase}_#{localize price[:qty]}_#{price[:unitOfMeasure]}_#{price[:brand].downcase}.jpg"
       price['imageUrl'] = '/' + file_name if File.exist?("#{settings.public_folder}/#{file_name}")
     end
 
