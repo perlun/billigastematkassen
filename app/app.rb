@@ -3,6 +3,7 @@
 require 'rack/handler/mizuno'
 require 'sinatra/base'
 require 'json'
+require 'unicode_utils/downcase'
 
 class App < Sinatra::Base
   set :server, 'mizuno'
@@ -24,8 +25,9 @@ class App < Sinatra::Base
     prices.each do |price|
       next unless price[:name]
 
-      file_name = "img/items/#{price[:name].downcase}_#{localize price[:qty]}_#{price[:unitOfMeasure]}_#{price[:brand].downcase}.jpg"
-      price['imageUrl'] = '/' + file_name if File.exist?("#{settings.public_folder}/#{file_name}")
+      file_name = "img/items/#{sanitize_name price[:name]}_#{localize price[:qty]}_#{price[:unitOfMeasure]}_#{sanitize_name price[:brand]}.jpg"
+      price.delete :imageUrl
+      price[:imageUrl] = '/' + file_name if File.exist?("#{settings.public_folder}/#{file_name}")
     end
 
     [
@@ -43,6 +45,11 @@ class App < Sinatra::Base
   end
 
 private
+
+  def sanitize_name(str)
+    str = UnicodeUtils.downcase(str)
+    str.gsub(' ', '_')
+  end
 
   def localize(str)
     str.gsub('.', ',')    
