@@ -1,2 +1,3 @@
 syntax: regexp
 db/prices\.json
+img/items
