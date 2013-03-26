@@ -36,7 +36,8 @@ App.Views.Prices.PricesViewModel = Ember.Controller.extend({
       cache: false
       url: '/api/prices'
       success: (result) =>
-        @set('items', eval result)
+        items = eval result
+        @set('items', items)
     })
 })
 
@@ -50,6 +51,9 @@ App.Views.Prices.PricesView = Ember.View.extend({
     @set('controller', controller)
 })
 
+#
+# Edit Prices
+#
 App.Views.Prices.EditPricesViewModel = Ember.Controller.extend({
   items: []
   unitOfMeasures: [
