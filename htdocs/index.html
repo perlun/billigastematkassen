@@ -99,19 +99,26 @@
       <div class="tabbable">
         <div class="tab-content">
           <div class="tab-pane active" id="alla">
-            <table class="table table-striped">
-              <tbody>
-                {{#each item in items}}
-                <tr>
-                  <td>
-                    {{#if item.imageUrl}}<div><img {{bindAttr src="item.imageUrl"}} style="height: 150px;"/></div>{{/if}}
-                    <div style="font-weight: bold;">{{item.name}}</div>
-                    <div>{{item.qty}} {{item.unitOfMeasure}} {{item.brand}}</td></div>
-                  </td>
-                </tr>
-                {{/each}}
-              </tbody>
-            </table>
+            <ul class="thumbnails">
+              {{#each item in items}}
+              <li class="span2">
+                <div class="thumbnail" style="height: 240px;">
+                  {{#if item.imageUrl}}
+                  <div style="margin-bottom: 12px;">
+                    <img {{bindAttr src="item.imageUrl"}} style="height: 150px;"/>
+                  </div>
+                  {{else}}
+                  <div style="margin-bottom: 12px;">
+                    <!-- FIXME: Looks crazy. Replace with something from FontAwesome instead. -->
+                    <i class="icon-question-sign" style="height: 150px;"></i> 
+                  </div>                  
+                  {{/if}}
+                  <div style="font-weight: bold; word-wrap: break-word;">{{item.name}}</div>
+                  <div>{{item.qty}} {{item.unitOfMeasure}} {{item.brand}}</div>
+                </div>
+              </li>
+              {{/each}}
+            </ul>
           </div>
 
           <div class="tab-pane" id="frukt-och-gront">
