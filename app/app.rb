@@ -27,7 +27,12 @@ class App < Sinatra::Base
 
       file_name = "img/items/#{sanitize_name price[:name]}_#{localize price[:qty]}_#{price[:unitOfMeasure]}_#{sanitize_name price[:brand]}.jpg"
       price.delete :imageUrl
-      price[:imageUrl] = '/' + file_name if File.exist?("#{settings.public_folder}/#{file_name}")
+      
+      if File.exist?("#{settings.public_folder}/#{file_name}")
+        price[:imageUrl] = '/' + file_name
+      else
+        puts "#{file_name} image file not found"
+      end
     end
 
     [
