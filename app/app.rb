@@ -4,6 +4,8 @@ require 'rack/handler/mizuno'
 require 'sinatra/base'
 require 'json'
 require 'unicode_utils/downcase'
+require 'sprockets'
+require 'coffee_script'
 
 class App < Sinatra::Base
   set :server, 'mizuno'
@@ -11,12 +13,21 @@ class App < Sinatra::Base
   set :port, 8082
   set :root, Pathname.new(settings.root + '/..').cleanpath.to_s
   set :public_folder, settings.root + '/htdocs'
+  set :assets, Sprockets::Environment.new
+
+  settings.assets.append_path 'htdocs/js'
+  settings.assets.append_path 'app/coffee'
 
   enable :logging
 
   get '/' do
     send_file settings.public_folder + '/index.html'
   end
+
+  get '/js/:file.js' do
+    content_type 'application/javascript'
+    settings.assets["#{params[:file]}.js"]
+  end  
 
   get '/api/prices' do
     prices = JSON.parse(IO.read('db/prices.json'), 
