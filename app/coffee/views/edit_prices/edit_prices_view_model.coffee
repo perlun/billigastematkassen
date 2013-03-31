@@ -1,3 +1,5 @@
+#= require ./edit_prices_view
+
 @App.Views.EditPrices = {}
 
 @App.Views.EditPrices.EditPricesViewModel = Ember.Controller.extend({
@@ -54,7 +56,7 @@
 })
 
 @App.Views.EditPrices.EditPricesView = Ember.View.extend({
-  templateName: 'edit_prices'
+  template: @Handlebars.templates['edit_prices_view']
   init: () ->
     @_super()
 
