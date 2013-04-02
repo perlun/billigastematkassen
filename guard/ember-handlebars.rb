@@ -42,7 +42,7 @@ module Guard
         FileUtils.mkdir_p File.dirname(output_file)
         File.open(output_file, 'w') { |f| f.write(compile_handlebars(file)) }
         ::Guard::UI.info "Compiled handlebars in '#{file}' to js in '#{output_file}'"
-        ::Guard::Notifier.notify("Compiled handlebars in #{file}", :title => "Guard::Handlebars", :image => :success) if @options[:notifications]
+        ::Guard::Notifier.notify("Compiled handlebars in #{file}", :title => "Guard::EmberHandlebars", :image => :success) if @options[:notifications]
       end
       notify paths
     end
