@@ -56,7 +56,7 @@
 })
 
 @App.Views.EditPrices.EditPricesView = Ember.View.extend({
-  template: @Handlebars.templates['edit_prices_view']
+  #template: @Handlebars.templates['edit_prices_view']
   init: () ->
     @_super()
 

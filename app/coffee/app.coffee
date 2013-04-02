@@ -13,5 +13,3 @@
 #= require app_bootstrapper
 #= require controls
 #= require routing
-
-#@App.initialize()

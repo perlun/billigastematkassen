@@ -1,7 +1,30 @@
+#= require views/main/main_view_model
 #= require views/list_products/list_products_view_model
 #= require views/edit_prices/edit_prices_view_model
 
-@App.Router = Ember.Router.extend({
+Ember = window.Ember
+Handlebars = window.Handlebars
+
+App = window.App
+
+#App.Router.map(() ->
+#  @resource('edit_prices')
+#)
+
+App.IndexRoute = Ember.Route.extend(
+  renderTemplate: () ->
+    @render('gurka') #list_products_view');
+#  template: Handlebars.templates['list_products_view']
+)
+  
+#
+#        ctrl.connectOutlet({
+#          viewClass: window.App.Views.ListProducts.ListProductsView
+#          outletName: 'content'
+#        })
+
+# TODO: remove
+gurka = Ember.Router.extend({
   root: Ember.Route.extend({
     index: Ember.Route.extend({
       route: '/'

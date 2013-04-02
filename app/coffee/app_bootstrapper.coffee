@@ -1,8 +1,10 @@
-@App = Ember.Application.create()
+App = window.App = Ember.Application.create(
+  LOG_TRANSITIONS: true
+)
 
-@App.Views = {}
+App.Views = {}
 
-@App.ApplicationController = Ember.Controller.extend({
+App.ApplicationController = Ember.Controller.extend(
   pricesLinkClass: false
   editLinkClass: false
 
@@ -20,4 +22,4 @@
     fragment = parsedUrl.attr('fragment')
     @set('pricesLinkClass', (if fragment == '' then 'active' else ''))
     @set('editLinkClass', (if fragment == '/redigera' then 'active' else ''))
-})
+)
