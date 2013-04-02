@@ -10,6 +10,7 @@
 #
 # Scripts used by our app itself.
 #
-#= require app_bootstrapper
+## The bootstrapper must come first, since this creates our App instance.
+#= require bootstrapper
 #= require controls
 #= require routing
