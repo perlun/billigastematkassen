@@ -11,12 +11,12 @@ class App < Sinatra::Base
   set :server, 'mizuno'
 
   set :port, 8082
-  set :root, Pathname.new(settings.root + '/..').cleanpath.to_s
+  set :root, Dir.pwd
   set :public_folder, settings.root + '/htdocs'
   set :assets, Sprockets::Environment.new
 
   settings.assets.append_path 'htdocs/js'
-  settings.assets.append_path 'app/coffee'
+  settings.assets.append_path 'app/client'
 
   enable :logging
 

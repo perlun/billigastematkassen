@@ -4,13 +4,13 @@ require 'guard/ember-handlebars'
 guard 'rack' do
   watch('Gemfile.lock')
   watch('config.ru')
-  watch('app/app.rb')
+  watch('app/server/app.rb')
 end
 
 # TODO: Having the views in a folder below 'coffee' doesn't feel perfect, but will have to be OK for now.
 guard 'ember_handlebars',
-    :input => 'app/coffee/views',
-    :output => 'app/coffee/views',
-    :remove_prefix => 'app/coffee/' do
-  watch(%r{app/coffee/views/(.+\.handlebars)})
+    :input => 'app/client/views',
+    :output => 'app/client/views',
+    :remove_prefix => 'app/client/' do
+  watch(%r{app/client/views/(.+\.handlebars)})
 end
