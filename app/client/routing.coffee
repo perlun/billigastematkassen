@@ -11,10 +11,11 @@ App = window.App
 #  @resource('edit_prices')
 #)
 
+App.IndexView = App.Views.ListProducts.ListProductsView
+
 App.IndexRoute = Ember.Route.extend(
-  renderTemplate: () ->
-    @render('gurka') #list_products_view');
-#  template: Handlebars.templates['list_products_view']
+#  renderTemplate: () ->
+#    @render('views/list_products/list_products_view')
 )
   
 #
