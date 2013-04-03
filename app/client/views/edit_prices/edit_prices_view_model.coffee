@@ -1,8 +1,10 @@
 #= require ./edit_prices_view
 
-@App.Views.EditPrices = {}
+App = window.App
 
-@App.Views.EditPrices.EditPricesViewModel = Ember.Controller.extend({
+App.Views.EditPrices = {}
+
+App.Views.EditPrices.EditPricesViewModel = Ember.Controller.extend(
   items: []
   unitOfMeasures: [
     'kg',
@@ -21,7 +23,7 @@
   ]
 
   init: () ->
-    $.ajax({
+    $.ajax(
       type: 'GET'
       cache: false
       url: '/api/prices'
@@ -32,7 +34,7 @@
         )
 
         @set('items', items)
-    })
+    )
 
   addNewRow: () ->
     @items.pushObject({})
@@ -41,7 +43,7 @@
     @items.removeObject(row.context)
 
   saveRows: ->
-    $.ajax({
+    $.ajax(
       type: 'POST'
       cache: false
       url: '/api/prices'
@@ -52,15 +54,9 @@
         alert('Ett fel uppstod när priserna skulle sparas: ' + errMsg)
       success: () ->
         alert('Ändringarna har sparats.')
-    })
-})
+    )
+)
 
-@App.Views.EditPrices.EditPricesView = Ember.View.extend({
-  #template: @Handlebars.templates['edit_prices_view']
-  init: () ->
-    @_super()
-
-    controller = window.App.Views.EditPrices.EditPricesViewModel.create()
-    @set('_context', controller)
-    @set('controller', controller)
-})
+App.Views.EditPrices.EditPricesView = Ember.View.extend(
+  templateName: ['views/edit_prices/edit_prices_view']
+)
