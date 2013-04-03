@@ -13,5 +13,6 @@
 #
 ## The bootstrapper must come first, since this creates our App instance.
 #= require bootstrapper
+#= require global_data
 #= require controls
 #= require routing

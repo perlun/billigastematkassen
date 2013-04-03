@@ -13,17 +13,7 @@ App.Views.EditPrices.EditPricesViewModel = Ember.Controller.extend(
     'kg',
     'l'
   ]
-  productGroups: [
-    'Frukt och grönt',
-    'Kött & chark',
-    'Mejeri & ost',
-    'Bageri',
-    'Dryck',
-    'Glass, godis och snacks',
-    'Hem & hygien',
-    'Skafferi',
-    'Halvfabrikat & färdigmat'
-  ]
+  globalData: App.GlobalData
 
   init: () ->
     # FIXME: A bit of a hack... For whatever reason, didInsertElement did not work for me.
