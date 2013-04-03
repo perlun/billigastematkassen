@@ -4,6 +4,7 @@
 #= require purl
 #= require bootstrap.min
 #= require underscore-min
+#= require spin.min
 #= require handlebars
 #= require ember-1.0.0-rc.2
 

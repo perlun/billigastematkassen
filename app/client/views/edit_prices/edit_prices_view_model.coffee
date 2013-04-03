@@ -1,10 +1,13 @@
 #= require ./edit_prices_view
 
 App = window.App
+Spinner = window.Spinner
 
 App.Views.EditPrices = {}
 
 App.Views.EditPrices.EditPricesViewModel = Ember.Controller.extend(
+  isWaiting: false
+  spinner: new Spinner
   items: []
   unitOfMeasures: [
     'kg',
@@ -23,10 +26,17 @@ App.Views.EditPrices.EditPricesViewModel = Ember.Controller.extend(
   ]
 
   init: () ->
+    # FIXME: A bit of a hack... For whatever reason, didInsertElement did not work for me.
+    Ember.run.next(null, () =>
+      return unless @get('isWaiting')
+      @spinner.spin($('#spinnerContent').get(0))
+    )
+
     $.ajax(
       type: 'GET'
       cache: false
       url: '/api/prices'
+      
       success: (result) =>
         items = eval result
         items = _.sortBy(items, (i) ->
@@ -34,6 +44,12 @@ App.Views.EditPrices.EditPricesViewModel = Ember.Controller.extend(
         )
 
         @set('items', items)
+        @set('isWaiting', false)
+        @spinner.stop()
+      
+      failure: (errMsg) =>
+        @set('isWaiting', false)
+        @spinner.stop()
     )
 
   addNewRow: () ->
@@ -50,10 +66,12 @@ App.Views.EditPrices.EditPricesViewModel = Ember.Controller.extend(
       data: JSON.stringify(@get('items'))
       contentType: 'application/json; charset=utf-8'
       dataType: 'json'
-      failure: (errMsg) ->
+      failure: (errMsg) =>
         alert('Ett fel uppstod när priserna skulle sparas: ' + errMsg)
-      success: () ->
+        @set('isLoading', false)
+      success: () =>
         alert('Ändringarna har sparats.')
+
     )
 )
 
