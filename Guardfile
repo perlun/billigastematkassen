@@ -11,5 +11,5 @@ guard 'ember_handlebars',
     :input => 'app/client/views',
     :output => 'app/client/views',
     :remove_prefix => 'app/client/' do
-  watch(%r{app/client/views/(.+\.handlebars)})
+  watch(%r{^app/client/views/(.+\.handlebars)$})
 end
