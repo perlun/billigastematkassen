@@ -30,7 +30,6 @@ App.Views.ListProducts.ListProductsViewModel = Ember.Controller.extend(
     else
       @set('filteredItems',
         _.select(@allItems, (i) ->
-          console.log i.productGroup
           i.productGroup == groupDescription
         )
       )
