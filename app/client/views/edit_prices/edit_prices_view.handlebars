@@ -32,6 +32,8 @@
         <td>{{view Ember.TextField valueBinding="item.manufacturer" classNames="editBrand"}}</td>
         <td>{{view Ember.Select contentBinding="globalData.productGroups"
                                 prompt=" "
+                                optionValuePath="content.description"
+                                optionLabelPath="content.description"
                                 valueBinding="item.productGroup"
                                 classNames="editProductGroup"}}</td>
         <td>{{view App.Controls.MoneyTextField valueBinding="item.price_axet"}}</td>
