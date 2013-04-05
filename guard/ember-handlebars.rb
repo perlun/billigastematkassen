@@ -81,10 +81,11 @@ module Guard
 
     def compile_handlebars file
       content = IO.read(file)
-      name = file.gsub('.handlebars', '')
+      name = file.gsub('.handlebars', '')      
       name = name.gsub(/^#{@options[:remove_prefix]}/, '')
       begin
         content = content.gsub("\n", '')
+        content = content.gsub("'", "\\\\'")
         result = "Ember.TEMPLATES['#{name}'] = Ember.Handlebars.compile('#{content}');"
         result
       rescue StandardError => error
