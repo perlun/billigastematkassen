@@ -21,8 +21,8 @@
   <li class="span2">
     <div class="thumbnail" style="height: 240px;">
       {{#if item.imageUrl}}
-      <div style="margin-bottom: 12px;">
-        <img {{bindAttr src="item.imageUrl"}} style="height: 150px;"/>
+      <div class="thumbnailImageContainer">
+        <img {{bindAttr src="item.imageUrl"}}/>
       </div>
       {{else}}
       <div style="margin-bottom: 12px; text-align: center;">
@@ -35,4 +35,3 @@
   </li>
   {{/each}}
 </ul>
-
