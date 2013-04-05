@@ -1,13 +1,13 @@
-window.App.GlobalData =  GlobalData = {}
+﻿window.App.GlobalData =  GlobalData = {}
 
 GlobalData.productGroups = [
-  { tabSlug: '#frukt-och-gront', description: 'Frukt och grönt' },
-  { tabSlug: '#kott-och-chark', description: 'Kött & chark' },
-  { tabSlug: '#mejeri-och-ost', description: 'Mejeri & ost' },
-  { tabSlug: '#bageri', description: 'Bageri' },
+  { tabSlug: '#brod', description: 'Bröd' },
   { tabSlug: '#dryck', description: 'Dryck' },
-  { tabSlug: '#glass-godis-och-snacks', description: 'Glass, godis och snacks' },
-  { tabSlug: '#hem-och-hygien', description: 'Hem & hygien' },
+  { tabSlug: '#frukt-och-gront', description: 'Frukt & grönt' },
+  { tabSlug: '#frys', description: 'Frys' },
+  { tabSlug: '#fardigmat', description: 'Färdigmat' },
+  { tabSlug: '#kott-och-chark', description: 'Kött & chark' },
+  { tabSlug: '#mejeri', description: 'Mejeri' },
   { tabSlug: '#skafferi', description: 'Skafferi' },
-  { tabSlug: '#halvfabrikat-och-fardigmat', description: 'Halvfabrikat & färdigmat' }
+  { tabSlug: '#hem-och-hygien', description: 'Hem & Hygien' }
 ]
