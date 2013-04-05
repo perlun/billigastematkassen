@@ -12,6 +12,7 @@ App.Views.EditPrices.EditPricesViewModel = Ember.Controller.extend(
   unitOfMeasures: [
     'kg',
     'l',
+    'm',
     'st'
   ]
   globalData: App.GlobalData
