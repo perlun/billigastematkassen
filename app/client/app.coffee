@@ -1,6 +1,7 @@
 # 3rd party dependencies
 #
 #= require jquery-1.8.3
+#= require jquery.colorbox
 #= require purl
 #= require bootstrap.min
 #= require underscore-min
