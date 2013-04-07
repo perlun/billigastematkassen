@@ -36,7 +36,8 @@ class App < Sinatra::Base
     prices.each do |price|
       next unless price[:name]
 
-      file_name = "img/items/#{sanitize_name price[:name]}_#{localize price[:qty]}_#{price[:unitOfMeasure]}_#{sanitize_name price[:brand]}.jpg"
+      slug = "#{sanitize_name price[:name]}_#{localize price[:qty]}_#{price[:unitOfMeasure]}_#{sanitize_name price[:brand]}"
+      file_name = "img/items/#{slug}.jpg"
       price.delete :imageUrl
       
       if File.exist?("#{settings.public_folder}/#{file_name}")
@@ -44,6 +45,8 @@ class App < Sinatra::Base
       else
         puts "#{file_name} image file not found"
       end
+
+      price[:slug] = slug
     end
 
     [
