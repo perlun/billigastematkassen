@@ -1,0 +1,1 @@
+Ember.TEMPLATES['views/product_details/product_details_view'] = Ember.Handlebars.compile('<div id="inline" style="width: 500px; height: 200px;">  <h2>Allrengöringsmedel lemon</h2  <div>1l Ajax</div></div>');
