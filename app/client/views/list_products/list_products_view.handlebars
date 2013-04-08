@@ -19,19 +19,25 @@
 <ul class="thumbnails">
   {{#each item in filteredItems}}
   <li class="span2">
-    <div class="thumbnail" style="height: 240px;">
-      {{#if item.imageUrl}}
-      <div class="thumbnailImageContainer">
-        <img {{bindAttr src="item.imageUrl"}}/>
+    <a {{bindAttr href="item.detailsAnchor"}} class="nolink" style="color: #333333;">
+      <div class="thumbnail" style="height: 240px; cursor: pointer;">
+        {{#if item.imageUrl}}
+        <div class="thumbnailImageContainer">
+          <img {{bindAttr src="item.imageUrl"}}/>
+        </div>
+        {{else}}
+        <div style="margin-bottom: 12px; text-align: center;">
+          <i class="icon-question-sign" style="font-size: 5em; height: 150px;"></i>
+        </div>                  
+        {{/if}}
+        <div style="font-weight: bold; word-wrap: break-word;">{{item.name}}</div>
+        <div>{{item.qty}} {{item.unitOfMeasure}} {{item.brand}}</div>
       </div>
-      {{else}}
-      <div style="margin-bottom: 12px; text-align: center;">
-        <i class="icon-question-sign" style="font-size: 5em; height: 150px;"></i>
-      </div>                  
-      {{/if}}
-      <div style="font-weight: bold; word-wrap: break-word;">{{item.name}}</div>
-      <div>{{item.qty}} {{item.unitOfMeasure}} {{item.brand}}</div>
-    </div>
+    </a>
   </li>
   {{/each}}
 </ul>
+
+<div id="modalContainer">
+  {{outlet}}
+</div>

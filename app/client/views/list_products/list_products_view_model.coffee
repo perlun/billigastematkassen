@@ -16,6 +16,11 @@ App.Views.ListProducts.ListProductsViewModel = Ember.Controller.extend(
       url: '/api/prices'
       success: (result) =>
         items = eval result
+
+        _.each(items, (i) ->
+          i.detailsAnchor = "#/produkter/#{i.slug}"
+        )
+
         @set('allItems', items)
         @set('filteredItems', items)    # No filter by default.
     )
