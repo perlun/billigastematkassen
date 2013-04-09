@@ -68,6 +68,6 @@ private
   end
 
   def localize(str)
-    str.gsub('.', ',')    
+    str.to_s.gsub('.', ',')    
   end
 end
