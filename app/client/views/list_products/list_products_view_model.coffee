@@ -22,7 +22,6 @@ App.Views.ListProducts.ListProductsViewModel = Ember.Controller.extend(
         )
 
         @set('allItems', items)
-        @set('filteredItems', items)    # No filter by default.
     )
 
   showProductGroup: (tabSlug) ->
@@ -48,6 +47,9 @@ App.Views.ListProducts.ListProductsView = Ember.View.extend(
       anchor = $.url(e.target.href).attr('anchor')
       @controller.showProductGroup('#' + anchor)
     )
+
+    # Slightly ugly, but... :)
+    $('a[data-toggle="tab"]').first().click()
 
     @controller.refresh()
 )
