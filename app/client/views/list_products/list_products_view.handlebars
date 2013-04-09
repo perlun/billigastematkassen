@@ -6,9 +6,6 @@
 </div>
 
 <ul class="nav nav-tabs">
-  <li class="active">
-    <a href="#alla" data-toggle="tab">Alla</a>
-  </li>
   {{#each group in globalData.productGroups}}
   <li>
     <a {{bindAttr href="group.tabSlug"}} data-toggle="tab">{{group.description}}</a>
