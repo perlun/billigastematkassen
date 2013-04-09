@@ -29,36 +29,36 @@ class App < Sinatra::Base
     settings.assets["#{params[:file]}.js"]
   end  
 
-  get '/api/prices' do
-    prices = JSON.parse(IO.read('db/prices.json'), 
+  get '/api/products' do
+    products = JSON.parse(IO.read('db/products.json'), 
       { :symbolize_names => true }
     )
-    prices.each do |price|
-      next unless price[:name]
+    products.each do |product|
+      next unless product[:name]
 
-      slug = "#{sanitize_name price[:name]}_#{localize price[:qty]}_#{price[:unitOfMeasure]}_#{sanitize_name price[:brand]}"
+      slug = "#{sanitize_name product[:name]}_#{localize product[:qty]}_#{product[:unitOfMeasure]}_#{sanitize_name product[:brand]}"
       file_name = "img/items/#{slug}.jpg"
-      price.delete :imageUrl
+      product.delete :imageUrl
       
       if File.exist?("#{settings.public_folder}/#{file_name}")
-        price[:imageUrl] = '/' + file_name
+        product[:imageUrl] = '/' + file_name
       else
         puts "#{file_name} image file not found"
       end
 
-      price[:slug] = slug
+      product[:slug] = slug
     end
 
     [
       200, 
       {
         'Content-Type' => 'application/json'
-      }, [ prices.to_json ] 
+      }, [ products.to_json ] 
     ]
   end
 
-  post '/api/prices' do
-    IO.write('db/prices.json', request.body.read)
+  post '/api/products' do
+    IO.write('db/products.json', request.body.read)
 
     { 'result' => 'Success' }.to_json
   end

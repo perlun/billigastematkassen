@@ -13,7 +13,7 @@ App.Views.ListProducts.ListProductsViewModel = Ember.Controller.extend(
     $.ajax(
       type: 'GET'
       cache: false
-      url: '/api/prices'
+      url: '/api/products'
       success: (result) =>
         items = eval result
 

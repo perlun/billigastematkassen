@@ -27,7 +27,7 @@ App.Views.EditPrices.EditPricesViewModel = Ember.Controller.extend(
     $.ajax(
       type: 'GET'
       cache: false
-      url: '/api/prices'
+      url: '/api/products'
       
       success: (result) =>
         items = eval result
@@ -54,12 +54,12 @@ App.Views.EditPrices.EditPricesViewModel = Ember.Controller.extend(
     $.ajax(
       type: 'POST'
       cache: false
-      url: '/api/prices'
+      url: '/api/products'
       data: JSON.stringify(@get('items'))
       contentType: 'application/json; charset=utf-8'
       dataType: 'json'
       failure: (errMsg) =>
-        alert('Ett fel uppstod när priserna skulle sparas: ' + errMsg)
+        alert('Ett fel uppstod när ändringarna skulle sparas: ' + errMsg)
         @set('isLoading', false)
       success: () =>
         alert('Ändringarna har sparats.')
