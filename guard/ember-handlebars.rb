@@ -1,4 +1,5 @@
 require 'guard/guard'
+require 'guard/watcher'
 
 #
 # Based on the guard-handlebars gem, which uses the following license:
@@ -48,6 +49,7 @@ module Guard
     end
 
     def notify(changed_files)
+      return unless ::Guard.respond_to? 'guards'
       ::Guard.guards.reject{ |guard| guard == self }.each do |guard|
         paths = Watcher.match_files(guard, changed_files)
         guard.run_on_change paths unless paths.empty?
