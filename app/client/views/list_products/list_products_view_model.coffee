@@ -22,6 +22,7 @@ App.Views.ListProducts.ListProductsViewModel = Ember.Controller.extend(
         )
 
         @set('allItems', items)
+        @showOnlyProductsInGroup _.first(@globalData.productGroups).description
     )
 
   showProductGroup: (tabSlug) ->
@@ -29,14 +30,14 @@ App.Views.ListProducts.ListProductsViewModel = Ember.Controller.extend(
       g.tabSlug == tabSlug
     )?.description
 
-    unless groupDescription?
-      @set('filteredItems', @allItems)
-    else
-      @set('filteredItems',
-        _.select(@allItems, (i) ->
-          i.productGroup == groupDescription
-        )
+    @showOnlyProductsInGroup groupDescription
+
+  showOnlyProductsInGroup: (groupDescription) ->
+    @set('filteredItems',
+      _.select(@allItems, (i) ->
+        i.productGroup == groupDescription
       )
+    )
 )
 
 App.Views.ListProducts.ListProductsView = Ember.View.extend(
