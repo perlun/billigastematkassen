@@ -6,7 +6,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </a>
-      <div class="brand">Billigaste Matkassen</div>
+      <div class="brand"><a href="#/">Billigaste Matkassen</a></div>
     </div>
   </div>
 </div>
@@ -15,18 +15,16 @@
     <div class="span2">
       <ul class="nav nav-list">
         <li class="nav-header">Innehåll</li>
-        {{#linkTo products tagName='li' href=false}}
-          {{#linkTo products}}Priser{{/linkTo}}
-        {{/linkTo}}
-        {{#linkTo edit_prices tagName='li' href=false}}
-          {{#linkTo edit_prices}}Redigera{{/linkTo}}
-        {{/linkTo}}          
+        <li>
+          <a href="#/produkter">Priser</a>
+        </li>
+        <li>
+          <a href="#/redigera">Redigera</a>
+        </li>
       </ul>
     </div>
     <div class="span10">
-      <div>
-        {{outlet}}
-      </div>
+      <div id="content"/>
     </div>
   </div>
   <hr/>

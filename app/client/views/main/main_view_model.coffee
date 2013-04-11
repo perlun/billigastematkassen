@@ -2,6 +2,7 @@
 
 App = window.App
 
-App.ApplicationView = Ember.View.extend(
+App.MainView = {
   templateName: 'views/main/main_view'
-)
+}
+
