@@ -4,7 +4,7 @@ App = window.App
 
 App.Views.ListProducts = {}
 
-App.Views.ListProducts.ListProductsViewModel = Ember.Controller.extend(
+class App.Views.ListProducts.ListProductsViewModel
   allItems: []
   filteredItems: []
   globalData: App.GlobalData
@@ -38,9 +38,8 @@ App.Views.ListProducts.ListProductsViewModel = Ember.Controller.extend(
         i.productGroup == groupDescription
       )
     )
-)
 
-App.Views.ListProducts.ListProductsView = Ember.View.extend(
+class App.Views.ListProducts.ListProductsView
   templateName: 'views/list_products/list_products_view'
 
   didInsertElement: () ->
@@ -53,4 +52,3 @@ App.Views.ListProducts.ListProductsView = Ember.View.extend(
     $('a[data-toggle="tab"]').first().click()
 
     @controller.refresh()
-)
