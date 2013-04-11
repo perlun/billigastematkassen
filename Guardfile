@@ -1,5 +1,5 @@
 require 'guard/guard'
-require 'guard/ember-handlebars'
+require 'guard/underscore-templates'
 
 guard 'rack' do
   watch('Gemfile.lock')
@@ -7,9 +7,9 @@ guard 'rack' do
   watch('app/server/app.rb')
 end
 
-guard 'ember_handlebars',
+guard 'underscore_templates',
     :input => 'app/client/views',
     :output => 'app/client/views',
     :remove_prefix => 'app/client/' do
-  watch(%r{^app/client/views/(.+\.handlebars)$})
+  watch(%r{^app/client/views/(.+\.tpl)$})
 end

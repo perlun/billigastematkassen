@@ -26,7 +26,7 @@ require 'guard/watcher'
 #
 
 module Guard
-  class EmberHandlebars <  Guard
+  class UnderscoreTemplates <  Guard
     def initialize(watchers = [], options = {})
       super(watchers, options)
       @options = options
@@ -41,9 +41,9 @@ module Guard
       paths.each do |file|
         output_file = get_output(file)
         FileUtils.mkdir_p File.dirname(output_file)
-        File.open(output_file, 'w') { |f| f.write(compile_handlebars(file)) }
-        ::Guard::UI.info "Compiled handlebars in '#{file}' to js in '#{output_file}'"
-        ::Guard::Notifier.notify("Compiled handlebars in #{file}", :title => "Guard::EmberHandlebars", :image => :success) if @options[:notifications]
+        File.open(output_file, 'w') { |f| f.write(compile_underscore(file)) }
+        ::Guard::UI.info "Compiled underscore template in '#{file}' to js in '#{output_file}'"
+        ::Guard::Notifier.notify("Compiled underscore template in #{file}", :title => "Guard::UnderscoreTemplates", :image => :success) if @options[:notifications]
       end
       notify paths
     end
@@ -81,14 +81,15 @@ module Guard
       end
     end
 
-    def compile_handlebars file
+    def compile_underscore file
       content = IO.read(file)
-      name = file.gsub('.handlebars', '')      
+      name = file.gsub('.tpl', '')      
       name = name.gsub(/^#{@options[:remove_prefix]}/, '')
       begin
         content = content.gsub("\n", '')
         content = content.gsub("'", "\\\\'")
-        result = "Ember.TEMPLATES['#{name}'] = Ember.Handlebars.compile('#{content}');"
+        result = "App.Templates = App.Templates || {};\n"
+        result = result + "App.Templates['#{name}'] = '#{content}';\n"
         result
       rescue StandardError => error
         puts "ERROR COMPILING #{file}: #{error}"
