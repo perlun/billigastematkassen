@@ -1,6 +1,10 @@
 #
 # Controls
 #
+
+# TODO: refactor this to work with new layout.
+
+App = window.App
 @App.Controls = {}
 
 @App.Controls.MoneyTextField = Ember.TextField.extend({
