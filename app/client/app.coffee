@@ -6,6 +6,7 @@
 #= require bootstrap.min
 #= require underscore-min
 #= require spin.min
+#= require jquery.spin
 
 #
 # Scripts used by our app itself.
