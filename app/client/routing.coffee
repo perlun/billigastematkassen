@@ -13,7 +13,7 @@ handleHashChange = () ->
     view = new App.Views.ListProducts.ListProductsView
     view.dataContext = viewModel
     view.willInsertElement()
-    $('#content').html(_.template(App.Templates[view.templateName], viewModel, { variable: 'dataContext' }))
+    $('#content').html(App.RenderTemplate(view.templateName, viewModel))
     view.didInsertElement()
     console.log 'ListProducts'
   else if location.hash == '#/redigera'
