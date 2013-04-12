@@ -5,13 +5,16 @@
 
 App = window.App
 
-$('body').append(_.template(App.Templates[App.MainView.templateName], {}, { variable: 'ViewModel' }))
+$('body').append(_.template(App.Templates[App.MainView.templateName], {}, { variable: 'dataContext' }))
 
 handleHashChange = () ->
   if location.hash == '#/produkter'
-    view = new App.Views.ListProducts.ListProductsView
     viewModel = new App.Views.ListProducts.ListProductsViewModel
-    $('#content').html(_.template(App.Templates[view.templateName], viewModel, { variable: 'ViewModel' }))
+    view = new App.Views.ListProducts.ListProductsView
+    view.dataContext = viewModel
+    view.willInsertElement()
+    $('#content').html(_.template(App.Templates[view.templateName], viewModel, { variable: 'dataContext' }))
+    view.didInsertElement()
     console.log 'ListProducts'
   else if location.hash == '#/redigera'
     # TODO: Not yet implemented.

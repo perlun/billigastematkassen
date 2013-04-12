@@ -6,13 +6,14 @@
 </div>
 
 <ul class="nav nav-tabs">
-  {{#each group in globalData.productGroups}}
+  <% _.each(dataContext.globalData.productGroups, function(group) { %>
   <li>
-    <a {{bindAttr href="group.tabSlug"}} data-toggle="tab">{{group.description}}</a>
+    <a href="<%= group.tabSlug %>" data-toggle="tab"><%= group.description %></a>
   </li>
-  {{/each}}
+  <% }); %>
 </ul>
 
+<!-- FIXME: Wait with rendering this until we are ready with our Ajax request. -->
 <ul class="thumbnails">
   {{#each item in filteredItems}}
   <li class="span2">
@@ -35,6 +36,4 @@
   {{/each}}
 </ul>
 
-<div id="modalContainer">
-  {{outlet}}
-</div>
+<div id="modalContainer"/>

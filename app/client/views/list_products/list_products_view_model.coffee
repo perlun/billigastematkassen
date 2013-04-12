@@ -21,8 +21,12 @@ class App.Views.ListProducts.ListProductsViewModel
           i.detailsAnchor = "#/produkter/#{i.slug}"
         )
 
-        @set('allItems', items)
+        @allItems = items
         @showOnlyProductsInGroup _.first(@globalData.productGroups).description
+
+        $(document).ajaxComplete(() ->
+          $('.thumbnails').text("ajaxComplete was called")
+        )        
     )
 
   showProductGroup: (tabSlug) ->
@@ -33,22 +37,21 @@ class App.Views.ListProducts.ListProductsViewModel
     @showOnlyProductsInGroup groupDescription
 
   showOnlyProductsInGroup: (groupDescription) ->
-    @set('filteredItems',
-      _.select(@allItems, (i) ->
-        i.productGroup == groupDescription
-      )
+    @filteredItems = _.select(@allItems, (i) ->
+      i.productGroup == groupDescription
     )
 
 class App.Views.ListProducts.ListProductsView
   templateName: 'views/list_products/list_products_view'
 
+  willInsertElement: () ->
+    @dataContext.refresh()
+
   didInsertElement: () ->
     $('a[data-toggle="tab"]').on('show', (e) =>
       anchor = $.url(e.target.href).attr('anchor')
-      @controller.showProductGroup('#' + anchor)
+      @dataContext.showProductGroup('#' + anchor)
     )
 
     # Slightly ugly, but... :)
     $('a[data-toggle="tab"]').first().click()
-
-    @controller.refresh()
