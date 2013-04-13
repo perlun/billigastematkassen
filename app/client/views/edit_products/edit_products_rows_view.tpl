@@ -21,7 +21,7 @@
     <tbody>
       <% _.each(dataContext.items, function(item) { %>
       <tr data-slug="<%= item.slug %>">
-        <td><input type="text" value="<%= item.name %>" class="editName" onChange="javascript:console.log(this.value)"/></td>
+        <td><input type="text" value="<%= item.name %>" class="editName"/></td>
         <td><input type="text" value="<%= item.qty %>" class="editQty"/></td>
         <td><!--{{view Ember.Select contentBinding="unitOfMeasures"
                                 prompt=" "
@@ -40,7 +40,7 @@
         <td><input type="text" value="<%= item.price_lidl %>" class="editMoney"/></td>
         <td><input type="text" value="<%= item.price_minimani %>"  class="editMoney"/></td>
         <td><input type="text" value="<%= item.price_prisma %>" class="editMoney"/></td>
-        <td><a href="#" {{action "removeRow" item}}><i class="icon-trash"></i></a></td>
+        <td><a href="#" class="deleteItem"><i class="icon-trash"></i></a></td>
       </tr>
       <% }); %>
     </tbody>

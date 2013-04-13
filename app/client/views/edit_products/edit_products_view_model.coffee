@@ -42,11 +42,26 @@ class App.Views.EditProducts.EditProductsViewModel
     html = App.RenderTemplate('views/edit_products/edit_products_rows_view', this)
     $('#productRowsContainer').html(html).show()
 
+    @setupEventHandlers()
+
+  setupEventHandlers: () ->
+    that = @
+
+    $('.deleteItem').click(() ->
+      slug = $(@).parents('tr').attr('data-slug')
+      item = _.find(that.items, (item) ->
+        item.slug == slug
+      )
+
+      itemIndex = that.items.indexOf(item)
+      that.items.splice(itemIndex, 1)
+      that.renderProductRows()
+
+      false
+    )
+
   addNewRow: () ->
     @items.pushObject({})
-
-  removeRow: (row) ->
-    @items.removeObject(row.context)
 
   saveRows: ->
     $.ajax(
