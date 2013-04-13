@@ -19,6 +19,12 @@ input[type=number]::-webkit-outer-spin-button {
 
 .editQty {
     width: 50px;
+    width: 60px; padding: 0 6px;
+}
+
+.editMoney {
+    width: 60px;
+    padding: 0 6px;
 }
 
 .editProductGroup {
