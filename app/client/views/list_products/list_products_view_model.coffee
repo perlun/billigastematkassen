@@ -13,10 +13,7 @@ class App.Views.ListProducts.ListProductsViewModel
   spinner: null
 
   refresh: () ->
-    @startSpinning('productRowsContainer')
-
-#    target = document.getElementById('#container')
-#    @spinner.spin(target)
+    App.Spinner.startSpinning('productRowsContainer')
 
     $.ajax(
       type: 'GET'
@@ -32,27 +29,9 @@ class App.Views.ListProducts.ListProductsViewModel
         @allItems = items
         @showOnlyProductsInGroup _.first(@globalData.productGroups).description
 
-        @stopSpinning('productRowsContainer')
+        App.Spinner.stopSpinning('productRowsContainer')
         @renderProductRows()
     )
-
-  startSpinning: (elementName) ->
-    $('#' + elementName).spin(
-      lines: 13       # The number of lines to draw
-      length: 20      # The length of each line
-      width: 10       # The line thickness
-      radius: 30      # The radius of the inner circle
-      corners: 1      # Corner roundness (0..1)
-      rotate: 0       # The rotation offset
-      color: '#000'   # #rgb or #rrggbb
-      speed: 1        # Rounds per second
-      trail: 60       # Afterglow percentage
-      shadow: false   # Whether to render a shadow
-      hwaccel: false  # Whether to use hardware acceleration
-    )
-
-  stopSpinning: (elementName) ->
-    $('#' + elementName).spin(false)
 
   renderProductRows: () ->
     html = App.RenderTemplate('views/list_products/list_products_rows_view', this)
@@ -73,8 +52,6 @@ class App.Views.ListProducts.ListProductsViewModel
 
 class App.Views.ListProducts.ListProductsView
   templateName: 'views/list_products/list_products_view'
-
-  willInsertElement: () ->
 
   didInsertElement: () ->
     @dataContext.refresh()
