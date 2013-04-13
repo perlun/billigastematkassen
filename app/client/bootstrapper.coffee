@@ -6,16 +6,16 @@ App.RenderTemplate = (templateName, dataContext) ->
   if template?
     _.template(template, dataContext, { variable: 'dataContext' })
   else
-    console.log "#{templateName} template not found"
-    
+    console.error "#{templateName} template not found"
+
 App.Activate = (view, viewModel) ->
   view.willInsertElement() if view.willInsertElement?
   $('#content').html(App.RenderTemplate(view.templateName, viewModel))
   view.didInsertElement() if view.didInsertElement?
 
-App.Spinner = {  
+App.Spinner = {
   startSpinning: (elementName) ->
-    $('#' + elementName).spin(
+    $('#' + elementName).show().spin(
       lines: 13       # The number of lines to draw
       length: 20      # The length of each line
       width: 10       # The line thickness
@@ -30,5 +30,5 @@ App.Spinner = {
     )
 
   stopSpinning: (elementName) ->
-    $('#' + elementName).spin(false)
+    $('#' + elementName).spin(false).hide()
 }
