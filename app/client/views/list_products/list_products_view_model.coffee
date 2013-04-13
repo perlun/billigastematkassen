@@ -35,7 +35,7 @@ class App.Views.ListProducts.ListProductsViewModel
 
   renderProductRows: () ->
     html = App.RenderTemplate('views/list_products/list_products_rows_view', this)
-    $('#productRowsContainer').html(html)
+    $('#productRowsContainer').html(html).show()
 
   showProductGroup: (tabSlug) ->
     groupDescription = _.find(@globalData.productGroups, (g) ->
