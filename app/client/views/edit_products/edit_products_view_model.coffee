@@ -1,11 +1,11 @@
-#= require ./edit_prices_view
+#= require ./edit_products_view
+#= require ./edit_products_rows_view
 
 App = window.App
-Spinner = window.Spinner
 
-App.Views.EditPrices = {}
+App.Views.EditProducts = {}
 
-App.Views.EditPrices.EditPricesViewModel = Ember.Controller.extend(
+class App.Views.EditProducts.EditProductsViewModel
   isWaiting: false
   spinner: new Spinner
   items: []
@@ -17,12 +17,8 @@ App.Views.EditPrices.EditPricesViewModel = Ember.Controller.extend(
   ]
   globalData: App.GlobalData
 
-  init: () ->
-    # FIXME: A bit of a hack... For whatever reason, didInsertElement did not work for me.
-    Ember.run.next(null, () =>
-      return unless @get('isWaiting')
-      @spinner.spin($('#spinnerContent').get(0))
-    )
+  refresh: () ->
+    App.Spinner.startSpinning('spinnerContent')
 
     $.ajax(
       type: 'GET'
@@ -35,14 +31,16 @@ App.Views.EditPrices.EditPricesViewModel = Ember.Controller.extend(
           "#{i.name}_#{i.brand}"
         )
 
-        @set('items', items)
-        @set('isWaiting', false)
-        @spinner.stop()
+        @items = items
+        App.Spinner.stopSpinning('spinnerContent')
+        @renderProductRows()
       
       failure: (errMsg) =>
-        @set('isWaiting', false)
-        @spinner.stop()
     )
+
+  renderProductRows: () ->
+    html = App.RenderTemplate('views/edit_products/edit_products_rows_view', this)
+    $('#productRowsContainer').html(html).show()
 
   addNewRow: () ->
     @items.pushObject({})
@@ -65,8 +63,9 @@ App.Views.EditPrices.EditPricesViewModel = Ember.Controller.extend(
         alert('Ändringarna har sparats.')
 
     )
-)
 
-App.Views.EditPrices.EditPricesView = Ember.View.extend(
-  templateName: ['views/edit_prices/edit_prices_view']
-)
+class App.Views.EditProducts.EditProductsView
+  templateName: 'views/edit_products/edit_products_view'
+
+  didInsertElement: () ->
+    @dataContext.refresh()
