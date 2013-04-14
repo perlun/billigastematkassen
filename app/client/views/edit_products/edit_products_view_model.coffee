@@ -57,20 +57,24 @@ class App.Views.EditProducts.EditProductsViewModel
     )
 
   deleteRow: ((obj) ->
-    slug = $(obj).parents('tr').attr('data-slug')
+    trObject = $(obj).parents('tr')
+    slug = trObject.attr('data-slug')
     item = _.find(@items, (item) ->
       item.slug == slug
     )
 
     itemIndex = @items.indexOf(item)
     @items.splice(itemIndex, 1)
-    @renderProductRows()
+    trObject.remove()
 
     false
   )
 
   addNewRow: () ->
-    @items.pushObject({})
+    @items.push(
+      slug: new Date().getTime()
+    )
+    @renderProductRows()
 
   saveRows: ->
     $.ajax(
@@ -85,7 +89,6 @@ class App.Views.EditProducts.EditProductsViewModel
         @set('isLoading', false)
       success: () =>
         alert('Ändringarna har sparats.')
-
     )
 
 class App.Views.EditProducts.EditProductsView
