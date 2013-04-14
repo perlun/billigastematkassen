@@ -7,6 +7,7 @@
 #= require underscore-min
 #= require spin.min
 #= require jquery.spin
+#= require rivets.min
 
 #
 # Scripts used by our app itself.
