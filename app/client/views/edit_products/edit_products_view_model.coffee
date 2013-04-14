@@ -45,20 +45,29 @@ class App.Views.EditProducts.EditProductsViewModel
     @setupEventHandlers()
 
   setupEventHandlers: () ->
-    that = @
+    viewModel = @
 
-    $('.deleteItem').click(() ->
-      slug = $(@).parents('tr').attr('data-slug')
-      item = _.find(that.items, (item) ->
-        item.slug == slug
+    $('[data-command]').each(() ->
+      obj = $(this)
+      commandHandler = obj.attr('data-command')
+      obj.click(() ->
+        viewModel[commandHandler](obj)
+        false
       )
-
-      itemIndex = that.items.indexOf(item)
-      that.items.splice(itemIndex, 1)
-      that.renderProductRows()
-
-      false
     )
+
+  deleteRow: ((obj) ->
+    slug = $(obj).parents('tr').attr('data-slug')
+    item = _.find(@items, (item) ->
+      item.slug == slug
+    )
+
+    itemIndex = @items.indexOf(item)
+    @items.splice(itemIndex, 1)
+    @renderProductRows()
+
+    false
+  )
 
   addNewRow: () ->
     @items.pushObject({})

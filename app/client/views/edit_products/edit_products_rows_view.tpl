@@ -40,14 +40,14 @@
         <td><input type="text" value="<%= item.price_lidl %>" class="editMoney"/></td>
         <td><input type="text" value="<%= item.price_minimani %>"  class="editMoney"/></td>
         <td><input type="text" value="<%= item.price_prisma %>" class="editMoney"/></td>
-        <td><a href="#" class="deleteItem"><i class="icon-trash"></i></a></td>
+        <td><a href="#" data-command="deleteRow"><i class="icon-trash"></i></a></td>
       </tr>
       <% }); %>
     </tbody>
   </table>
 
   <div>
-    <button class="btn" {{action addNewRow}}>Lägg till ny rad</button>
+    <button class="btn" data-command="addNewRow">Lägg till ny rad</button>
   </div>
   <div style="margin-top: 12px;">
     <button class="btn" {{action saveRows}}>Spara</button>
