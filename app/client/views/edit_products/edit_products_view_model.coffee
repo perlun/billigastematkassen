@@ -16,6 +16,7 @@ class App.Views.EditProducts.EditProductsViewModel
     'st'
   ]
   globalData: App.GlobalData
+  productRowsView: null
 
   refresh: () ->
     App.Spinner.startSpinning('spinnerContent')
@@ -41,9 +42,9 @@ class App.Views.EditProducts.EditProductsViewModel
   renderProductRows: () ->
     html = App.RenderTemplate('views/edit_products/edit_products_rows_view', this)
     $('#productRowsContainer').html(html).show()
-    rivets.bind($('#productRows'), @)
+    @productRowsView = rivets.bind($('#productRows'), @)
 
-    #@setupEventHandlers()
+    @setupEventHandlers()
 
   setupEventHandlers: () ->
     viewModel = @
@@ -75,7 +76,7 @@ class App.Views.EditProducts.EditProductsViewModel
     @items.push(
       slug: new Date().getTime()
     )
-    @renderProductRows()
+    @productRowsView.sync()
 
   saveRows: ->
     $.ajax(
