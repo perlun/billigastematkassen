@@ -1,5 +1,26 @@
 App = window.App = {}
 App.Views = {}
+rivets = window.rivets
+
+rivets.configure(
+  adapter:
+    subscribe: (obj, keypath, callback) ->
+      #obj.on('change:' + keypath, callback)
+
+    unsubscribe: (obj, keypath, callback) ->
+      #obj.off('change:' + keypath, callback)
+
+    read: (obj, keypath) ->
+      if keypath == ''
+        obj
+      else
+        obj[keypath]
+      #console.log "obj=#{obj}, keypath=#{keypath}, value=#{value}"
+      #value
+
+    publish: (obj, keypath, value) ->
+      #obj.set(keypath, value)
+)
 
 App.RenderTemplate = (templateName, dataContext) ->
   template = App.Templates[templateName]
