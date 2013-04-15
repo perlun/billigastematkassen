@@ -58,15 +58,15 @@ class App.Views.EditProducts.EditProductsViewModel
     )
 
   deleteRow: ((obj) ->
-    trObject = $(obj).parents('tr')
-    slug = trObject.attr('data-slug')
-    item = _.find(@items, (item) ->
-      item.slug == slug
-    )
+    #trObject = $(obj).parents('tr')
+    #slug = trObject.attr('data-slug')
+    #item = _.find(@items, (item) ->
+    #  item.slug == slug
+    #)
 
-    itemIndex = @items.indexOf(item)
-    @items.splice(itemIndex, 1)
-    trObject.remove()
+    #itemIndex = @items.indexOf(item)
+    #@items.splice(itemIndex, 1)
+    #trObject.remove()
 
     false
   )
