@@ -41,8 +41,9 @@ class App.Views.EditProducts.EditProductsViewModel
   renderProductRows: () ->
     html = App.RenderTemplate('views/edit_products/edit_products_rows_view', this)
     $('#productRowsContainer').html(html).show()
+    rivets.bind($('#productRows'), @)
 
-    @setupEventHandlers()
+    #@setupEventHandlers()
 
   setupEventHandlers: () ->
     viewModel = @
