@@ -40,65 +40,28 @@ class App.Views.EditProducts.EditProductsViewModel
     )
 
   renderProductRows: () ->
-    # TODO: Possibly remove altogether (remove the files then also)
-    #html = App.RenderTemplate('views/edit_products/edit_products_rows_view', this)
-    #$('#productRowsContainer').html(html).show()
+    html = App.RenderTemplate('views/edit_products/edit_products_rows_view', this)
+    $('#productRowsContainer').html(html).show()
+    $('#productRowsTable').dataTable(
+      bPaginate: false
+    )
+
+    $('tfoot th').each((i) ->
+      console.log "i:" + i
+      this.innerHTML = createSelect('spam', 'egg', 'bacon') #oTable.fnGetColumnData(i));
+
+      #$('select', this).change(function () {
+      #    oTable.fnFilter($(this).val(), i);
+      #})
+    )
     #@productRowsView = rivets.bind($('#productRows'), @)
 
     #@setupEventHandlers()
-    grid = new dhtmlXGridObject('productsGrid')
-    grid.setImagePath 'assets/dhtmlx/imgs/'
-    grid.setHeader([
-        'Artikel',
-        'Vikt/volym',
-        'Enhet',
-        'Varumärke',
-        'Tillverkare',
-        
-        'Produktgrupp',
-        'Axet',
-        'Citymarket',
-        'Lidl',
-        'Minimani',
-        'Prisma' 
-      ].join(', '))
-    grid.setInitWidths([
-        150,
-        70,
-        50,
-        100,
-        70,
 
-        120,
-        70,
-        70,
-        70,
-        70,
-        70
-      ].join(', '))
-    grid.setColAlign 'left,right,left,left,left,left,left,left,left,left,left'
-    grid.setColTypes 'ed,ed,ed,ed,ed,ed,ed,ed,ed,ed,ed'
-    grid.attachHeader('#text_filter,#rspan,#rspan,#combo_filter,#combo_filter,#combo_filter,#rspan,#rspan,#rspan,#rspan,#rspan')
-
-    grid.setSkin 'dhx_skyblue'
-
-    grid.init()
-    itemsArray = _.map(@items, (item) ->
-      [
-        item.name,
-        item.qty,
-        item.unitOfMeasure,
-        item.brand,
-        item.manufacturer,
-        item.productGroup,
-        item.prices?.axet,
-        item.prices?.citymarket,
-        item.prices?.lidl,
-        item.prices?.minimani,
-        item.prices?.prisma
-      ]
-    )
-    grid.parse(itemsArray, 'jsarray')
+  createSelect: (data) ->
+    result = '<select><option value=""></option>'
+    result += "<option value='#{value}'>#{value}</option>" for value in data
+    result + '</select>'
 
   setupEventHandlers: () ->
     viewModel = @
