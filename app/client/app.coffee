@@ -12,6 +12,7 @@
 # dhtmlx grid stuff
 #
 #= require dhtmlx/dhtmlxcommon
+#= require dhtmlx/dhtmlxcombo
 #= require dhtmlx/dhtmlxgrid
 #= require dhtmlx/dhtmlxgridcell
 #= require dhtmlx/ext/dhtmlxgrid_filter
