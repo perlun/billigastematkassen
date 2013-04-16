@@ -8,14 +8,7 @@
 #= require spin.min
 #= require jquery.spin
 #= require rivets
-#
-# dhtmlx grid stuff
-#
-#= require dhtmlx/dhtmlxcommon
-#= require dhtmlx/dhtmlxcombo
-#= require dhtmlx/dhtmlxgrid
-#= require dhtmlx/dhtmlxgridcell
-#= require dhtmlx/ext/dhtmlxgrid_filter
+#= require datatables/jquery.dataTables
 
 #
 # Scripts used by our app itself.
