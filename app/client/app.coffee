@@ -8,6 +8,12 @@
 #= require spin.min
 #= require jquery.spin
 #= require rivets
+#
+# dhtmlx grid stuff
+#
+#= require dhtmlxcommon
+#= require dhtmlxgrid
+#= require dhtmlxgridcell
 
 #
 # Scripts used by our app itself.
