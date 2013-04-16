@@ -40,11 +40,64 @@ class App.Views.EditProducts.EditProductsViewModel
     )
 
   renderProductRows: () ->
-    html = App.RenderTemplate('views/edit_products/edit_products_rows_view', this)
-    $('#productRowsContainer').html(html).show()
-    @productRowsView = rivets.bind($('#productRows'), @)
+    # TODO: Possibly remove altogether (remove the files then also)
+    #html = App.RenderTemplate('views/edit_products/edit_products_rows_view', this)
+    #$('#productRowsContainer').html(html).show()
+    #@productRowsView = rivets.bind($('#productRows'), @)
 
-    @setupEventHandlers()
+    #@setupEventHandlers()
+    grid = new dhtmlXGridObject('productsGrid')
+    grid.setImagePath 'assets/dhtmlx/imgs'
+    grid.setHeader([
+        'Artikel',
+        'Vikt/volym',
+        'Enhet',
+        'Varumärke',
+        'Tillverkare',
+        
+        'Produktgrupp',
+        'Axet',
+        'Citymarket',
+        'Lidl',
+        'Minimani',
+        'Prisma' 
+      ].join(', '))
+    grid.setInitWidths([
+        150,
+        70,
+        50,
+        70,
+        70,
+
+        80,
+        70,
+        70,
+        70,
+        70,
+        70
+      ].join(', '))
+    grid.setColAlign 'left,right,left,left,left,left,left,left,left,left,left'
+    grid.setColTypes 'ed,ed,ed,ed,ed,ed,ed,ed,ed,ed,ed'
+
+    grid.setSkin 'dhx_skyblue'
+
+    grid.init()
+    itemsArray = _.map(@items, (item) ->
+      [
+        item.name,
+        item.qty,
+        item.unitOfMeasure,
+        item.brand,
+        item.manufacturer,
+        item.productGroup,
+        item.prices?.axet,
+        item.prices?.citymarket,
+        item.prices?.lidl,
+        item.prices?.minimani,
+        item.prices?.prisma
+      ]
+    )
+    grid.parse(itemsArray, 'jsarray')
 
   setupEventHandlers: () ->
     viewModel = @
