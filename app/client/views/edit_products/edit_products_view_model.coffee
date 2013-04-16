@@ -44,6 +44,7 @@ class App.Views.EditProducts.EditProductsViewModel
     $('#productRowsContainer').html(html).show()
     $('#productRowsTable').dataTable(
       bPaginate: false
+      bSort: false
     )
 
     $('tfoot th').each((i) ->
@@ -56,7 +57,7 @@ class App.Views.EditProducts.EditProductsViewModel
     )
     #@productRowsView = rivets.bind($('#productRows'), @)
 
-    #@setupEventHandlers()
+    @setupEventHandlers()
 
   createSelect: (data) ->
     result = '<select><option value=""></option>'
@@ -90,10 +91,11 @@ class App.Views.EditProducts.EditProductsViewModel
   )
 
   addNewRow: () ->
-    @items.push(
-      slug: new Date().getTime()
-    )
-    @productRowsView.sync()
+    row = []
+    row[0] = '(namn)'
+    row[x] = '' for x in [1..11]
+    
+    $('#productRowsTable').dataTable().fnAddData(row)
 
   saveRows: ->
     $.ajax(
