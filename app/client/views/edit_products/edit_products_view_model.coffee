@@ -47,7 +47,7 @@ class App.Views.EditProducts.EditProductsViewModel
 
     #@setupEventHandlers()
     grid = new dhtmlXGridObject('productsGrid')
-    grid.setImagePath 'assets/dhtmlx/imgs'
+    grid.setImagePath 'assets/dhtmlx/imgs/'
     grid.setHeader([
         'Artikel',
         'Vikt/volym',
@@ -66,10 +66,10 @@ class App.Views.EditProducts.EditProductsViewModel
         150,
         70,
         50,
-        70,
+        100,
         70,
 
-        80,
+        120,
         70,
         70,
         70,
@@ -78,7 +78,7 @@ class App.Views.EditProducts.EditProductsViewModel
       ].join(', '))
     grid.setColAlign 'left,right,left,left,left,left,left,left,left,left,left'
     grid.setColTypes 'ed,ed,ed,ed,ed,ed,ed,ed,ed,ed,ed'
-    grid.attachHeader('#text_filter,#rspan,#rspan,#select_filter,#select_filter,#rspan,#rspan,#rspan,#rspan,#rspan,#rspan')
+    grid.attachHeader('#text_filter,#rspan,#rspan,#combo_filter,#combo_filter,#combo_filter,#rspan,#rspan,#rspan,#rspan,#rspan')
 
     grid.setSkin 'dhx_skyblue'
 
