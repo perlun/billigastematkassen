@@ -11,9 +11,10 @@
 #
 # dhtmlx grid stuff
 #
-#= require dhtmlxcommon
-#= require dhtmlxgrid
-#= require dhtmlxgridcell
+#= require dhtmlx/dhtmlxcommon
+#= require dhtmlx/dhtmlxgrid
+#= require dhtmlx/dhtmlxgridcell
+#= require dhtmlx/ext/dhtmlxgrid_filter
 
 #
 # Scripts used by our app itself.

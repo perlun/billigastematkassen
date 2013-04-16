@@ -15,7 +15,7 @@ class App < Sinatra::Base
   set :public_folder, settings.root + '/htdocs'
   set :assets, Sprockets::Environment.new
 
-  settings.assets.append_path 'htdocs/assets/dhtmlx'
+  settings.assets.append_path 'htdocs/assets'
   settings.assets.append_path 'htdocs/js'
   settings.assets.append_path 'app/client'
 
