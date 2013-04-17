@@ -1,15 +1,15 @@
 # 3rd party dependencies
 #
-#= require jquery-1.9.1.min
-#= require jquery.colorbox
-#= require purl
-#= require bootstrap.min
-#= require underscore-min
-#= require spin.min
-#= require jquery.spin
-#= require jquery.jeditable.mini
-#= require rivets
-#= require datatables/jquery.dataTables
+#= require js/jquery-1.9.1.min
+#= require js/jquery.colorbox
+#= require js/purl
+#= require js/bootstrap.min
+#= require js/underscore-min
+#= require js/spin.min
+#= require js/jquery.spin
+#= require js/jquery.jeditable.mini
+#= require js/rivets
+#= require assets/datatables/jquery.dataTables
 
 #
 # Scripts used by our app itself.
