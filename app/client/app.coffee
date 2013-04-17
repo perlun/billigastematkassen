@@ -1,21 +1,21 @@
 # 3rd party dependencies
 #
-#= require jquery-1.9.1.min
-#= require jquery.colorbox
-#= require purl
-#= require bootstrap.min
-#= require underscore-min
-#= require spin.min
-#= require jquery.spin
-#= require rivets
+#= require js/jquery-1.9.1.min
+#= require js/jquery.colorbox
+#= require js/purl
+#= require js/bootstrap.min
+#= require js/underscore-min
+#= require js/spin.min
+#= require js/jquery.spin
+#= require js/rivets
 #
 # dhtmlx grid stuff
 #
-#= require dhtmlx/dhtmlxcommon
-#= require dhtmlx/dhtmlxcombo
-#= require dhtmlx/dhtmlxgrid
-#= require dhtmlx/dhtmlxgridcell
-#= require dhtmlx/ext/dhtmlxgrid_filter
+#= require assets/dhtmlx/dhtmlxcommon
+#= require assets/dhtmlx/dhtmlxcombo
+#= require assets/dhtmlx/dhtmlxgrid
+#= require assets/dhtmlx/dhtmlxgridcell
+#= require assets/dhtmlx/ext/dhtmlxgrid_filter
 
 #
 # Scripts used by our app itself.
