@@ -43,8 +43,16 @@ class App.Views.EditProducts.EditProductsViewModel
     html = App.RenderTemplate('views/edit_products/edit_products_rows_view', this)
     $('#productRowsContainer').html(html).show()
     $('#productRowsTable').dataTable(
-      bPaginate: false
+      bPaginate: true
+      iDisplayLength: 30
       bSort: false
+      fnDrawCallback: () ->
+        $('#productRowsTable tbody td').editable('api/product', {
+            callback: (value, y) ->
+                # Redraw the table from the new data on the server
+                oTable.fnDraw()
+            height: '14px'
+        })
     )
 
     $('tfoot th').each((i) ->

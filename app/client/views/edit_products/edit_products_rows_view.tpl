@@ -1,9 +1,5 @@
-  <div style="margin-bottom: 12px;">
-    <button class="btn" {{action saveRows}}>Spara</button>
-  </div>
-
   <div>
-    <table id="productRowsTable">
+    <table id="productRowsTable" style="white-space: nowrap;">
       <thead>
         <tr>
           <th>Artikel</th>
@@ -43,7 +39,4 @@
 
   <div style="margin-top: 36px;">
     <button class="btn" data-command="addNewRow">Lägg till ny rad</button>
-  </div>
-  <div style="margin-top: 12px;">
-    <button class="btn" {{action saveRows}}>Spara</button>
   </div>
