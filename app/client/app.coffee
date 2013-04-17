@@ -13,6 +13,7 @@
 #
 #= require assets/dhtmlx/dhtmlxcommon
 #= require assets/dhtmlx/dhtmlxcombo
+#= require assets/dhtmlx/dhtmlxdataprocessor
 #= require assets/dhtmlx/dhtmlxgrid
 #= require assets/dhtmlx/dhtmlxgridcell
 #= require assets/dhtmlx/ext/dhtmlxgrid_filter
