@@ -117,6 +117,7 @@ class App.Views.EditProducts.EditProductsViewModel
         ]
       ]
     )
+    grid.setColumnIds('name,qty,unitOfMeasure,brand,manufacturer,productGroup,priceAxet,priceCitymarket,priceLidl,priceMinimani,pricePrisma')
 
     itemsArray = _.map(@items, (item) ->
       [
@@ -134,6 +135,10 @@ class App.Views.EditProducts.EditProductsViewModel
       ]
     )
     grid.parse(itemsArray, 'jsarray')
+    processor = new dataProcessor('api/product')
+    processor.setTransactionMode('POST')
+    processor.enableDataNames(true)
+    processor.init(grid);
 
   setupEventHandlers: () ->
     viewModel = @
