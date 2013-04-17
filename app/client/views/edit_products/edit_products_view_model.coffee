@@ -1,5 +1,4 @@
 #= require ./edit_products_view
-#= require ./edit_products_rows_view
 
 App = window.App
 
@@ -16,7 +15,6 @@ class App.Views.EditProducts.EditProductsViewModel
     'st'
   ]
   globalData: App.GlobalData
-  productRowsView: null
 
   refresh: () ->
     App.Spinner.startSpinning('spinnerContent')
@@ -40,49 +38,86 @@ class App.Views.EditProducts.EditProductsViewModel
     )
 
   renderProductRows: () ->
-    # TODO: Possibly remove altogether (remove the files then also)
-    #html = App.RenderTemplate('views/edit_products/edit_products_rows_view', this)
-    #$('#productRowsContainer').html(html).show()
-    #@productRowsView = rivets.bind($('#productRows'), @)
-
     #@setupEventHandlers()
-    grid = new dhtmlXGridObject('productsGrid')
-    grid.setImagePath 'assets/dhtmlx/imgs/'
-    grid.setHeader([
-        'Artikel',
-        'Vikt/volym',
-        'Enhet',
-        'Varumärke',
-        'Tillverkare',
-        
-        'Produktgrupp',
-        'Axet',
-        'Citymarket',
-        'Lidl',
-        'Minimani',
-        'Prisma' 
-      ].join(', '))
-    grid.setInitWidths([
-        150,
-        70,
-        50,
-        100,
-        70,
+    grid = new dhtmlXGridObject(
+      parent: 'productsGrid'
+      image_path: 'assets/dhtmlx/imgs/'
+      skin: 'dhx_skyblue'
+      columns: [
+        {
+          label: 'Artikel'
+          width: 150
+          type: 'ed'
+        },
+        {
+          label: 'Vikt/volym'
+          width: 70
+          type: 'ed'
+          align: 'right'
+        },
+        {
+          label: '#cspan'
+          width: 25
+          type: 'ed'
+        },
+        {
+          label: 'Varumärke'
+          width: 100
+          type: 'ed'
+        },
+        {
+          label: 'Tillverkare'
+          width: 70
+          type: 'ed'
+        },
+        {
+          label: 'Produktgrupp'
+          width: 120
+          type: 'ed'
+        },
+        {
+          label: 'Axet'
+          width: 70
+          type: 'ed'
+        },
+        {
+          label: 'Citymarket'
+          width: 70
+          type: 'ed'
+        },
+        {
+          label: 'Lidl'
+          width: 70
+          type: 'ed'
+        },
+        {
+          label: 'Minimani'
+          width: 70
+          type: 'ed'
+        },
+        {
+          label: 'Prisma'
+          width: 70
+          type: 'ed'
+        }
+      ]
+#      headers: [
+#        [
+#          '#text_filter',
+#          '#rspan',
+#          '#rspan',
+#          '#rspan',
+#          '#combo_filter',
+#          '#combo_filter',
+#          '#rspan',
+#          '#rspan',
+#          '#rspan',
+#          '#rspan',
+#          '#rspan'
+#        ]
+#      ]
+    )
 
-        120,
-        70,
-        70,
-        70,
-        70,
-        70
-      ].join(', '))
-    grid.setColAlign 'left,right,left,left,left,left,left,left,left,left,left'
-    grid.setColTypes 'ed,ed,ed,ed,ed,ed,ed,ed,ed,ed,ed'
-    grid.attachHeader('#text_filter,#rspan,#rspan,#combo_filter,#combo_filter,#combo_filter,#rspan,#rspan,#rspan,#rspan,#rspan')
-
-    grid.setSkin 'dhx_skyblue'
-
-    grid.init()
     itemsArray = _.map(@items, (item) ->
       [
         item.name,
