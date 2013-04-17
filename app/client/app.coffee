@@ -7,6 +7,7 @@
 #= require underscore-min
 #= require spin.min
 #= require jquery.spin
+#= require jquery.jeditable.mini
 #= require rivets
 #= require datatables/jquery.dataTables
 
