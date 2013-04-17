@@ -101,21 +101,21 @@ class App.Views.EditProducts.EditProductsViewModel
           type: 'ed'
         }
       ]
-#      headers: [
-#        [
-#          '#text_filter',
-#          '#rspan',
-#          '#rspan',
-#          '#rspan',
-#          '#combo_filter',
-#          '#combo_filter',
-#          '#rspan',
-#          '#rspan',
-#          '#rspan',
-#          '#rspan',
-#          '#rspan'
-#        ]
-#      ]
+      headers: [
+        [
+          '#text_filter',
+          '',
+          '#cspan',
+          '#combo_filter',
+          '#combo_filter',
+          '#combo_filter'
+          '#rspan',
+          '#rspan',
+          '#rspan',
+          '#rspan',
+          '#rspan'
+        ]
+      ]
     )
 
     itemsArray = _.map(@items, (item) ->
