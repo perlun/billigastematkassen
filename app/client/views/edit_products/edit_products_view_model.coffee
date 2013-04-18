@@ -103,38 +103,44 @@ class App.Views.EditProducts.EditProductsViewModel
       ]
       headers: [
         [
-          '#text_filter',
-          '',
-          '#cspan',
-          '#combo_filter',
-          '#combo_filter',
+          '#text_filter'
+          ''
+          '#cspan'
           '#combo_filter'
-          '#rspan',
-          '#rspan',
-          '#rspan',
-          '#rspan',
+          '#combo_filter'
+          '#combo_filter'
+          '#rspan'
+          '#rspan'
+          '#rspan'
+          '#rspan'
           '#rspan'
         ]
       ]
     )
     grid.setColumnIds('name,qty,unitOfMeasure,brand,manufacturer,productGroup,priceAxet,priceCitymarket,priceLidl,priceMinimani,pricePrisma')
 
-    itemsArray = _.map(@items, (item) ->
-      [
-        item.name,
-        item.qty,
-        item.unitOfMeasure,
-        item.brand,
-        item.manufacturer,
-        item.productGroup,
-        item.prices?.axet,
-        item.prices?.citymarket,
-        item.prices?.lidl,
-        item.prices?.minimani,
-        item.prices?.prisma
-      ]
-    )
-    grid.parse(itemsArray, 'jsarray')
+    data = {
+      rows: _.map(@items, (item) ->
+        {
+          id: item.objectId
+          data: [
+            item.name
+            item.qty
+            item.unitOfMeasure
+            item.brand
+            item.manufacturer
+            item.productGroup
+            item.prices?.axet
+            item.prices?.citymarket
+            item.prices?.lidl
+            item.prices?.minimani
+            item.prices?.prisma
+          ]
+        }
+      )
+    }
+
+    grid.parse(data, 'json')
     processor = new dataProcessor('api/product')
     processor.setTransactionMode('POST')
     processor.enableDataNames(true)
