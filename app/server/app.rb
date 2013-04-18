@@ -1,11 +1,12 @@
 #!/usr/bin/env jruby
 
+require 'bson'
+require 'coffee_script'
+require 'json'
 require 'rack/handler/mizuno'
 require 'sinatra/base'
-require 'json'
-require 'unicode_utils/downcase'
 require 'sprockets'
-require 'coffee_script'
+require 'unicode_utils/downcase'
 
 class App < Sinatra::Base
   set :server, 'mizuno'
@@ -47,7 +48,12 @@ class App < Sinatra::Base
       end
 
       product[:slug] = slug
+      product[:objectId] = BSON::ObjectId.new unless product[:objectId]
+      product[:objectId] = product[:objectId].to_s
     end
+
+    # Just to ensure that objectId's etc. get updated.
+    IO.write('db/products.json', products.to_json)
 
     [
       200, 
