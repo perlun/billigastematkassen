@@ -15,5 +15,5 @@ products.each do |product|
 
   key = BSON::ObjectId.new.to_s
 
-  redis.hset 'products', key, product
+  redis.hset 'products', key, product.to_json
 end
