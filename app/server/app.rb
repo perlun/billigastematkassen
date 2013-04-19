@@ -1,9 +1,9 @@
 #!/usr/bin/env jruby
 
-require 'bson'
 require 'coffee_script'
 require 'json'
 require 'rack/handler/mizuno'
+require 'redis'
 require 'sinatra/base'
 require 'sprockets'
 require 'unicode_utils/downcase'
@@ -31,9 +31,14 @@ class App < Sinatra::Base
   end  
 
   get '/api/products' do
-    products = JSON.parse(IO.read('db/products.json'), 
-      { :symbolize_names => true }
-    )
+    redis = Redis.new
+    products = redis.hgetall('products')
+    products = products.map do |key, value|
+      result = JSON.parse(value, { :symbolize_names => true })
+      result[:objectId] = key
+      result
+    end
+
     products.each do |product|
       next unless product[:name]
 
@@ -48,12 +53,7 @@ class App < Sinatra::Base
       end
 
       product[:slug] = slug
-      product[:objectId] = BSON::ObjectId.new unless product[:objectId]
-      product[:objectId] = product[:objectId].to_s
     end
-
-    # Just to ensure that objectId's etc. get updated.
-    IO.write('db/products.json', products.to_json)
 
     [
       200, 
