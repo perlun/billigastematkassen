@@ -35,8 +35,26 @@ private
     elsif mode == 'updated'
       product = parse_json(@redis.hget('products', source_id))
 
-      [ 'name', 'qty', 'unitOfMeasure', 'brand', 'manufacturer', 'productGroup' ].each do |field|
+      %w(
+        name
+        qty
+        unitOfMeasure
+        brand
+        manufacturer
+        productGroup
+       ).each do |field|
         product[field.to_sym] = request.params[field]
+      end
+
+      product[:prices] ||= {}
+      %w(
+        axet
+        citymarket
+        lidl
+        minimani
+        prisma
+      ).each do |price_field|
+        product[:prices][price_field.to_sym] = request.params['prices.' + price_field]
       end
 
       target_id = source_id
