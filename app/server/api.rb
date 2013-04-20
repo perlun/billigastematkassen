@@ -58,7 +58,14 @@ private
         minimani
         prisma
       ).each do |price_field|
-        product[:prices][price_field.to_sym] = request.params['prices.' + price_field]
+        price = request.params['prices.' + price_field]
+        price = price.sub(',', '.')   # handle decimal comma
+        if price.empty?
+          price = nil
+        else
+          price = price.to_f
+        end
+        product[:prices][price_field.to_sym] = price
       end
 
       target_id = source_id
