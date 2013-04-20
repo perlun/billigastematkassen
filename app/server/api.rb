@@ -1,3 +1,4 @@
+require 'bson'
 require 'json'
 require 'redis'
 require 'unicode_utils/downcase'
@@ -33,11 +34,16 @@ private
     source_id = request.params['gr_id']
 
     if mode == 'inserted'
-      # TODO: implement
+      # We don't actually do the insert here, but wait until we have some data (since we know that we always populate rows with
+      # empty columns first)
+      target_id = BSON::ObjectId.new
+      action = 'insert'
     elsif mode == 'deleted'
       # TODO: implement
+      puts 'delete'
     elsif mode == 'updated'
-      product = parse_json(@redis.hget('products', source_id))
+      product_data = @redis.hget('products', source_id)
+      product = (parse_json(product_data) if product_data) || {}
 
       %w(
         name

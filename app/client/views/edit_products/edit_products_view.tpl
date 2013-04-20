@@ -9,3 +9,5 @@
 
 <form id="productRowsContainer">
 </form>
+
+<input type="button" class="btn" data-command="addNewRow" value="Ny rad"/>

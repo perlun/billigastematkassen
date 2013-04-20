@@ -9,7 +9,7 @@ class App.Views.EditProducts.EditProductsViewModel
 
   isWaiting: false
   spinner: new Spinner
-  items: []
+  grid: null
 
   unitOfMeasures: [
     'kg',
@@ -119,26 +119,35 @@ class App.Views.EditProducts.EditProductsViewModel
           "#{i.name}_#{i.brand}"
         )
 
-        @items = items
         App.Spinner.stopSpinning('spinnerContent')
-        @renderProductRows()
+        @renderProductRows(items)
       
       failure: (errMsg) =>
     )
 
-  renderProductRows: () ->
-    #@setupEventHandlers()
-    grid = new dhtmlXGridObject(
+  renderProductRows: (items) ->
+    @setupEventHandlers()
+
+    @grid = new dhtmlXGridObject(
       parent: 'productsGrid'
       image_path: 'assets/dhtmlx/imgs/'
       skin: 'dhx_skyblue'
       columns: @gridColumns
       headers: [ @gridColumnHeaders ]
     )
-    grid.setColumnIds(@columnIds.join(','))
+    @grid.setColumnIds(@columnIds.join(','))
 
+    processor = new dataProcessor('api/product')
+    processor.setTransactionMode('POST')
+    processor.enableDataNames(true)
+    processor.init(@grid);
+
+    @loadData(items)
+
+  loadData: (items) ->
+    # The dhtmlxGrid requires the data to follow a certain form, so we map it to that here.
     data = {
-      rows: _.map(@items, (item) ->
+      rows: _.map(items, (item) ->
         {
           id: item.objectId
           data: [
@@ -158,11 +167,7 @@ class App.Views.EditProducts.EditProductsViewModel
       )
     }
 
-    grid.parse(data, 'json')
-    processor = new dataProcessor('api/product')
-    processor.setTransactionMode('POST')
-    processor.enableDataNames(true)
-    processor.init(grid);
+    @grid.parse(data, 'json')
 
   setupEventHandlers: () ->
     viewModel = @
@@ -191,10 +196,7 @@ class App.Views.EditProducts.EditProductsViewModel
   )
 
   addNewRow: () ->
-    @items.push(
-      slug: new Date().getTime()
-    )
-    @productRowsView.sync()
+    @grid.addRow(@grid.uid(), [])
 
   saveRows: ->
     $.ajax(
