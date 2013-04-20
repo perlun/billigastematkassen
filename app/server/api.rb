@@ -23,7 +23,13 @@ private
       result
     end
 
-    products.each { |product| add_data(product) }
+    products.each do |product|
+      add_data(product)
+    end
+
+    products = products.sort_by do |product|
+      key = UnicodeUtils.downcase(product[:name] + '_' + product[:brand])
+    end
 
     return_json products.to_json
   end

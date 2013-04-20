@@ -115,9 +115,6 @@ class App.Views.EditProducts.EditProductsViewModel
       
       success: (result) =>
         items = eval result
-        items = _.sortBy(items, (i) ->
-          "#{i.name}_#{i.brand}"
-        )
 
         App.Spinner.stopSpinning('spinnerContent')
         @renderProductRows(items)
