@@ -24,7 +24,7 @@ private
     end
 
     products.each do |product|
-      add_data(product)
+      add_extra_data(product)
     end
 
     products = products.sort_by do |product|
@@ -45,43 +45,12 @@ private
       target_id = BSON::ObjectId.new
       action = 'insert'
     elsif mode == 'deleted'
-      # TODO: implement
-      puts 'delete'
-    elsif mode == 'updated'
-      product_data = @redis.hget('products', source_id)
-      product = (parse_json(product_data) if product_data) || {}
-
-      %w(
-        name
-        qty
-        unitOfMeasure
-        brand
-        manufacturer
-        productGroup
-       ).each do |field|
-        product[field.to_sym] = request.params[field]
-      end
-
-      product[:prices] ||= {}
-      %w(
-        axet
-        citymarket
-        lidl
-        minimani
-        prisma
-      ).each do |price_field|
-        price = request.params['prices.' + price_field]
-        price = price.sub(',', '.')   # handle decimal comma
-        if price.empty?
-          price = nil
-        else
-          price = price.to_f
-        end
-        product[:prices][price_field.to_sym] = price
-      end
-
       target_id = source_id
-      @redis.hset('products', target_id, product.to_json)
+      @redis.hdel('products', target_id)
+      action = 'delete'
+    elsif mode == 'updated'
+      update_product(source_id, request.params)
+      target_id = source_id
       action = 'update'
     end
 
@@ -92,7 +61,46 @@ private
       </data>"
   end
 
-  def add_data(product)
+  def update_product(source_id, params)
+    product_data = @redis.hget('products', source_id)
+    product = (parse_json(product_data) if product_data) || {}
+
+    %w(
+      name
+      qty
+      unitOfMeasure
+      brand
+      manufacturer
+      productGroup
+     ).each do |field|
+      product[field.to_sym] = params[field]
+    end
+
+    product[:prices] ||= {}
+    %w(
+      axet
+      citymarket
+      lidl
+      minimani
+      prisma
+    ).each do |price_field|
+      price = params['prices.' + price_field]
+      price = price.sub(',', '.')   # Handle comma as decimal separator
+
+      if price.empty?
+        price = nil
+      else
+        price = price.to_f
+      end
+
+      product[:prices][price_field.to_sym] = price
+    end
+
+    target_id = source_id
+    @redis.hset('products', target_id, product.to_json)
+  end
+
+  def add_extra_data(product)
     return unless product[:name]
 
     slug = "#{sanitize_name product[:name]}_#{localize product[:qty]}_#{product[:unitOfMeasure]}_#{sanitize_name product[:brand]}"

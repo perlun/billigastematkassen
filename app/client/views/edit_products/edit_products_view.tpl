@@ -10,4 +10,14 @@
 <form id="productRowsContainer">
 </form>
 
-<input type="button" class="btn" data-command="addNewRow" value="Ny rad"/>
+<input type="button"
+       class="btn"
+       data-command="addNewRow"
+       value="Ny rad" />
+<input id="deleteRowButton"
+       type="button"
+       class="btn"
+       data-command="deleteRow"
+       value="Ta bort rad"
+       style="margin-left: 12px;"
+       disabled="true" />

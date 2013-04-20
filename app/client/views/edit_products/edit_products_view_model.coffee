@@ -133,6 +133,9 @@ class App.Views.EditProducts.EditProductsViewModel
       headers: [ @gridColumnHeaders ]
     )
     @grid.setColumnIds(@columnIds.join(','))
+    @grid.attachEvent('onSelectStateChanged', (id) ->
+      $('#deleteRowButton').removeAttr('disabled')
+    )
 
     processor = new dataProcessor('api/product')
     processor.setTransactionMode('POST')
@@ -178,22 +181,12 @@ class App.Views.EditProducts.EditProductsViewModel
       )
     )
 
-  deleteRow: ((obj) ->
-    #trObject = $(obj).parents('tr')
-    #slug = trObject.attr('data-slug')
-    #item = _.find(@items, (item) ->
-    #  item.slug == slug
-    #)
-
-    #itemIndex = @items.indexOf(item)
-    #@items.splice(itemIndex, 1)
-    #trObject.remove()
-
-    false
-  )
-
   addNewRow: () ->
     @grid.addRow(@grid.uid(), [])
+
+  deleteRow: ((obj) ->
+    @grid.deleteSelectedRows()
+  )
 
 class App.Views.EditProducts.EditProductsView
   templateName: 'views/edit_products/edit_products_view'
