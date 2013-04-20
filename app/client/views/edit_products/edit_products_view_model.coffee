@@ -5,16 +5,105 @@ App = window.App
 App.Views.EditProducts = {}
 
 class App.Views.EditProducts.EditProductsViewModel
+  globalData: App.GlobalData
+
   isWaiting: false
   spinner: new Spinner
   items: []
+
   unitOfMeasures: [
     'kg',
     'l',
     'm',
     'st'
   ]
-  globalData: App.GlobalData
+
+  gridColumns: [
+    {
+      label: 'Artikel'
+      width: 150
+      type: 'ed'
+    },
+    {
+      label: 'Vikt/volym'
+      width: 70
+      type: 'ed'
+      align: 'right'
+    },
+    {
+      label: '#cspan'
+      width: 25
+      type: 'ed'
+    },
+    {
+      label: 'Varumärke'
+      width: 100
+      type: 'ed'
+    },
+    {
+      label: 'Tillverkare'
+      width: 70
+      type: 'ed'
+    },
+    {
+      label: 'Produktgrupp'
+      width: 120
+      type: 'edtxt'
+    },
+    {
+      label: 'Axet'
+      width: 70
+      type: 'ed'
+    },
+    {
+      label: 'Citymarket'
+      width: 70
+      type: 'ed'
+    },
+    {
+      label: 'Lidl'
+      width: 70
+      type: 'ed'
+    },
+    {
+      label: 'Minimani'
+      width: 70
+      type: 'ed'
+    },
+    {
+      label: 'Prisma'
+      width: 70
+      type: 'ed'
+    }
+  ]
+  
+  gridColumnHeaders: [
+    '#text_filter'
+    ''
+    '#cspan'
+    '#combo_filter'
+    '#combo_filter'
+    '#combo_filter'
+    '#rspan'
+    '#rspan'
+    '#rspan'
+    '#rspan'
+    '#rspan'
+  ]
+
+  columnIds: [
+    'name'
+    'qty'
+    'unitOfMeasure'
+    'brand'
+    'manufacturer'
+    'productGroup'
+    'prices.axet'
+    'prices.citymarket'
+    'prices.lidl'
+    'prices.minimani'
+    'prices.prisma'
+  ]
 
   refresh: () ->
     App.Spinner.startSpinning('spinnerContent')
@@ -43,81 +132,11 @@ class App.Views.EditProducts.EditProductsViewModel
       parent: 'productsGrid'
       image_path: 'assets/dhtmlx/imgs/'
       skin: 'dhx_skyblue'
-      columns: [
-        {
-          label: 'Artikel'
-          width: 150
-          type: 'ed'
-        },
-        {
-          label: 'Vikt/volym'
-          width: 70
-          type: 'ed'
-          align: 'right'
-        },
-        {
-          label: '#cspan'
-          width: 25
-          type: 'ed'
-        },
-        {
-          label: 'Varumärke'
-          width: 100
-          type: 'ed'
-        },
-        {
-          label: 'Tillverkare'
-          width: 70
-          type: 'ed'
-        },
-        {
-          label: 'Produktgrupp'
-          width: 120
-          type: 'edtxt'
-        },
-        {
-          label: 'Axet'
-          width: 70
-          type: 'ed'
-        },
-        {
-          label: 'Citymarket'
-          width: 70
-          type: 'ed'
-        },
-        {
-          label: 'Lidl'
-          width: 70
-          type: 'ed'
-        },
-        {
-          label: 'Minimani'
-          width: 70
-          type: 'ed'
-        },
-        {
-          label: 'Prisma'
-          width: 70
-          type: 'ed'
-        }
-      ]
-      headers: [
-        [
-          '#text_filter'
-          ''
-          '#cspan'
-          '#combo_filter'
-          '#combo_filter'
-          '#combo_filter'
-          '#rspan'
-          '#rspan'
-          '#rspan'
-          '#rspan'
-          '#rspan'
-        ]
-      ]
+      columns: @gridColumns
+      headers: [ @gridColumnHeaders ]
     )
-    grid.setColumnIds('name,qty,unitOfMeasure,brand,manufacturer,productGroup,priceAxet,priceCitymarket,priceLidl,priceMinimani,pricePrisma')
+    console.log @
+    grid.setColumnIds(@columnIds.join(','))
 
     data = {
       rows: _.map(@items, (item) ->
