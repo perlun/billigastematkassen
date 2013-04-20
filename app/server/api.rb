@@ -1,3 +1,7 @@
+require 'json'
+require 'redis'
+require 'unicode_utils/downcase'
+
 class App < Sinatra::Base
   def initialize
     super

@@ -1,12 +1,9 @@
 #!/usr/bin/env jruby
 
 require 'coffee_script'
-require 'json'
 require 'rack/handler/mizuno'
-require 'redis'
 require 'sinatra/base'
 require 'sprockets'
-require 'unicode_utils/downcase'
 require_relative 'api'
 
 class App < Sinatra::Base
