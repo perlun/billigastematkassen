@@ -73,7 +73,7 @@ class App.Views.EditProducts.EditProductsViewModel
         {
           label: 'Produktgrupp'
           width: 120
-          type: 'ed'
+          type: 'edtxt'
         },
         {
           label: 'Axet'
