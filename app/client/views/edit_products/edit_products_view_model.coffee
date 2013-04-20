@@ -195,21 +195,6 @@ class App.Views.EditProducts.EditProductsViewModel
   addNewRow: () ->
     @grid.addRow(@grid.uid(), [])
 
-  saveRows: ->
-    $.ajax(
-      type: 'POST'
-      cache: false
-      url: '/api/products'
-      data: JSON.stringify(@get('items'))
-      contentType: 'application/json; charset=utf-8'
-      dataType: 'json'
-      failure: (errMsg) =>
-        alert('Ett fel uppstod när ändringarna skulle sparas: ' + errMsg)
-        @set('isLoading', false)
-      success: () =>
-        alert('Ändringarna har sparats.')
-    )
-
 class App.Views.EditProducts.EditProductsView
   templateName: 'views/edit_products/edit_products_view'
 
