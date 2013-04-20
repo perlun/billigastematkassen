@@ -35,7 +35,7 @@ class App < Sinatra::Base
   error do
     puts "Exception thrown: " + env['sinatra.error'].to_s
     puts "Stack trace: "
-    puts env['sinatra.error'].backtrace
+    puts env['sinatra.error'].backtrace.first(10)
     500
   end
 end
