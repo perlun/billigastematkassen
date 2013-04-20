@@ -7,6 +7,7 @@ require 'redis'
 require 'sinatra/base'
 require 'sprockets'
 require 'unicode_utils/downcase'
+require_relative 'api'
 
 class App < Sinatra::Base
   set :server, 'mizuno'
@@ -20,6 +21,7 @@ class App < Sinatra::Base
   settings.assets.append_path 'app/client'
 
   enable :logging
+  disable :show_exceptions, :dump_errors, :raise_errors
 
   get '/' do
     send_file settings.public_folder + '/index.html'
@@ -28,55 +30,12 @@ class App < Sinatra::Base
   get '/js/:file.js' do
     content_type 'application/javascript'
     settings.assets["#{params[:file]}.js"]
-  end  
-
-  get '/api/products' do
-    redis = Redis.new
-    products = redis.hgetall('products')
-    products = products.map do |key, value|
-      result = JSON.parse(value, { :symbolize_names => true })
-      result[:objectId] = key
-      result
-    end
-
-    products.each do |product|
-      next unless product[:name]
-
-      slug = "#{sanitize_name product[:name]}_#{localize product[:qty]}_#{product[:unitOfMeasure]}_#{sanitize_name product[:brand]}"
-      file_name = "img/items/#{slug}.jpg"
-      product.delete :imageUrl
-      
-      if File.exist?("#{settings.public_folder}/#{file_name}")
-        product[:imageUrl] = '/' + file_name
-      else
-        puts "#{file_name} image file not found"
-      end
-
-      product[:slug] = slug
-    end
-
-    [
-      200, 
-      {
-        'Content-Type' => 'application/json'
-      }, [ products.to_json ] 
-    ]
   end
 
-  post '/api/products' do
-    IO.write('db/products.json', request.body.read)
-
-    { 'result' => 'Success' }.to_json
-  end
-
-private
-
-  def sanitize_name(str)
-    str = UnicodeUtils.downcase(str)
-    str.gsub(' ', '_')
-  end
-
-  def localize(str)
-    str.to_s.gsub('.', ',')    
+  error do
+    puts "Exception thrown: " + env['sinatra.error'].to_s
+    puts "Stack trace: "
+    puts env['sinatra.error'].backtrace
+    500
   end
 end

@@ -4,7 +4,7 @@ require 'guard/underscore-templates'
 guard 'rack' do
   watch('Gemfile.lock')
   watch('config.ru')
-  watch('app/server/app.rb')
+  watch(%r{app/server/.*\.rb})
 end
 
 guard 'underscore_templates',
