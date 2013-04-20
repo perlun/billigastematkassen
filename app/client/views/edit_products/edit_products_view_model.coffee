@@ -135,7 +135,6 @@ class App.Views.EditProducts.EditProductsViewModel
       columns: @gridColumns
       headers: [ @gridColumnHeaders ]
     )
-    console.log @
     grid.setColumnIds(@columnIds.join(','))
 
     data = {
