@@ -185,7 +185,8 @@ class App.Views.EditProducts.EditProductsViewModel
     @grid.addRow(@grid.uid(), [])
 
   deleteRow: ((obj) ->
-    @grid.deleteSelectedRows()
+    if confirm("Är det säkert att du vill ta bort '" + @grid.cells(@grid.getSelectedRowId(), 0).getValue() + "'?")
+      @grid.deleteSelectedRows()
   )
 
 class App.Views.EditProducts.EditProductsView
