@@ -16,7 +16,6 @@ function eXcell_combo(cell)
   {
     val = this.getValue();
     this.cell.innerHTML = "";
-    dhx_globalImgPath = "combo/img/";
     this.obj = new dhtmlXCombo(this.cell, "combo", this.cell.offsetWidth - 2);
     this.obj.DOMelem.style.border = "0";
     this.obj.DOMelem.style.height = "18px";
