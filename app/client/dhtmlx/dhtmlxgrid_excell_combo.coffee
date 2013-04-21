@@ -1,4 +1,7 @@
-# dhtmlxGrid v.1.4 build 70813 Standard Edition
+# Based on http://trac.reddes.bvsalud.org/projects/abcd/browser/tags/0.3-beta-linux/htdocs/php/dataentry/js/dhtml_grid/dhtmlXGrid_excell_combo.js?rev=78
+#
+# Original copyright:
+#   dhtmlxGrid v.1.4 build 70813 Standard Edition
 #   Copyright Scand LLC http://www.scbr.com
 #   This version of Software is free for using in GPL applications. For commercial use please contact info@scbr.com to obtain license 
 window.eXcell_combo = (cell) ->
