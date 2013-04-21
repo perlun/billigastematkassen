@@ -80,7 +80,6 @@ private
     %w(
       axet
       citymarket
-      lidl
       minimani
       prisma
     ).each do |price_field|

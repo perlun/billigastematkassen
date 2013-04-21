@@ -61,11 +61,6 @@ class App.Views.EditProducts.EditProductsViewModel
       type: 'ed'
     },
     {
-      label: 'Lidl'
-      width: 70
-      type: 'ed'
-    },
-    {
       label: 'Minimani'
       width: 70
       type: 'ed'
@@ -88,7 +83,6 @@ class App.Views.EditProducts.EditProductsViewModel
     '#rspan'
     '#rspan'
     '#rspan'
-    '#rspan'
   ]
 
   columnIds: [
@@ -100,7 +94,6 @@ class App.Views.EditProducts.EditProductsViewModel
     'productGroup'
     'prices.axet'
     'prices.citymarket'
-    'prices.lidl'
     'prices.minimani'
     'prices.prisma'
   ]
@@ -159,7 +152,6 @@ class App.Views.EditProducts.EditProductsViewModel
             item.productGroup
             item.prices?.axet
             item.prices?.citymarket
-            item.prices?.lidl
             item.prices?.minimani
             item.prices?.prisma
           ]
