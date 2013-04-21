@@ -56,7 +56,7 @@ class App.Views.EditProducts.EditProductsViewModel
       type: 'ed'
     },
     {
-      label: 'Citymarket'
+      label: 'Citymarket Stenhaga'
       width: 70
       type: 'ed'
     },
