@@ -38,12 +38,12 @@ class App.Views.EditProducts.EditProductsViewModel
     {
       label: 'Varumärke'
       width: 100
-      type: 'ed'
+      type: 'combo'
     },
     {
       label: 'Tillverkare'
       width: 70
-      type: 'ed'
+      type: 'combo'
     },
     {
       label: 'Produktgrupp'
