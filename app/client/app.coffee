@@ -17,7 +17,7 @@
 #= require assets/dhtmlx/dhtmlxgrid
 #= require assets/dhtmlx/dhtmlxgridcell
 #= require assets/dhtmlx/ext/dhtmlxgrid_filter
-#= require assets/dhtmlx/ext/dhtmlxgrid_excell_combo
+#= require dhtmlx/dhtmlxgrid_excell_combo
 
 #
 # Scripts used by our app itself.
