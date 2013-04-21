@@ -10,7 +10,7 @@ window.eXcell_combo = (cell) ->
     @grid = @cell.parentNode.grid
 
   @edit = ->
-    editValue = @getValue()
+    @oldValue = @getValue()
     values = @grid.collectValues(@cell.cellIndex)
     @cell.innerHTML = ''
 
@@ -30,9 +30,10 @@ window.eXcell_combo = (cell) ->
 
     for i in [0..values.length - 1]
       value = values[i]
-      @obj.addOption(i - 0, value)
+      continue if value == ''
+      @obj.addOption(value, value)
 
-    @obj.setComboText(editValue)
+    @obj.setComboText(@oldValue)
     @obj.DOMelem_input.focus()
 
   @getValue = (val) ->
@@ -41,14 +42,20 @@ window.eXcell_combo = (cell) ->
   @setValue = (val) ->
     @setCValue(val or '')
 
+  #
+  # @desc: return value to cell, closes editor
+  # @returns: if cell's value was changed (true) or not
+  # @type: private
+  #
   @detach = ->
     if not @obj.getComboText() or @obj.getComboText().toString()._dhx_trim() is ''
       @setCValue ''
     else
-      @setCValue @obj.getComboText(), @obj.getActualValue()
-    @cell._cval = @obj.getActualValue()
+      @setCValue @obj.getComboText()
+
     @obj.closeAll()
-    true
+
+    @oldValue != @obj.getActualValue()
 
   @
 
