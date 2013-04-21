@@ -1,6 +1,6 @@
-/*dhtmlxGrid v.1.4 build 70813 Standard Edition
-Copyright Scand LLC http://www.scbr.com
-This version of Software is free for using in GPL applications. For commercial use please contact info@scbr.com to obtain license*/
+/* dhtmlxGrid v.1.4 build 70813 Standard Edition
+   Copyright Scand LLC http://www.scbr.com
+   This version of Software is free for using in GPL applications. For commercial use please contact info@scbr.com to obtain license */
 function eXcell_combo(cell)
 {
   try
@@ -19,31 +19,38 @@ function eXcell_combo(cell)
     this.obj = new dhtmlXCombo(this.cell, "combo", this.cell.offsetWidth - 2);
     this.obj.DOMelem.style.border = "0";
     this.obj.DOMelem.style.height = "18px";
+
+    // loadingMode == null
     switch (this.cell.loadingMode)
     {
-    case "0":
-      var selfc = this;
-      this.obj.loadXML(this.cell._url, function ()
-      {
-        selfc.obj.setComboValue(val);
-      });
-      break;
-    case "1":
-      this.obj.enableFilteringMode(true, this.cell._url, true, true);
-      break;
-    case "2":
-      for (var i = 0; i < options.length; i++)
-      {
-        this.obj.addOption(i, options[i].firstChild.data);
-      }
-      break;
+      case "0":
+        var selfc = this;
+        this.obj.loadXML(this.cell._url, function ()
+        {
+          selfc.obj.setComboValue(val);
+        });
+        break;
+
+      case "1":
+        this.obj.enableFilteringMode(true, this.cell._url, true, true);
+        break;
+
+      case "2":
+        for (var i = 0; i < options.length; i++)
+        {
+          this.obj.addOption(i, options[i].firstChild.data);
+        }
+        break;
     }
+
     if (this.cell.loadingMode == "0") this.obj.setComboText("");
   };
+
   this.getValue = function (val)
   {
     return this.cell.innerHTML.toString();
   };
+
   this.setValue = function (val)
   {
     if (typeof (val) == "object")
@@ -90,6 +97,7 @@ function eXcell_combo(cell)
     }
     this.setCValue(val);
   };
+
   this.detach = function ()
   {
     if (!this.obj.getComboText() || this.obj.getComboText().toString()._dhx_trim() == "")
@@ -102,4 +110,5 @@ function eXcell_combo(cell)
     return true;
   };
 }
+
 eXcell_combo.prototype = new eXcell();
