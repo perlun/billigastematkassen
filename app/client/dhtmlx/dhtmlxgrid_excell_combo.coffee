@@ -19,10 +19,17 @@ window.eXcell_combo = (cell) ->
     @obj.DOMelem.style.border = '0'
     @obj.DOMelem.style.height = '18px'
     
+    @obj.DOMelem.onkeydown = (e) =>
+      if (e.keyCode < 30)
+        return @grid.doKey(
+          target: @cell
+          keyCode: e.keyCode,
+          shiftKey: e.shiftKey,
+          ctrlKey: e.ctrlKey
+        )
+
     for i in [0..values.length - 1]
       value = values[i]
-      #continue if value.indexOf('<div') != -1
-
       @obj.addOption(i - 0, value)
 
     @obj.setComboText(editValue)
@@ -32,16 +39,7 @@ window.eXcell_combo = (cell) ->
     @cell.innerHTML.toString()
 
   @setValue = (val) ->
-    if typeof (val) is 'object'
-      switch val.type
-        when 1
-          @cell.loadingMode = '1'
-          @cell._url = val.url
-        else
-          @cell.loadingMode = '0'
-          @cell._url = val.url
-      val = val.value or ''
-    @setCValue val
+    @setCValue(val or '')
 
   @detach = ->
     if not @obj.getComboText() or @obj.getComboText().toString()._dhx_trim() is ''
