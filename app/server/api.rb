@@ -62,24 +62,12 @@ private
     product_data = redis.hget('products', source_id)
     product = (parse_json(product_data) if product_data) || {}
 
-    %w(
-      name
-      qty
-      unitOfMeasure
-      brand
-      manufacturer
-      productGroup
-     ).each do |field|
+    %w(name qty unitOfMeasure brand manufacturer productGroup).each do |field|
       product[field.to_sym] = params[field]
     end
 
     product[:prices] ||= {}
-    %w(
-      axet
-      citymarket
-      minimani
-      prisma
-    ).each do |price_field|
+    %w(axet citymarket minimani prisma).each do |price_field|
       price = params['prices.' + price_field]
       price = price.sub(',', '.')   # Handle comma as decimal separator
 
