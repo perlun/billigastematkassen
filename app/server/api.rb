@@ -4,19 +4,14 @@ require 'redis'
 require 'unicode_utils/downcase'
 
 class App < Sinatra::Base
-  def initialize
-    super
-
-    @redis = Redis.new
-  end
-
   get '/api/products' do get_products end
   post '/api/product' do post_product(request) end
 
 private
 
   def get_products
-    products = @redis.hgetall('products')
+    redis = Redis.new
+    products = redis.hgetall('products')
     products = products.map do |key, value|
       result = parse_json(value)
       result[:objectId] = key
@@ -35,6 +30,8 @@ private
   end
 
   def post_product(request)
+    redis = Redis.new
+
     # The code below is written to work with dhtmlxDataProcessor, http://docs.dhtmlx.com/doku.php?id=dhtmlxgrid:dataprocessor
     mode = request.params['!nativeeditor_status']
     source_id = request.params['gr_id']
@@ -46,10 +43,10 @@ private
       action = 'insert'
     elsif mode == 'deleted'
       target_id = source_id
-      @redis.hdel('products', target_id)
+      redis.hdel('products', target_id)
       action = 'delete'
     elsif mode == 'updated'
-      update_product(source_id, request.params)
+      update_product(redis, source_id, request.params)
       target_id = source_id
       action = 'update'
     end
@@ -61,8 +58,8 @@ private
       </data>"
   end
 
-  def update_product(source_id, params)
-    product_data = @redis.hget('products', source_id)
+  def update_product(redis, source_id, params)
+    product_data = redis.hget('products', source_id)
     product = (parse_json(product_data) if product_data) || {}
 
     %w(
@@ -96,7 +93,7 @@ private
     end
 
     target_id = source_id
-    @redis.hset('products', target_id, product.to_json)
+    redis.hset('products', target_id, product.to_json)
   end
 
   def add_extra_data(product)
