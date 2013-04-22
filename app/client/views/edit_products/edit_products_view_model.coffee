@@ -32,8 +32,8 @@ class App.Views.EditProducts.EditProductsViewModel
     },
     {
       label: '#cspan'
-      width: 25
-      type: 'ed'
+      width: 50
+      type: 'combo'
     },
     {
       label: 'Varumärke'
@@ -48,7 +48,7 @@ class App.Views.EditProducts.EditProductsViewModel
     {
       label: 'Produktgrupp'
       width: 120
-      type: 'edtxt'
+      type: 'combo'
     },
     {
       label: 'Axet'
