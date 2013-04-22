@@ -22,12 +22,12 @@ class App.Views.EditProducts.EditProductsViewModel
     {
       label: 'Artikel'
       width: 150
-      type: 'ed'
+      type: 'edtxt'
     },
     {
       label: 'Vikt/volym'
       width: 70
-      type: 'ed'
+      type: 'edtxt'
       align: 'right'
     },
     {
