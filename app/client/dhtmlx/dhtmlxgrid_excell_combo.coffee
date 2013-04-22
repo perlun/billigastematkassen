@@ -30,7 +30,7 @@ window.eXcell_combo = (cell) ->
 
     for i in [0..values.length - 1]
       value = values[i]
-      continue if value == ''
+      continue unless value?.length
       @obj.addOption(value, value)
 
     @obj.setComboText(@oldValue)
