@@ -127,7 +127,7 @@ class App.Views.EditProducts.EditProductsViewModel
     )
     @grid.setColumnIds(@columnIds.join(','))
     @grid.attachEvent('onSelectStateChanged', (id) ->
-      $('#deleteRowButton').removeAttr('disabled')
+      $('.deleteRowButton').removeAttr('disabled')
     )
     @grid.enableAutoHeight(true)
 

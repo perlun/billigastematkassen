@@ -5,19 +5,30 @@
 <div id="spinnerContent" style="min-height: 300px; display: none;">
 </div>
 
-<div id="productsGrid" style="width: 800px; height: 500px;"></div>
+<div style="margin-bottom: 12px;">
+  <input type="button"
+         class="btn"
+         data-command="addNewRow"
+         value="Ny rad" />
+  <input type="button"
+         class="btn deleteRowButton"
+         data-command="deleteRow"
+         value="Ta bort rad"
+         style="margin-left: 12px;"
+         disabled="true" />
+</div>
 
-<form id="productRowsContainer">
-</form>
+<div id="productsGrid" style="width: 800px;"></div>
 
-<input type="button"
-       class="btn"
-       data-command="addNewRow"
-       value="Ny rad" />
-<input id="deleteRowButton"
-       type="button"
-       class="btn"
-       data-command="deleteRow"
-       value="Ta bort rad"
-       style="margin-left: 12px;"
-       disabled="true" />
+<div style="margin-top: 12px;">
+  <input type="button"
+         class="btn"
+         data-command="addNewRow"
+         value="Ny rad" />
+  <input type="button"
+         class="btn deleteRowButton"
+         data-command="deleteRow"
+         value="Ta bort rad"
+         style="margin-left: 12px;"
+         disabled="true" />
+</div>
