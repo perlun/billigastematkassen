@@ -37,9 +37,9 @@ class App.Views.ListProducts.ListProductsViewModel
     html = App.RenderTemplate('views/list_products/list_products_rows_view', this)
     $('#productRowsContainer').html(html).show()
 
-  showProductGroup: (tabSlug) ->
+  showProductGroup: (groupSlug) ->
     groupDescription = _.find(@globalData.productGroups, (g) ->
-      g.tabSlug == tabSlug
+      g.slug == groupSlug
     )?.description
 
     @showOnlyProductsInGroup groupDescription
