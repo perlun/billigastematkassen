@@ -8,12 +8,11 @@
 <ul class="nav nav-tabs">
   <% _.each(dataContext.globalData.productGroups, function(group) { %>
   <li>
-    <a href="<%= group.tabSlug %>" data-toggle="tab"><%= group.description %></a>
+    <a href="#<%= group.tabSlug %>" data-toggle="tab"><%= group.description %></a>
   </li>
   <% }); %>
 </ul>
 
-<!-- FIXME: Wait with rendering this until we are ready with our Ajax request. -->
 <div id="productRowsContainer" style="min-height: 300px;">
 </div>
 

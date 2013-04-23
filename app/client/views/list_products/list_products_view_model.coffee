@@ -58,7 +58,7 @@ class App.Views.ListProducts.ListProductsView
 
     $('a[data-toggle="tab"]').on('show', (e) =>
       anchor = $.url(e.target.href).attr('anchor')
-      @dataContext.showProductGroup('#' + anchor)
+      @dataContext.showProductGroup(anchor)
     )
 
     # Slightly ugly, but... :)
