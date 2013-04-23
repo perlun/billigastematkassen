@@ -7,7 +7,6 @@
 #= require js/underscore-min
 #= require js/spin.min
 #= require js/jquery.spin
-#= require js/rivets
 #
 # dhtmlx grid stuff
 #
