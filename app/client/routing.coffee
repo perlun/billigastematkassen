@@ -1,6 +1,8 @@
 #= require views/main/main_view_model
 #= require views/list_products/list_products_view_model
 #= require views/edit_products/edit_products_view_model
+#
+# TODO: not yet working
 # require views/product_details/product_details_view_model
 
 App = window.App
@@ -25,4 +27,25 @@ handleHashChange = () ->
     location.hash = '#/produkter'
 
 window.onhashchange = handleHashChange
-handleHashChange()
+
+App.Spinner.startSpinning('content')
+
+$.ajax(
+  type: 'GET'
+  cache: false
+  url: '/api/productGroups'
+  
+  success: (result) ->
+    App.GlobalData.productGroups = eval result
+
+    App.Spinner.stopSpinning('content')
+    $('#content').show()
+
+    handleHashChange()
+  
+  failure: (errMsg) =>
+    App.Spinner.stopSpinning('content')
+    alert('Applikationen kunde inte startas.')
+)
+
+
