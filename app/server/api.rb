@@ -1,13 +1,31 @@
+# coding: utf-8
+
 require 'bson'
 require 'json'
 require 'redis'
 require 'unicode_utils/downcase'
 
 class App < Sinatra::Base
-  get '/api/products' do get_products end
+  get '/api/productGroups' do get_product_groups end
+  get '/api/products' do return_json(get_products.to_json) end
   post '/api/product' do post_product(request) end
 
 private
+
+  def get_product_groups
+    products = get_products
+    product_groups = products
+                        .map { |p| p[:productGroup] }
+                        .uniq
+                        .map do |name|
+                          {
+                            'description' => name,
+                            'slug' => slugify(name)
+                          }
+                        end
+
+    product_groups.to_json
+  end
 
   def get_products
     redis = Redis.new
@@ -26,7 +44,7 @@ private
       key = UnicodeUtils.downcase(product[:name] + '_' + product[:brand])
     end
 
-    return_json products.to_json
+     products
   end
 
   def post_product(request)
@@ -135,5 +153,12 @@ private
         xml.strip
       ]
     ]
+  end
+
+  def slugify(str)
+    str = str.gsub(/ /, '_')
+    str = str.gsub(/&/, 'och')
+    str = str.tr('åäö', 'aao')
+    str.downcase
   end
 end
