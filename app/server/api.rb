@@ -17,6 +17,7 @@ private
     product_groups = products
                         .map { |p| p[:productGroup] }
                         .uniq
+                        .sort
                         .map do |name|
                           {
                             'description' => name,
