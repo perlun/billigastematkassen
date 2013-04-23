@@ -27,7 +27,7 @@ class App.Views.ListProducts.ListProductsViewModel
         )
 
         @allItems = items
-        @showOnlyProductsInGroup _.first(@globalData.productGroups).description
+        @showOnlyProductsInGroup _.first(@globalData.productGroups).name
 
         App.Spinner.stopSpinning('productRowsContainer')
         @renderProductRows()
@@ -38,16 +38,16 @@ class App.Views.ListProducts.ListProductsViewModel
     $('#productRowsContainer').html(html).show()
 
   showProductGroup: (groupSlug) ->
-    groupDescription = _.find(@globalData.productGroups, (g) ->
+    groupName = _.find(@globalData.productGroups, (g) ->
       g.slug == groupSlug
-    )?.description
+    )?.name
 
-    @showOnlyProductsInGroup groupDescription
+    @showOnlyProductsInGroup groupName
     @renderProductRows()
 
-  showOnlyProductsInGroup: (groupDescription) ->
+  showOnlyProductsInGroup: (groupName) ->
     @filteredItems = _.select(@allItems, (i) ->
-      i.productGroup == groupDescription
+      i.productGroup == groupName
     )
 
 class App.Views.ListProducts.ListProductsView
