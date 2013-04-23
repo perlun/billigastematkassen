@@ -98,21 +98,24 @@ class App.Views.EditProducts.EditProductsViewModel
     'prices.prisma'
   ]
 
-  refresh: () ->
+  showProductGroup: (group) ->
+    $('#nonSpinnerContent').hide()
     App.Spinner.startSpinning('spinnerContent')
 
     $.ajax(
       type: 'GET'
       cache: false
-      url: '/api/products'
+      url: "/api/products/#{group}"
       
       success: (result) =>
         items = eval result
 
         App.Spinner.stopSpinning('spinnerContent')
         @renderProductRows(items)
+        $('#nonSpinnerContent').show()
       
       failure: (errMsg) =>
+        $('#nonSpinnerContent').show()
     )
 
   renderProductRows: (items) ->
@@ -190,4 +193,10 @@ class App.Views.EditProducts.EditProductsView
   templateName: 'views/edit_products/edit_products_view'
 
   didInsertElement: () ->
-    @dataContext.refresh()
+    $('a[data-toggle="tab"]').on('show', (e) =>
+      anchor = $.url(e.target.href).attr('anchor')
+      @dataContext.showProductGroup(anchor)
+    )
+
+    # Slightly ugly, but... :)
+    $('a[data-toggle="tab"]').first().click()

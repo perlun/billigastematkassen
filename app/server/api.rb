@@ -6,8 +6,18 @@ require 'redis'
 require 'unicode_utils/downcase'
 
 class App < Sinatra::Base
-  get '/api/productGroups' do get_product_groups end
-  get '/api/products' do return_json(get_products.to_json) end
+  get '/api/productGroups' do
+    return_json(get_product_groups.to_json)
+  end
+  
+  get '/api/products' do
+    return_json(get_products.to_json)
+  end
+
+  get '/api/products/:product_group' do
+    return_json(get_products(params[:product_group]).to_json) 
+  end
+
   post '/api/product' do post_product(request) end
 
 private
@@ -20,22 +30,25 @@ private
                         .sort
                         .map do |name|
                           {
-                            'description' => name,
+                            'name' => name,
                             'slug' => slugify(name)
                           }
                         end
 
-    product_groups.to_json
+    product_groups
   end
 
-  def get_products
+  def get_products(product_group = nil)
     redis = Redis.new
     products = redis.hgetall('products')
+
     products = products.map do |key, value|
-      result = parse_json(value)
-      result[:objectId] = key
-      result
+      product = parse_json(value)
+      product[:objectId] = key
+      product
     end
+
+    products = products.select { |product| slugify(product[:productGroup]) == product_group } if product_group
 
     products.each do |product|
       add_extra_data(product)
