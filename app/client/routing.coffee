@@ -34,7 +34,7 @@ $.ajax(
   type: 'GET'
   cache: false
   url: '/api/productGroups'
-  
+
   success: (result) ->
     App.GlobalData.productGroups = eval result
 
@@ -42,10 +42,14 @@ $.ajax(
     $('#content').show()
 
     handleHashChange()
-  
-  failure: (errMsg) =>
-    App.Spinner.stopSpinning('content')
-    alert('Applikationen kunde inte startas.')
+).fail(() ->
+  App.Spinner.stopSpinning('content')
+  $('#content')
+      .html(
+        '<div class="alert alert-error">' +
+        '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
+        '<h2>Fel</h2>' +
+        'Applikationen kunde inte startas.</div>'
+      )
+      .show()
 )
-
-
