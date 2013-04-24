@@ -24,7 +24,7 @@
       </ul>
     </div>
     <div class="span10">
-      <div id="content"/>
+      <div id="content" style="min-height: 300px;"/>
     </div>
   </div>
   <hr/>
