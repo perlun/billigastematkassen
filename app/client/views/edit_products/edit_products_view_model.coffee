@@ -134,6 +134,7 @@ class App.Views.EditProducts.EditProductsViewModel
     @grid.attachEvent('onAfterRowDeleted', (id, pid) ->
       $('.deleteRowButton').attr('disabled', 'true')
     )
+    @grid.enableAutoWidth(true)
     @grid.enableAutoHeight(true)
 
     processor = new dataProcessor('api/product')
