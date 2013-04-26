@@ -12,6 +12,7 @@ class App.Views.Basket.BasketViewModel
       width: 150
       type: 'ro'
     },
+    # TODO: handle changes and propagate them back to the basket.
     {
       label: 'Antal'
       width: 50
@@ -110,6 +111,8 @@ class App.Views.Basket.BasketViewModel
     )
 
   renderProductRows: (items) ->
+    @setupEventHandlers()
+
     @grid = new dhtmlXGridObject(
       parent: 'basketGrid'
       image_path: 'assets/dhtmlx/imgs/'
@@ -121,8 +124,11 @@ class App.Views.Basket.BasketViewModel
     @grid.attachEvent('onSelectStateChanged', (id) ->
       $('.deleteRowButton').removeAttr('disabled')
     )
-    @grid.attachEvent('onAfterRowDeleted', (id, pid) ->
+    @grid.attachEvent('onAfterRowDeleted', (id, parentId) ->
       $('.deleteRowButton').attr('disabled', 'true')
+    )
+    @grid.attachEvent('onEnter', (id, cellIndex) =>
+      @grid.selectCell(@grid.getRowIndex(id), 1, false, false, true)
     )
     @grid.enableAutoWidth(true)
     @grid.enableAutoHeight(true)
@@ -165,8 +171,8 @@ class App.Views.Basket.BasketViewModel
     )
 
   deleteRow: ((obj) ->
-    if confirm("Är det säkert att du vill ta bort '" + @grid.cells(@grid.getSelectedRowId(), 0).getValue() + "'?")
-      @grid.deleteSelectedRows()
+    # TODO: delete from basket also.
+    @grid.deleteSelectedRows()
 
     @globalData.updateItemCount()
   )
