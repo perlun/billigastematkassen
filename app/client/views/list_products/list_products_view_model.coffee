@@ -68,10 +68,7 @@ class App.Views.ListProducts.ListProductsViewModel
     @globalData.basketItems[itemId] ||= 0
     @globalData.basketItems[itemId]++
 
-    value = _.reduce(@globalData.basketItems, ((memo, num) ->
-      memo + num
-    ), 0)
-    $('#itemCount').html(value)
+    @globalData.updateItemCount()
     false
 
 class App.Views.ListProducts.ListProductsView

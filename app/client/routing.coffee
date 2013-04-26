@@ -1,6 +1,7 @@
 #= require views/main/main_view_model
-#= require views/list_products/list_products_view_model
+#= require views/basket/basket_view_model
 #= require views/edit_products/edit_products_view_model
+#= require views/list_products/list_products_view_model
 #
 # TODO: not yet working
 # require views/product_details/product_details_view_model
@@ -20,6 +21,12 @@ handleHashChange = () ->
   else if location.hash == '#/redigera'
     viewModel = new App.Views.EditProducts.EditProductsViewModel
     view = new App.Views.EditProducts.EditProductsView
+    view.dataContext = viewModel
+
+    App.Activate(view, viewModel)
+  else if location.hash == '#/varukorg'
+    viewModel = new App.Views.Basket.BasketViewModel
+    view = new App.Views.Basket.BasketView    
     view.dataContext = viewModel
 
     App.Activate(view, viewModel)
