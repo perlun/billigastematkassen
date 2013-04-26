@@ -1,7 +1,6 @@
 #= require ./edit_products_view
 
 App = window.App
-
 App.Views.EditProducts = {}
 
 class App.Views.EditProducts.EditProductsViewModel

@@ -1,4 +1,9 @@
-﻿window.App.GlobalData =  GlobalData = {}
+﻿window.App.GlobalData =  GlobalData =
+  productGroups: []
+  basketItems: {}
 
-GlobalData.productGroups = []
-GlobalData.basketItems = {}
+  updateItemCount: () ->
+    value = _.reduce(@basketItems, ((memo, num) ->
+      memo + num
+    ), 0)
+    $('#itemCount').html(value)
