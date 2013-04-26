@@ -2,7 +2,7 @@
   <% _.each(dataContext.filteredItems, function(item) { %>
   <li class="span2">
     <div class="thumbnail" style="height: 240px;">
-      <div style="position: relative; top: 220px; text-align: right;"><a href="#" onclick="javascript: console.log('<%= item.objectId %>'); return false;">Köp</a></div>
+      <div style="position: relative; top: 220px; text-align: right;"><a href="#" data-command="addToBasket" data-itemId="<%= item.objectId %>">Köp</a></div>
 
       <% if (item.imageUrl) { %>
       <div class="thumbnailImageContainer">

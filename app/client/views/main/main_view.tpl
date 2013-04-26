@@ -21,6 +21,10 @@
         <li>
           <a href="#/redigera">Redigera</a>
         </li>
+        <li>
+          <a href="#/varukorg">Varukorg</a>
+          (<span id="itemCount">0</span> artiklar)
+        </li>
       </ul>
     </div>
     <div class="span10">
