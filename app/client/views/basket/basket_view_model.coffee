@@ -1,10 +1,12 @@
 #= require ./basket_view
+#= require ./basket_rows_view
 
 App = window.App
 App.Views.Basket = {}
 
 class App.Views.Basket.BasketViewModel
   globalData: App.GlobalData
+  items: []
 
   gridColumns: [
     {
@@ -82,7 +84,7 @@ class App.Views.Basket.BasketViewModel
 
   refresh: () ->
     $('#nonSpinnerContent').hide()
-    App.Spinner.startSpinning('spinnerContent')
+    App.Spinner.startSpinning('productRowsContainer')
 
     $.ajax(
       type: 'GET'
@@ -92,7 +94,7 @@ class App.Views.Basket.BasketViewModel
       success: (result) =>
         items = eval result
 
-        items = _.chain(items)
+        @items = _.chain(items)
                     .select((item) =>
                       @globalData.basketItems[item.objectId]?
                     )
@@ -102,61 +104,29 @@ class App.Views.Basket.BasketViewModel
                     )
                     .value()
 
-        App.Spinner.stopSpinning('spinnerContent')
-        @renderProductRows(items)
-        $('#nonSpinnerContent').show()
+        App.Spinner.stopSpinning('productRowsContainer')
+        @renderProductRows()
+        $('#productRowsContainer').show()
       
       failure: (errMsg) =>
-        $('#nonSpinnerContent').show()
+        $('#productRowsContainer').show()
     )
 
-  renderProductRows: (items) ->
+  renderProductRows: () ->
     @setupEventHandlers()
 
-    @grid = new dhtmlXGridObject(
-      parent: 'basketGrid'
-      image_path: 'assets/dhtmlx/imgs/'
-      skin: 'dhx_skyblue'
-      columns: @gridColumns
-      headers: [ @gridColumnHeaders ]
-    )
-    @grid.setColumnIds(@columnIds.join(','))
-    @grid.attachEvent('onSelectStateChanged', (id) ->
-      $('.deleteRowButton').removeAttr('disabled')
-    )
-    @grid.attachEvent('onAfterRowDeleted', (id, parentId) ->
-      $('.deleteRowButton').attr('disabled', 'true')
-    )
-    @grid.attachEvent('onEnter', (id, cellIndex) =>
-      @grid.selectCell(@grid.getRowIndex(id), 1, false, false, true)
-    )
-    @grid.enableAutoWidth(true)
-    @grid.enableAutoHeight(true)
+    #@grid.attachEvent('onSelectStateChanged', (id) ->
+    #  $('.deleteRowButton').removeAttr('disabled')
+    #)
+    #@grid.attachEvent('onAfterRowDeleted', (id, parentId) ->
+    #  $('.deleteRowButton').attr('disabled', 'true')
+    #)
+    #@grid.attachEvent('onEnter', (id, cellIndex) =>
+    #  @grid.selectCell(@grid.getRowIndex(id), 1, false, false, true)
+    #)
 
-    @loadData(items)
-
-  loadData: (items) ->
-    # The dhtmlxGrid requires the data to follow a certain form, so we map it to that here.
-    data = {
-      rows: _.map(items, (item) ->
-        {
-          id: item.objectId
-          data: [
-            "#{item.name} (#{item.qty} #{item.unitOfMeasure})"
-            item.count          # The qty we are buying.
-            item.brand
-            item.manufacturer
-            item.productGroup
-            item.prices?.axet
-            item.prices?.citymarket
-            item.prices?.minimani
-            item.prices?.prisma
-          ]
-        }
-      )
-    }
-
-    @grid.parse(data, 'json')
+    html = App.RenderTemplate('views/basket/basket_rows_view', this)
+    $('#productRowsContainer').html(html).show()
 
   setupEventHandlers: () ->
     viewModel = @
