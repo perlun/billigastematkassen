@@ -21,14 +21,23 @@
       <td><%= item.manufacturer %></td>
       <td><%= item.productGroup %></td>
       <% if (item.prices !== undefined) { %>
-      <td><%= item.prices.axet %></td>
-      <td><%= item.prices.citymarket %></td>
-      <td><%= item.prices.minimani %></td>
-      <td><%= item.prices.prisma %></td>
+      <td class="price"><%= item.prices.axet %></td>
+      <td class="price"><%= item.prices.citymarket %></td>
+      <td class="price"><%= item.prices.minimani %></td>
+      <td class="price"><%= item.prices.prisma %></td>
       <% } else { %>
       <td colspan="4">&nbsp;</td>
       <% } %>
     </tr>
     <% }); %>
   </tbody>
+  <tfoot>
+    <tr>
+      <th colspan="5"></td>
+      <th id="axetPricesSum" class="price"></td>
+      <th id="citymarketPricesSum" class="price"></td>
+      <th id="minimaniPricesSum" class="price"></td>
+      <th id="prismaPricesSum" class="price"></td>
+    </tr>
+  </tfoot>
 </table>

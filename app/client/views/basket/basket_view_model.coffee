@@ -25,6 +25,8 @@ class App.Views.Basket.BasketViewModel
         App.Spinner.stopSpinning('productRowsContainer')
         @renderProductRows()
         $('#productRowsContainer').show()
+
+        @updateSummaries()
       
       failure: (errMsg) =>
         $('#productRowsContainer').show()
@@ -33,14 +35,12 @@ class App.Views.Basket.BasketViewModel
   renderProductRows: () ->
     @setupEventHandlers()
 
+    # TODO: implement delete functionality.
     #@grid.attachEvent('onSelectStateChanged', (id) ->
     #  $('.deleteRowButton').removeAttr('disabled')
     #)
     #@grid.attachEvent('onAfterRowDeleted', (id, parentId) ->
     #  $('.deleteRowButton').attr('disabled', 'true')
-    #)
-    #@grid.attachEvent('onEnter', (id, cellIndex) =>
-    #  @grid.selectCell(@grid.getRowIndex(id), 1, false, false, true)
     #)
 
     html = App.RenderTemplate('views/basket/basket_rows_view', this)
@@ -56,6 +56,28 @@ class App.Views.Basket.BasketViewModel
         viewModel[commandHandler](obj)
         false
       )
+    )
+
+  updateSummaries: () ->
+    $('#axetPricesSum').text(
+      _.reduce(@items, ((memo, item) ->
+        memo + (item.prices?.axet || 0) * item.count
+      ), 0)
+    )
+    $('#citymarketPricesSum').text(
+      _.reduce(@items, ((memo, item) ->
+        memo + (item.prices?.citymarket || 0) * item.count
+      ), 0)
+    )
+    $('#minimaniPricesSum').text(
+      _.reduce(@items, ((memo, item) ->
+        memo + (item.prices?.minimani || 0) * item.count
+      ), 0)
+    )
+    $('#prismaPricesSum').text(
+      _.reduce(@items, ((memo, item) ->
+        memo + (item.prices?.prisma || 0) * item.count
+      ), 0)
     )
 
   deleteRow: ((obj) ->

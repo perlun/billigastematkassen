@@ -31,6 +31,10 @@ input[type=number]::-webkit-outer-spin-button {
     width: 110px;
 }
 
+td.price, th.price {
+    text-align: right;
+}
+
 .thumbnailImageContainer {
     height: 150px;
     margin-bottom: 0px;
