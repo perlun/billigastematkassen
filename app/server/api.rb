@@ -153,7 +153,7 @@ private
     redis = Redis.new
 
     request.body.rewind
-    redis.hset('baskets', env['REMOTE_ADDR'], prequest.body.read)
+    redis.hset('baskets', env['REMOTE_ADDR'], request.body.read)
   end
 
   def parse_json(str)

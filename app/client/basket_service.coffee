@@ -42,15 +42,14 @@ App.BasketService =
     @basketItems[itemId] ||= 0
     @basketItems[itemId]++
 
-    $.ajax(
-      type: 'PUT'
-      url: '/api/basket'
-      contentType: 'application/json'
-      data: JSON.stringify(@basketItems)
+    @saveBasket()
 
-      error: (result) ->
-        alert("Det gick inte att spara varukorgen. Felmeddelande: #{result.status} #{result.statusText}")
-    )
+    @updateItemCount()
+
+  updateCount: (itemId, count) ->
+    @basketItems[itemId] = count
+
+    @saveBasket()
 
     @updateItemCount()
 
@@ -60,3 +59,14 @@ App.BasketService =
     ), 0)
     $('#itemCount').html(value)
     $('#itemCountContainer').show()
+
+  saveBasket: () ->
+    $.ajax(
+      type: 'PUT'
+      url: '/api/basket'
+      contentType: 'application/json'
+      data: JSON.stringify(@basketItems)
+
+      error: (result) ->
+        alert("Det gick inte att spara varukorgen. Felmeddelande: #{result.status} #{result.statusText}")
+    )

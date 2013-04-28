@@ -33,8 +33,6 @@ class App.Views.Basket.BasketViewModel
     )
 
   renderProductRows: () ->
-    @setupEventHandlers()
-
     # TODO: implement delete functionality.
     #@grid.attachEvent('onSelectStateChanged', (id) ->
     #  $('.deleteRowButton').removeAttr('disabled')
@@ -45,6 +43,9 @@ class App.Views.Basket.BasketViewModel
 
     html = App.RenderTemplate('views/basket/basket_rows_view', this)
     $('#productRowsContainer').html(html).show()
+
+    # Must come after the DOM has been fully set up.
+    @setupEventHandlers()
 
   setupEventHandlers: () ->
     viewModel = @
@@ -58,36 +59,51 @@ class App.Views.Basket.BasketViewModel
       )
     )
 
+    viewModel = @
+    $('[data-count]').each(() ->
+      obj = $(this)
+      obj.change(() ->
+        count = parseInt(obj.val(), 10)
+        return if isNaN(count)
+
+        itemId = obj.parents('tr').attr('data-itemId')
+        App.BasketService.updateCount(itemId, count)
+
+        item = _.find(viewModel.items, (item) -> item.objectId == itemId)
+        item.count = count
+        viewModel.updateSummaries()
+      )
+    )
+
   updateSummaries: () ->
     prices = {}
     prices.axet = _.reduce(@items, ((memo, item) ->
         memo + (item.prices?.axet || 0) * item.count
-      ), 0)
+      ), 0).toFixed(2)
     prices.citymarket = _.reduce(@items, ((memo, item) ->
         memo + (item.prices?.citymarket || 0) * item.count
-      ), 0)
+      ), 0).toFixed(2)
     prices.minimani = _.reduce(@items, ((memo, item) ->
         memo + (item.prices?.minimani || 0) * item.count
-      ), 0)
+      ), 0).toFixed(2)
     prices.prisma = _.reduce(@items, ((memo, item) ->
         memo + (item.prices?.prisma || 0) * item.count
-      ), 0)
+      ), 0).toFixed(2)
 
     lowestPriceType = App.BasketService.getLowestPriceType(prices)
-    console.log lowestPriceType
 
     $('#axetPricesSum')
         .text(prices.axet)
-        .attr('class', if lowestPriceType == 'axet' then 'lowestPrice' else '')
+        .attr('class', if lowestPriceType == 'axet' then 'price lowestPrice' else 'price')
     $('#citymarketPricesSum')
         .text(prices.citymarket)
-        .attr('class', if lowestPriceType == 'citymarket' then 'lowestPrice' else '')
+        .attr('class', if lowestPriceType == 'citymarket' then 'price lowestPrice' else 'price')
     $('#minimaniPricesSum')
         .text(prices.minimani)
-        .attr('class', if lowestPriceType == 'minimani' then 'lowestPrice' else '')
+        .attr('class', if lowestPriceType == 'minimani' then 'price lowestPrice' else 'price')
     $('#prismaPricesSum')
         .text(prices.prisma)
-        .attr('class', if lowestPriceType == 'prisma' then 'lowestPrice' else '')
+        .attr('class', if lowestPriceType == 'prisma' then 'price lowestPrice' else 'price')
 
   deleteRow: ((obj) ->
     # TODO: delete from basket also.

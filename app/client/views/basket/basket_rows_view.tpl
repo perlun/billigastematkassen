@@ -14,9 +14,9 @@
   </thead>
   <tbody>
     <% _.each(dataContext.items, function(item) { %>
-    <tr data-itemId="<%= item.itemId %>">
+    <tr data-itemId="<%= item.objectId %>">
       <td><%= item.name %> (<%= item.qty %> <%= item.unitOfMeasure %>)</td>
-      <td><input type="text" value="<%= item.count %>" class="editQty" /></td>
+      <td><input type="text" value="<%= item.count %>" class="editQty" data-count="true" /></td>
       <td><%= item.brand %></td>
       <td><%= item.manufacturer %></td>
       <td><%= item.productGroup %></td>
