@@ -7,8 +7,12 @@ require 'unicode_utils/downcase'
 
 class App < Sinatra::Base
   get '/api/basket' do
-    # TODO: implement
-    return_json('[]')
+    return_json get_basket(request, env)
+  end
+
+  put '/api/basket' do
+    save_basket(request, env)
+    return_json '"Success"'
   end
 
   get '/api/productGroups' do
@@ -23,7 +27,9 @@ class App < Sinatra::Base
     return_json(get_products(params[:product_group]).to_json) 
   end
 
-  post '/api/product' do post_product(request) end
+  post '/api/product' do
+    post_product(request)
+  end
 
 private
 
@@ -56,7 +62,7 @@ private
     products = products.select { |product| slugify(product[:productGroup]) == product_group } if product_group
 
     products.each do |product|
-      add_extra_data(product)
+      add_extra_product_data(product)
     end
 
     products = products.sort_by do |product|
@@ -121,7 +127,7 @@ private
     redis.hset('products', target_id, product.to_json)
   end
 
-  def add_extra_data(product)
+  def add_extra_product_data(product)
     return unless product[:name]
 
     slug = "#{sanitize_name product[:name]}_#{localize product[:qty]}_#{product[:unitOfMeasure]}_#{sanitize_name product[:brand]}"
@@ -135,6 +141,19 @@ private
     end
 
     product[:slug] = slug
+  end
+
+  def get_basket(request, env)
+    redis = Redis.new
+
+    redis.hget('baskets', env['REMOTE_ADDR']) || '{}'
+  end
+
+  def save_basket(request, env)
+    redis = Redis.new
+
+    request.body.rewind
+    redis.hset('baskets', env['REMOTE_ADDR'], prequest.body.read)
   end
 
   def parse_json(str)

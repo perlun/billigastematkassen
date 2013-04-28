@@ -23,7 +23,7 @@
         </li>
         <li>
           <a href="#/varukorg">Varukorg</a>
-          (<span id="itemCount">0</span> artiklar)
+          <span id="itemCountContainer" style="display: none;">(<span id="itemCount">0</span> artiklar)</span>
         </li>
       </ul>
     </div>

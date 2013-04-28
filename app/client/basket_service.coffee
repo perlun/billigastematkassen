@@ -11,6 +11,10 @@ App.BasketService =
       dataType: 'json'
     )
 
+  getBasketCompleted: (items) ->
+    @basketItems = items
+    @updateItemCount()
+
   mergeBasketItemsWithProducts: (products) ->
     _.chain(products)
         .select((product) =>
@@ -26,7 +30,15 @@ App.BasketService =
     @basketItems[itemId] ||= 0
     @basketItems[itemId]++
 
-    # TODO: Serialize and send to server.
+    $.ajax(
+      type: 'PUT'
+      url: '/api/basket'
+      contentType: 'application/json'
+      data: JSON.stringify(@basketItems)
+
+      error: (result) ->
+        alert("Det gick inte att spara varukorgen. Felmeddelande: #{result.status} #{result.statusText}")
+    )
 
     @updateItemCount()
 
@@ -35,3 +47,4 @@ App.BasketService =
       memo + num
     ), 0)
     $('#itemCount').html(value)
+    $('#itemCountContainer').show()
