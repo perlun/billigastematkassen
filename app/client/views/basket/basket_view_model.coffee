@@ -59,26 +59,35 @@ class App.Views.Basket.BasketViewModel
     )
 
   updateSummaries: () ->
-    $('#axetPricesSum').text(
-      _.reduce(@items, ((memo, item) ->
+    prices = {}
+    prices.axet = _.reduce(@items, ((memo, item) ->
         memo + (item.prices?.axet || 0) * item.count
       ), 0)
-    )
-    $('#citymarketPricesSum').text(
-      _.reduce(@items, ((memo, item) ->
+    prices.citymarket = _.reduce(@items, ((memo, item) ->
         memo + (item.prices?.citymarket || 0) * item.count
       ), 0)
-    )
-    $('#minimaniPricesSum').text(
-      _.reduce(@items, ((memo, item) ->
+    prices.minimani = _.reduce(@items, ((memo, item) ->
         memo + (item.prices?.minimani || 0) * item.count
       ), 0)
-    )
-    $('#prismaPricesSum').text(
-      _.reduce(@items, ((memo, item) ->
+    prices.prisma = _.reduce(@items, ((memo, item) ->
         memo + (item.prices?.prisma || 0) * item.count
       ), 0)
-    )
+
+    lowestPriceType = App.BasketService.getLowestPriceType(prices)
+    console.log lowestPriceType
+
+    $('#axetPricesSum')
+        .text(prices.axet)
+        .attr('class', if lowestPriceType == 'axet' then 'lowestPrice' else '')
+    $('#citymarketPricesSum')
+        .text(prices.citymarket)
+        .attr('class', if lowestPriceType == 'citymarket' then 'lowestPrice' else '')
+    $('#minimaniPricesSum')
+        .text(prices.minimani)
+        .attr('class', if lowestPriceType == 'minimani' then 'lowestPrice' else '')
+    $('#prismaPricesSum')
+        .text(prices.prisma)
+        .attr('class', if lowestPriceType == 'prisma' then 'lowestPrice' else '')
 
   deleteRow: ((obj) ->
     # TODO: delete from basket also.

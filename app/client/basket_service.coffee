@@ -22,9 +22,21 @@ App.BasketService =
         )
         .map((item) =>
           item.count = @basketItems[item.objectId]
+          item.lowestPriceType = @getLowestPriceType item.prices if item.prices?
           item
         )
         .value()
+
+  getLowestPriceType: (obj) ->
+    lowest = Number.MAX_VALUE
+    lowestPriceType = ''
+
+    for k,v of obj
+      if v < lowest
+        lowestPriceType = k
+        lowest = v
+
+    lowestPriceType
 
   addToBasket: (itemId) ->
     @basketItems[itemId] ||= 0
