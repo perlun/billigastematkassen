@@ -65,10 +65,7 @@ class App.Views.ListProducts.ListProductsViewModel
 
   addToBasket: (obj) ->
     itemId = obj.attr('data-itemId')
-    @globalData.basketItems[itemId] ||= 0
-    @globalData.basketItems[itemId]++
-
-    @globalData.updateItemCount()
+    App.BasketService.addToBasket(itemId)
     false
 
 class App.Views.ListProducts.ListProductsView

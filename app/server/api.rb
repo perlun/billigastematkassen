@@ -6,6 +6,11 @@ require 'redis'
 require 'unicode_utils/downcase'
 
 class App < Sinatra::Base
+  get '/api/basket' do
+    # TODO: implement
+    return_json('[]')
+  end
+
   get '/api/productGroups' do
     return_json(get_product_groups.to_json)
   end

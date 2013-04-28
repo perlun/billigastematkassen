@@ -21,7 +21,8 @@
 #
 # Scripts used by our app itself.
 #
-## The bootstrapper must come first, since this creates our App instance.
+## The bootstrapper must come first, since this creates our App object.
 #= require bootstrapper
 #= require global_data
+#= require basket_service
 #= require routing
