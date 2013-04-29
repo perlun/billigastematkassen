@@ -28,7 +28,7 @@
       <% } else { %>
       <td colspan="4">&nbsp;</td>
       <% } %>
-      <td><a href="#" data-command="deleteRow"><i class="icon-trash"></i></a></td>
+      <td><a href="#" data-command="deleteRow" tabindex="-1"><i class="icon-trash"></i></a></td>
     </tr>
     <% }); %>
   </tbody>
