@@ -43,14 +43,18 @@ App.BasketService =
     @basketItems[itemId]++
 
     @saveBasket()
-
     @updateItemCount()
 
-  updateCount: (itemId, count) ->
+  updateItem: (itemId, count) ->
     @basketItems[itemId] = count
 
     @saveBasket()
+    @updateItemCount()
 
+  deleteItem: (itemId) ->
+    delete @basketItems[itemId]
+
+    @saveBasket()
     @updateItemCount()
 
   updateItemCount: () ->

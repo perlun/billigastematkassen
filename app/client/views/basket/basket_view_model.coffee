@@ -33,14 +33,6 @@ class App.Views.Basket.BasketViewModel
     )
 
   renderProductRows: () ->
-    # TODO: implement delete functionality.
-    #@grid.attachEvent('onSelectStateChanged', (id) ->
-    #  $('.deleteRowButton').removeAttr('disabled')
-    #)
-    #@grid.attachEvent('onAfterRowDeleted', (id, parentId) ->
-    #  $('.deleteRowButton').attr('disabled', 'true')
-    #)
-
     html = App.RenderTemplate('views/basket/basket_rows_view', this)
     $('#productRowsContainer').html(html).show()
 
@@ -67,7 +59,7 @@ class App.Views.Basket.BasketViewModel
         return if isNaN(count)
 
         itemId = obj.parents('tr').attr('data-itemId')
-        App.BasketService.updateCount(itemId, count)
+        App.BasketService.updateItem(itemId, count)
 
         item = _.find(viewModel.items, (item) -> item.objectId == itemId)
         item.count = count
@@ -106,10 +98,12 @@ class App.Views.Basket.BasketViewModel
         .attr('class', if lowestPriceType == 'prisma' then 'price lowestPrice' else 'price')
 
   deleteRow: ((obj) ->
-    # TODO: delete from basket also.
-    @grid.deleteSelectedRows()
+    tableRow = obj.parents('tr')
+    itemId = tableRow.attr('data-itemId')
 
-    @globalData.updateItemCount()
+    App.BasketService.deleteItem(itemId)
+    tableRow.remove()
+    false
   )
 
 class App.Views.Basket.BasketView
