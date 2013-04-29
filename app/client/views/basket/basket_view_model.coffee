@@ -126,8 +126,8 @@ class App.Views.Basket.BasketViewModel
       App.BasketService.deleteAllItems()
       $('[data-itemId]').remove()
 
-    @items = []
-    @updateSummaries()
+      @items = []
+      @updateSummaries()
 
     false
 
