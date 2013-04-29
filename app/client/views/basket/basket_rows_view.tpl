@@ -34,11 +34,16 @@
   </tbody>
   <tfoot>
     <tr>
-      <th colspan="5"></td>
-      <th id="axetPricesSum" class="price"></td>
-      <th id="citymarketPricesSum" class="price"></td>
-      <th id="minimaniPricesSum" class="price"></td>
-      <th id="prismaPricesSum" class="price"></td>
+      <th colspan="5"></th>
+      <th id="axetPricesSum" class="price"></th>
+      <th id="citymarketPricesSum" class="price"></th>
+      <th id="minimaniPricesSum" class="price"></th>
+      <th id="prismaPricesSum" class="price"></th>
+      <th id="noPricesSum" colspan="4"></th>
     </tr>
   </tfoot>
 </table>
+
+<div>
+  <input type="button" class="btn" value="Töm varukorgen" data-command="clearBasket"/>
+</div>

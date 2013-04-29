@@ -57,6 +57,12 @@ App.BasketService =
     @saveBasket()
     @updateItemCount()
 
+  deleteAllItems: () ->
+    @basketItems = {}
+
+    @saveBasket()
+    @updateItemCount()    
+
   updateItemCount: () ->
     value = _.reduce(@basketItems, ((memo, num) ->
       memo + num

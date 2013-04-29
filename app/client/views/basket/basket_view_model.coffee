@@ -68,6 +68,14 @@ class App.Views.Basket.BasketViewModel
     )
 
   updateSummaries: () ->
+    if @items.length == 0
+      $('#axetPricesSum').hide()
+      $('#citymarketPricesSum').hide()
+      $('#minimaniPricesSum').hide()
+      $('#prismaPricesSum').hide()
+      $('#noPricesSum').show()
+      return
+
     prices = {}
     prices.axet = _.reduce(@items, ((memo, item) ->
         memo + (item.prices?.axet || 0) * item.count
@@ -84,6 +92,7 @@ class App.Views.Basket.BasketViewModel
 
     lowestPriceType = App.BasketService.getLowestPriceType(prices)
 
+    $('#noPricesSum').hide()
     $('#axetPricesSum')
         .text(prices.axet)
         .attr('class', if lowestPriceType == 'axet' then 'price lowestPrice' else 'price')
@@ -103,8 +112,24 @@ class App.Views.Basket.BasketViewModel
 
     App.BasketService.deleteItem(itemId)
     tableRow.remove()
+
+    @items = _.reject(@items, (item) ->
+      item.objectId == itemId
+    )
+    @updateSummaries()
+
     false
   )
+
+  clearBasket: () ->
+    if confirm("Är det säkert att du vill tömma hela varukorgen?")
+      App.BasketService.deleteAllItems()
+      $('[data-itemId]').remove()
+
+    @items = []
+    @updateSummaries()
+
+    false
 
 class App.Views.Basket.BasketView
   templateName: 'views/basket/basket_view'
