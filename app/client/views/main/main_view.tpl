@@ -37,8 +37,11 @@
   </div>
   <hr/>
   <footer id="footer">
-    <small>
-      Baseras på <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap</a> med temat <a href="http://bootswatch.com/simplex/">Simplex</a>.
-    </small>
+    <div>
+      <small>
+        <div>Klient: <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap</a> | <a href="http://bootswatch.com/simplex/">Simplex</a> | <a href="http://www.coffeescript">CoffeeScript</a> | <a href="http://www.dhtmlx.com">dhtmlxGrid</a></div>
+        <div>Server: <a href="http://www.sinatrarb.com">Sinatra</a> | <a href="http://www.jruby.org">JRuby</a> | <a href="http://www.redis.io">Redis</a></div>
+      </small>
+    </div>
   </footer>
 </div><!-- /#container -->
