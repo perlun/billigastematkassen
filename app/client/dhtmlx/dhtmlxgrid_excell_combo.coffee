@@ -37,7 +37,7 @@ window.eXcell_combo = (cell) ->
     @obj.DOMelem_input.focus()
 
   @getValue = (val) ->
-    @cell.innerText.trim()
+    @cell.textContent.trim()
 
   @setValue = (val) ->
     @setCValue(val or '')
