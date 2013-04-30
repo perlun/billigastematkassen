@@ -91,20 +91,21 @@ class App.Views.Basket.BasketViewModel
       ), 0).toFixed(2)
 
     lowestPriceType = App.BasketService.getLowestPriceType(prices)
+    lowestPriceClasses = 'price lowestPrice'
 
     $('#noPricesSum').hide()
     $('#axetPricesSum')
         .text(prices.axet)
-        .attr('class', if lowestPriceType == 'axet' then 'price lowestPrice' else 'price')
+        .attr('class', if lowestPriceType == 'axet' then lowestPriceClasses else 'price')
     $('#citymarketPricesSum')
         .text(prices.citymarket)
-        .attr('class', if lowestPriceType == 'citymarket' then 'price lowestPrice' else 'price')
+        .attr('class', if lowestPriceType == 'citymarket' then lowestPriceClasses else 'price')
     $('#minimaniPricesSum')
         .text(prices.minimani)
-        .attr('class', if lowestPriceType == 'minimani' then 'price lowestPrice' else 'price')
+        .attr('class', if lowestPriceType == 'minimani' then lowestPriceClasses else 'price')
     $('#prismaPricesSum')
         .text(prices.prisma)
-        .attr('class', if lowestPriceType == 'prisma' then 'price lowestPrice' else 'price')
+        .attr('class', if lowestPriceType == 'prisma' then lowestPriceClasses else 'price')
 
   deleteRow: ((obj) ->
     tableRow = obj.parents('tr')
