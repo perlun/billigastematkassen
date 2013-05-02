@@ -69,13 +69,17 @@ class App.Views.ListProducts.ListProductsViewModel
     App.BasketService.addToBasket(itemId)
     false
 
+  addToBasketAndCloseOverlay: (obj) ->
+    @addToBasket(obj)
+    @productDetailsViewModel.closeOverlay()
+
   showProductDetails: (obj) ->
-    viewModel = new App.Views.ProductDetails.ProductDetailsViewModel()
+    @productDetailsViewModel = new App.Views.ProductDetails.ProductDetailsViewModel()
     view = new App.Views.ProductDetails.ProductDetailsView()
 
     itemId = obj.attr('data-itemId')
     item = _.find(@allItems, (item) -> item.objectId == itemId)
-    elementName = viewModel.showProductDetails(item, view.templateName)
+    elementName = @productDetailsViewModel.showProductDetails(item, view.templateName)
 
     @setupEventHandlers($(elementName))
 

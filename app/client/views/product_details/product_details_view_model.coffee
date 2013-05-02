@@ -16,8 +16,11 @@ class App.Views.ProductDetails.ProductDetailsViewModel
       href: elementName
       html: App.RenderTemplate(templateName, @)
     )
-    
+
     '#cboxLoadedContent'
+
+  closeOverlay: () ->
+    $.colorbox.close()
 
 class App.Views.ProductDetails.ProductDetailsView
   templateName: 'views/product_details/product_details_view'

@@ -1,5 +1,5 @@
 <div style="margin: 12px;">
-  <div style="position: absolute; bottom: 6px; text-align: right;"><a href="#" data-command="addToBasket" data-itemId="<%= dataContext.product.objectId %>">Lägg till</a></div>
+  <div style="position: absolute; bottom: 6px; text-align: right;"><a href="#" data-command="addToBasketAndCloseOverlay" data-itemId="<%= dataContext.product.objectId %>">Lägg till</a></div>
 
   <% if (dataContext.product.imageUrl) { %>
   <div class="thumbnailImageContainer">
