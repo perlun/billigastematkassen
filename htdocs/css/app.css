@@ -6,11 +6,12 @@ body {
     position: fixed;
     left: 0;
     bottom: 0;
-    padding: 20px 0;
+    padding: 10px 0;
     background: white;
     border-top: 1px solid #dfdfdf;
     text-align: center;
     width: 100%;
+    font-family: 'Droid Sans Mono', sans-serif;
 }
 
 /* To get rid of spinners in Chrome. */
