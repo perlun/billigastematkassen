@@ -2,9 +2,6 @@
 #= require views/basket/basket_view_model
 #= require views/edit_products/edit_products_view_model
 #= require views/list_products/list_products_view_model
-#
-# TODO: not yet working
-# require views/product_details/product_details_view_model
 
 App = window.App
 

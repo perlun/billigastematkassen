@@ -3,27 +3,21 @@
 App = window.App
 App.Views.ProductDetails = {}
 
-App.Views.ProductDetails.ProductDetailsViewModel = Ember.Controller.extend(
-)
+class App.Views.ProductDetails.ProductDetailsViewModel
+  view: null
+  product: null
 
-App.Views.ProductDetails.ProductDetailsView = Ember.View.extend(
-  templateName: 'views/product_details/product_details_view'
+  showProductDetails: (product, templateName) ->
+    @product = product
+    elementName = '#inline'
 
-  didInsertElement: () ->
-    @$().colorbox(
-      inline: true
+    $.colorbox(
       open: true
-      href: '#inline'
-      onLoad: () ->
-        console.log 'onLoad'
-        #$('#cboxLoadedContent').replaceWith('Loaded content')
-        #$('#cboxContent').append('gurkan gurre')
-        #$('#cboxLoadingGraphic').remove()
-      onCleanup: () =>
-        # A bit of a hack; could use the 'close' option in colorbox instead with a Handlebars link or something...
-        @get('controller').get('target').transitionTo('products')
+      href: elementName
+      html: App.RenderTemplate(templateName, @)
     )
+    
+    '#cboxLoadedContent'
 
-  willDestroyElement: () ->
-    $('#myModal').colorbox.close()
-)
+class App.Views.ProductDetails.ProductDetailsView
+  templateName: 'views/product_details/product_details_view'

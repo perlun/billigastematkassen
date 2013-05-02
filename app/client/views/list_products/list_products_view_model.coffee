@@ -1,5 +1,6 @@
 #= require views/list_products/list_products_view
 #= require views/list_products/list_products_rows_view
+#= require views/product_details/product_details_view_model
 
 App = window.App
 Spinner = window.Spinner
@@ -51,10 +52,10 @@ class App.Views.ListProducts.ListProductsViewModel
     $('#productRowsContainer').html(html).show()
     @setupEventHandlers()
 
-  setupEventHandlers: () ->
+  setupEventHandlers: (parent) ->
     viewModel = @
 
-    $('[data-command]').each(() ->
+    (parent || $('body')).find('[data-command]').each(() ->
       obj = $(this)
       commandHandler = obj.attr('data-command')
       obj.click(() ->
@@ -66,6 +67,18 @@ class App.Views.ListProducts.ListProductsViewModel
   addToBasket: (obj) ->
     itemId = obj.attr('data-itemId')
     App.BasketService.addToBasket(itemId)
+    false
+
+  showProductDetails: (obj) ->
+    viewModel = new App.Views.ProductDetails.ProductDetailsViewModel()
+    view = new App.Views.ProductDetails.ProductDetailsView()
+
+    itemId = obj.attr('data-itemId')
+    item = _.find(@allItems, (item) -> item.objectId == itemId)
+    elementName = viewModel.showProductDetails(item, view.templateName)
+
+    @setupEventHandlers($(elementName))
+
     false
 
 class App.Views.ListProducts.ListProductsView
