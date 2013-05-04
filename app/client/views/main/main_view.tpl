@@ -1,4 +1,4 @@
-<div class="navbar navbar-fixed-top">
+<div class="navbar navbar-fixed-top navbar-inverse">
   <div class="navbar-inner">
     <div class="container">
       <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -27,9 +27,6 @@
     <div style="position: fixed;">
       <ul class="nav nav-list">
         <li class="nav-header">Innehåll</li>
-        <li>
-          <a href="#/produkter">Priser</a>
-        </li>
         <li>
           <a href="#/redigera">Redigera</a>
         </li>
