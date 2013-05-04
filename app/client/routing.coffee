@@ -7,17 +7,19 @@ App = window.App
 
 class Routing
   constructor: () ->
-    $('body').append(_.template(App.Templates[App.MainView.templateName], {}, { variable: 'dataContext' }))
-
     window.onhashchange = @handleHashChange
 
   run: () ->
-    App.Spinner.startSpinning('content')
+    $().ready(() -> App.Spinner.startSpinning('placeholderContent'))
 
     $.when(@getProductGroups(), App.BasketService.getBasket())
       .then((productGroupsResult, basketResult) =>
         App.GlobalData.productGroups = productGroupsResult[0]
         App.BasketService.getBasketCompleted(basketResult[0])
+
+        @mainViewModel = new App.Views.Main.MainViewModel()
+        mainView = new App.Views.Main.MainView()
+        App.Activate(mainView, @mainViewModel, 'body')
 
         # TODO: Mixing up the data loading and the initial routing like this isn't so fanciful. We should probably raise some form
         # of event to let the router know that we are ready rather than doing it like this, so we can split out these two concerns

@@ -2,6 +2,18 @@ body {
     padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
 }
 
+#placeholderContent {
+    left: 50%;
+    top: 50%;
+    position: absolute;    
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+
+    height: 200px;
+}
+
 .navbar-fixed-top, #footer {
    opacity: 0.85;
  }
