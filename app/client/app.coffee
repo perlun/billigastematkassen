@@ -32,7 +32,8 @@ class App
   activate: (viewClass, viewModelClass, elementName, parameters...) ->
     elementName ||= '#content'
 
-    if @elementViewModels[elementName]
+    if viewModelClass &&
+       @elementViewModels[elementName]?.constructor.name == _.last(viewModelClass.name.split('.'))
       viewModel = @elementViewModels[elementName]
     else
       view = new viewClass
