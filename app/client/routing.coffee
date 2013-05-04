@@ -7,7 +7,7 @@ App = window.App
 
 class Routing
   constructor: () ->
-    window.onhashchange = @handleHashChange
+    $(window).on('hashchange', @handleHashChange)
 
   run: () ->
     $().ready(() -> App.Spinner.startSpinning('placeholderContent'))
@@ -19,6 +19,7 @@ class Routing
 
         @mainViewModel = new App.Views.Main.MainViewModel()
         mainView = new App.Views.Main.MainView()
+        mainView.dataContext = @mainViewModel
         App.Activate(mainView, @mainViewModel, 'body')
 
         # TODO: Mixing up the data loading and the initial routing like this isn't so fanciful. We should probably raise some form
@@ -42,9 +43,9 @@ class Routing
             .show()
       )
 
-  # MVVM micro-"framework"...
+  # MVVM/history micro-"framework"...
   handleHashChange: () ->
-    if location.hash == '#/produkter'
+    if location.hash.indexOf('#/produkter/') != -1
       viewModel = new App.Views.ListProducts.ListProductsViewModel
       view = new App.Views.ListProducts.ListProductsView
       view.dataContext = viewModel
@@ -63,7 +64,7 @@ class Routing
 
       App.Activate(view, viewModel)
     else
-      location.hash = '#/produkter'
+      location.hash = '#/produkter/' + _.first(App.GlobalData.productGroups).slug
 
   getProductGroups: () ->
     $.ajax(
