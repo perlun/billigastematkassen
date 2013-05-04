@@ -50,7 +50,10 @@ class Routing
       view = new App.Views.ListProducts.ListProductsView
       view.dataContext = viewModel
 
-      App.Activate(view, viewModel)
+      match = productGroup = /#\/produkter\/(.*)/.exec location.hash
+      product_group = match[1]
+
+      App.Activate(view, viewModel, null, product_group)
     else if location.hash == '#/redigera'
       viewModel = new App.Views.EditProducts.EditProductsViewModel
       view = new App.Views.EditProducts.EditProductsView
