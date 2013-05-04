@@ -29,8 +29,8 @@ class Routing
         @handleHashChange()
         $('#content').show()
       , (productGroupsResult, basketResult) ->
-        console.error "Error fetching product groups" if productGroupsResult.constructor == String
-        console.error "Error fetching basket" if basketResult.constructor  == String
+        console.error 'Error fetching product groups' if productGroupsResult.constructor == String
+        console.error 'Error fetching basket' if basketResult.constructor  == String
 
         App.Spinner.stopSpinning('content')
         $('#content')
