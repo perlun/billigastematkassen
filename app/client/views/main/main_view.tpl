@@ -6,7 +6,15 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </a>
-      <div class="brand"><a href="#/">Billigaste Matkassen</a></div>
+      <a class="brand" href="#/">Billigaste Matkassen</a>
+
+      <div class="nav-collapse">
+        <ul class="nav">
+          <% _.each(dataContext.globalData.productGroups, function(group) { %>
+          <li><a href="#/produkter/<%= group.slug %>"><%= group.name %></a></li>
+          <% }); %>
+        </ul>
+      </div>
     </div>
   </div>
 </div>
