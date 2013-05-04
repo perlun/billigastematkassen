@@ -28,6 +28,9 @@
       <ul class="nav nav-list">
         <li class="nav-header">Innehåll</li>
         <li>
+          <a href="#/start">Om sidan</a>
+        </li>
+        <li>
           <a href="#/redigera">Redigera</a>
         </li>
         <li>

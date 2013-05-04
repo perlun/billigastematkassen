@@ -36,14 +36,16 @@ class App
       viewModel = @elementViewModels[elementName]
     else
       view = new viewClass
-      viewModel = new viewModelClass
-      view.dataContext = viewModel
+
+      if viewModelClass
+        viewModel = new viewModelClass 
+        view.dataContext = viewModel
 
       view.willInsertElement() if view.willInsertElement?
       $(elementName).html(@renderTemplate(view.templateName, viewModel))
       view.didInsertElement() if view.didInsertElement?
       @elementViewModels[elementName] = viewModel
 
-    viewModel.setParameters(parameters) if viewModel.setParameters?
+    viewModel.setParameters(parameters) if viewModel?.setParameters?
 
 window.App = new App()

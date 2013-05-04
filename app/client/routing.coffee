@@ -1,5 +1,6 @@
-#= require views/main/main_view_model
 #= require views/basket/basket_view_model
+#= require views/home/home_view_model
+#= require views/main/main_view_model
 #= require views/edit_products/edit_products_view_model
 #= require views/list_products/list_products_view_model
 
@@ -51,8 +52,10 @@ class Routing
       App.activate(App.Views.EditProducts.EditProductsView, App.Views.EditProducts.EditProductsViewModel)
     else if location.hash == '#/varukorg'
       App.activate(App.Views.Basket.BasketView, App.Views.Basket.BasketViewModel)
+    else if location.hash == '#/start'
+      App.activate(App.Views.Home.HomeView, null)
     else
-      location.hash = '#/produkter/' + _.first(App.GlobalData.productGroups).slug
+      location.hash = '#/start'
 
   getProductGroups: () ->
     $.ajax(
