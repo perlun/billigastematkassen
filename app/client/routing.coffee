@@ -17,10 +17,7 @@ class Routing
         App.GlobalData.productGroups = productGroupsResult[0]
         App.BasketService.getBasketCompleted(basketResult[0])
 
-        @mainViewModel = new App.Views.Main.MainViewModel()
-        mainView = new App.Views.Main.MainView()
-        mainView.dataContext = @mainViewModel
-        App.activate(mainView, @mainViewModel, 'body')
+        App.activate(App.Views.Main.MainView, App.Views.Main.MainViewModel, 'body')
 
         # TODO: Mixing up the data loading and the initial routing like this isn't so fanciful. We should probably raise some form
         # of event to let the router know that we are ready rather than doing it like this, so we can split out these two concerns
@@ -46,26 +43,14 @@ class Routing
   # MVVM/history micro-"framework"...
   handleHashChange: () ->
     if location.hash.indexOf('#/produkter/') != -1
-      viewModel = new App.Views.ListProducts.ListProductsViewModel
-      view = new App.Views.ListProducts.ListProductsView
-      view.dataContext = viewModel
-
       match = productGroup = /#\/produkter\/(.*)/.exec location.hash
       product_group = match[1]
 
-      App.activate(view, viewModel, null, product_group)
+      App.activate(App.Views.ListProducts.ListProductsView, App.Views.ListProducts.ListProductsViewModel, null, product_group)
     else if location.hash == '#/redigera'
-      viewModel = new App.Views.EditProducts.EditProductsViewModel
-      view = new App.Views.EditProducts.EditProductsView
-      view.dataContext = viewModel
-
-      App.activate(view, viewModel)
+      App.activate(App.Views.EditProducts.EditProductsView, App.Views.EditProducts.EditProductsViewModel)
     else if location.hash == '#/varukorg'
-      viewModel = new App.Views.Basket.BasketViewModel
-      view = new App.Views.Basket.BasketView    
-      view.dataContext = viewModel
-
-      App.activate(view, viewModel)
+      App.activate(App.Views.Basket.BasketView, App.Views.Basket.BasketViewModel)
     else
       location.hash = '#/produkter/' + _.first(App.GlobalData.productGroups).slug
 

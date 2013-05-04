@@ -29,17 +29,21 @@ class App
     else
       console.error "#{templateName} template not found"
 
-  activate: (view, viewModel, elementName, parameters...) ->
+  activate: (viewClass, viewModelClass, elementName, parameters...) ->
     elementName ||= '#content'
 
-    unless @elementViewModels[elementName]
+    if @elementViewModels[elementName]
+      viewModel = @elementViewModels[elementName]
+    else
+      view = new viewClass
+      viewModel = new viewModelClass
+      view.dataContext = viewModel
+
       view.willInsertElement() if view.willInsertElement?
       $(elementName).html(@renderTemplate(view.templateName, viewModel))
       view.didInsertElement() if view.didInsertElement?
       @elementViewModels[elementName] = viewModel
 
-      viewModel.setParameters(parameters) if viewModel.setParameters?
-    else
-      viewModel.setParameters(parameters) if viewModel.setParameters?
+    viewModel.setParameters(parameters) if viewModel.setParameters?
 
 window.App = new App()
