@@ -8,9 +8,10 @@ Spinner = window.Spinner
 App.Views.ListProducts = {}
 
 class App.Views.ListProducts.ListProductsViewModel
-  allItems: []
+  allItems: null
   filteredItems: []
   globalData: App.GlobalData
+  groupName: null
   spinner: null
 
   refresh: () ->
@@ -28,19 +29,23 @@ class App.Views.ListProducts.ListProductsViewModel
         )
 
         @allItems = items
-        @showOnlyProductsInGroup _.first(@globalData.productGroups).name
+        @showOnlyProductsInGroup @groupName
 
         App.Spinner.stopSpinning('productRowsContainer')
         @renderProductRows()
     )
 
-  showProductGroup: (groupSlug) ->
-    groupName = _.find(@globalData.productGroups, (g) ->
+  setParameters: (parameters) ->
+    groupSlug = _.first(parameters)
+
+    @groupName = _.find(@globalData.productGroups, (g) ->
       g.slug == groupSlug
     )?.name
 
-    @showOnlyProductsInGroup groupName
-    @renderProductRows()
+    # We may or may not have data at this point.
+    if @allItems
+      @showOnlyProductsInGroup @groupName
+      @renderProductRows()
 
   showOnlyProductsInGroup: (groupName) ->
     @filteredItems = _.select(@allItems, (i) ->
