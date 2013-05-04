@@ -90,11 +90,3 @@ class App.Views.ListProducts.ListProductsView
 
   didInsertElement: () ->
     @dataContext.refresh()
-
-    $('a[data-toggle="tab"]').on('show', (e) =>
-      anchor = $.url(e.target.href).attr('anchor')
-      @dataContext.showProductGroup(anchor)
-    )
-
-    # Slightly ugly, but... :)
-    $('a[data-toggle="tab"]').first().click()

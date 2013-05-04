@@ -2,7 +2,7 @@
   <% _.each(dataContext.filteredItems, function(item) { %>
   <li class="span2">
     <div class="thumbnail" style="height: 240px;">
-      <div style="position: relative; top: 215px; text-align: right;"><a href="#" class="btn btn-info btn-small" data-command="addToBasket" data-itemId="<%= item.objectId %>">Lägg till</a></div>
+      <div style="position: relative; top: 215px; text-align: right;"><a href="#" class="btn btn-success btn-small" data-command="addToBasket" data-itemId="<%= item.objectId %>">Lägg till</a></div>
 
       <a href="#" style="color: black;" data-command="showProductDetails" data-itemId="<%= item.objectId %>">
         <% if (item.imageUrl) { %>

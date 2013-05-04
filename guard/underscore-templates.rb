@@ -88,8 +88,8 @@ module Guard
       begin
         content = content.gsub("\n", '')
         content = content.gsub("'", "\\\\'")
-        result = "App.Templates = App.Templates || {};\n"
-        result = result + "App.Templates['#{name}'] = '#{content}';\n"
+        result = "App.templates = App.templates || {};\n"
+        result = result + "App.templates['#{name}'] = '#{content}';\n"
         result
       rescue StandardError => error
         puts "ERROR COMPILING #{file}: #{error}"
