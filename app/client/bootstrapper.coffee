@@ -8,9 +8,9 @@ App.RenderTemplate = (templateName, dataContext) ->
   else
     console.error "#{templateName} template not found"
 
-App.Activate = (view, viewModel) ->
+App.Activate = (view, viewModel, elementName) ->
   view.willInsertElement() if view.willInsertElement?
-  $('#content').html(App.RenderTemplate(view.templateName, viewModel))
+  $(elementName || '#content').html(App.RenderTemplate(view.templateName, viewModel))
   view.didInsertElement() if view.didInsertElement?
 
 App.Spinner = {
