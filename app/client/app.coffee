@@ -1,28 +1,45 @@
-# 3rd party dependencies
-#
-#= require js/jquery-1.9.1.min
-#= require js/jquery.colorbox
-#= require js/purl
-#= require js/bootstrap.min
-#= require js/underscore-min
-#= require js/spin.min
-#= require js/jquery.spin
-#
-# dhtmlx grid stuff
-#
-#= require assets/dhtmlx/dhtmlxcommon
-#= require assets/dhtmlx/dhtmlxcombo
-#= require assets/dhtmlx/dhtmlxdataprocessor
-#= require assets/dhtmlx/dhtmlxgrid
-#= require assets/dhtmlx/dhtmlxgridcell
-#= require assets/dhtmlx/ext/dhtmlxgrid_filter
-#= require dhtmlx/dhtmlxgrid_excell_combo
+class App
+  elementViewModels: {}
+  Views: {}
 
-#
-# Scripts used by our app itself.
-#
-## The bootstrapper must come first, since this creates our App object.
-#= require bootstrapper
-#= require global_data
-#= require basket_service
-#= require routing
+  Spinner: {
+    startSpinning: (elementName) ->
+      $('#' + elementName).show().spin(
+        lines: 13       # The number of lines to draw
+        length: 20      # The length of each line
+        width: 10       # The line thickness
+        radius: 30      # The radius of the inner circle
+        corners: 1      # Corner roundness (0..1)
+        rotate: 0       # The rotation offset
+        color: '#000'   # #rgb or #rrggbb
+        speed: 1        # Rounds per second
+        trail: 60       # Afterglow percentage
+        shadow: false   # Whether to render a shadow
+        hwaccel: false  # Whether to use hardware acceleration
+      )
+
+    stopSpinning: (elementName) ->
+      $('#' + elementName).spin(false).hide()
+  }
+
+  renderTemplate: (templateName, dataContext) ->
+    template = @templates[templateName]
+    if template?
+      _.template(template, dataContext, { variable: 'dataContext' })
+    else
+      console.error "#{templateName} template not found"
+
+  activate: (view, viewModel, elementName, parameters...) ->
+    elementName ||= '#content'
+
+    unless @elementViewModels[elementName]
+      view.willInsertElement() if view.willInsertElement?
+      $(elementName).html(@renderTemplate(view.templateName, viewModel))
+      view.didInsertElement() if view.didInsertElement?
+      @elementViewModels[elementName] = viewModel
+
+      viewModel.setParameters(parameters) if viewModel.setParameters?
+    else
+      viewModel.setParameters(parameters) if viewModel.setParameters?
+
+window.App = new App()
