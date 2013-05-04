@@ -14,7 +14,7 @@ class App.Views.ProductDetails.ProductDetailsViewModel
     $.colorbox(
       open: true
       href: elementName
-      html: App.RenderTemplate(templateName, @)
+      html: App.renderTemplate(templateName, @)
     )
 
     '#cboxLoadedContent'

@@ -48,7 +48,7 @@ class App.Views.ListProducts.ListProductsViewModel
     )
 
   renderProductRows: () ->
-    html = App.RenderTemplate('views/list_products/list_products_rows_view', this)
+    html = App.renderTemplate('views/list_products/list_products_rows_view', this)
     $('#productRowsContainer').html(html).show()
     @setupEventHandlers()
 

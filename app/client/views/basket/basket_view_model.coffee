@@ -33,7 +33,7 @@ class App.Views.Basket.BasketViewModel
     )
 
   renderProductRows: () ->
-    html = App.RenderTemplate('views/basket/basket_rows_view', this)
+    html = App.renderTemplate('views/basket/basket_rows_view', this)
     $('#productRowsContainer').html(html).show()
 
     # Must come after the DOM has been fully set up.
