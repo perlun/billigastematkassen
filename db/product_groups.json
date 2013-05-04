@@ -1,0 +1,103 @@
+[
+  {
+    "name": "Bröd",
+    "subGroups": [
+      "Bröd",
+      "Kakor & Kex",
+      "Tilltugg"
+    ]
+  },
+
+  {
+    "name": "Dryck",
+    "subGroups": [
+      "Saft",
+      "Te & Chokladdryck",
+      "Juice",
+      "Läsk"
+    ]
+  },
+
+  {
+    "name": "Frukt & Grönt",
+    "subGroups": [
+      "Frukt",
+      "Grönsaker",
+      "Potatis & Rotfrukter",
+      "Färska kryddor",
+      "Bär"
+    ]
+  },
+
+  {
+    "name": "Frys",
+    "subGroups": [
+      "Färdigmat",
+      "Glass, Frukt & Bär",
+      "Grönsaker & Potatis",
+      "Kött, Fisk & Fågel"
+    ]
+  },
+
+  {
+    "name": "Färdigmat",
+    "subGroups": [
+      "Färdigrätter"
+    ]
+  },
+
+  {
+    "name": "Kött & Chark",
+    "subGroups": [
+      "Fisk",
+      "Kött",
+      "Korv & Chark",
+      "Pålägg"
+    ]
+  },
+
+  {
+    "name": "Mejeri",
+    "subGroups": [
+      "Mjölk, Fil & Yoghurt",
+      "Ost",
+      "Bak & Matlagning"
+    ]
+  },
+
+  {
+    "name": "Skafferi",
+    "subGroups": [
+      "Pasta, Ris & Nudlar",
+      "Bönor, Ärter & Linser",
+      "Nötter, Frön & Torkad frukt",
+      "Mjöl & Gryn",
+      "Bakingredienser",
+      "Mysli & Flingor",
+      "Konserver, Burkar & Pulvermix",
+      "Smaksättare",
+      "Socker, Sirap & Honung",
+      "Godis & Choklad",
+      "Chips & Snacks",
+      "Halstabletter",
+      "Tuggummi",
+      "Världens mat"
+    ]
+  },
+
+  {
+    "name": "Hem & Hygien",
+    "subGroups": [
+      "Städ",
+      "Disk",
+      "Tvätt",
+      "Hushållsartiklar",
+      "Kroppsvård",
+      "Hårvård",
+      "Munhygien",
+      "Rakning",
+      "Intimhygien",
+      "Sårvård"
+    ]
+  }
+]

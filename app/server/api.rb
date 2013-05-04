@@ -34,19 +34,10 @@ class App < Sinatra::Base
 private
 
   def get_product_groups
-    products = get_products
-    product_groups = products
-                        .map { |p| p[:productGroup] }
-                        .uniq
-                        .sort
-                        .map do |name|
-                          {
-                            'name' => name,
-                            'slug' => slugify(name)
-                          }
-                        end
-
-    product_groups
+    product_groups = JSON.parse(IO.read 'db/product_groups.json')
+    product_groups.each do |productGroup|
+      productGroup['slug'] = slugify productGroup['name']
+    end
   end
 
   def get_products(product_group = nil)
