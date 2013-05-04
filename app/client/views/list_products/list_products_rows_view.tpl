@@ -11,10 +11,10 @@
         </div>
         <% } else { %>
         <div style="margin-bottom: 12px; text-align: center;">
-          <i class="icon-question-sign" style="font-size: 5em; height: 150px;"></i>
+          <i class="icon-question-sign" style="font-size: 5em; height: 130px;"></i>
         </div>
         <% } %>
-        <div style="font-weight: bold; overflow: hidden; text-overflow: clip; height: 19px;"><%= item.name %></div>
+        <div class="name"><%= item.name %></div>
         <div><%= item.qty %> <%= item.unitOfMeasure %> <%= item.brand %></div>
       </a>
     </div>

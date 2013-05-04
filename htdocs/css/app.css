@@ -72,14 +72,14 @@ td.lowestPrice, th.lowestPrice {
 }
 
 .thumbnailImageContainer {
-    height: 150px;
-    margin-bottom: 0px;
+    height: 130px;
+    margin-top: 0px;
 
     position: relative;
 }
 
     .thumbnailImageContainer img {
-        max-height: 150px;
+        max-height: 130px;
         max-width: 90%;
         
         position: absolute;
@@ -88,4 +88,12 @@ td.lowestPrice, th.lowestPrice {
         left: 0;
         right: 0;
         margin: auto  
+    }
+
+    .thumbnail div.name {
+        font-weight: bold;
+        overflow: hidden;
+        text-overflow: clip;
+        height: 19px;
+        margin-top: 8px;
     }
