@@ -16,9 +16,9 @@ class Routing
     $.when(@getProductGroups(), App.BasketService.getBasket())
       .then((productGroupsResult, basketResult) =>
         App.GlobalData.productGroups = productGroupsResult[0]
-        App.BasketService.getBasketCompleted(basketResult[0])
 
         App.activate(App.Views.Main.MainView, App.Views.Main.MainViewModel, 'body')
+        App.BasketService.getBasketCompleted(basketResult[0])
 
         # TODO: Mixing up the data loading and the initial routing like this isn't so fanciful. We should probably raise some form
         # of event to let the router know that we are ready rather than doing it like this, so we can split out these two concerns
