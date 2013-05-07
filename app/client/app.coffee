@@ -43,7 +43,7 @@ class App
         view.dataContext = viewModel
 
       view.willInsertElement() if view.willInsertElement?
-      $(elementName).html(@renderTemplate(view.templateName, viewModel))
+      $(elementName).html(@renderTemplate(view.templateName, viewModel)).show()
       view.didInsertElement() if view.didInsertElement?
       @elementViewModels[elementName] = viewModel
 

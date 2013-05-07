@@ -17,13 +17,13 @@ class Routing
       .then((productGroupsResult, basketResult) =>
         App.GlobalData.productGroups = productGroupsResult[0]
 
-        App.activate(App.Views.Main.MainView, App.Views.Main.MainViewModel, 'body')
+        App.activate(App.Views.Main.MainView, App.Views.Main.MainViewModel, '#bodyContent')
         App.BasketService.getBasketCompleted(basketResult[0])
 
         # TODO: Mixing up the data loading and the initial routing like this isn't so fanciful. We should probably raise some form
         # of event to let the router know that we are ready rather than doing it like this, so we can split out these two concerns
         # into different files.
-        App.Spinner.stopSpinning('content')
+        App.Spinner.stopSpinning('placeholderContent')
         @handleHashChange()
         $('#content').show()
       , (productGroupsResult, basketResult) ->
