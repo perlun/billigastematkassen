@@ -29,7 +29,7 @@
 
   <div id="productRowsContainer"></div>
 
-  <div style="margin-top: 12px;">
+  <div style="margin: 12px 0 18px 0;">
     <input type="button"
            class="btn"
            data-command="addNewRow"
