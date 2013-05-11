@@ -27,7 +27,7 @@
            disabled="true" />
   </div>
 
-  <div id="productsGrid"></div>
+  <div id="productRowsContainer"></div>
 
   <div style="margin-top: 12px;">
     <input type="button"

@@ -1,4 +1,5 @@
 #= require ./edit_products_view
+#= require ./edit_products_rows_view
 
 App = window.App
 App.Views.EditProducts = {}
@@ -8,7 +9,8 @@ class App.Views.EditProducts.EditProductsViewModel
 
   isWaiting: false
   spinner: new Spinner
-  grid: null
+  allItems: null
+  items: null
 
   unitOfMeasures: [
     'kg',
@@ -16,157 +18,52 @@ class App.Views.EditProducts.EditProductsViewModel
     'm',
     'st'
   ]
-
-  gridColumns: [
-    {
-      label: 'Artikel'
-      width: 150
-      type: 'edtxt'
-    },
-    {
-      label: 'Vikt/volym'
-      width: 70
-      type: 'edtxt'
-      align: 'right'
-    },
-    {
-      label: '#cspan'
-      width: 50
-      type: 'combo'
-    },
-    {
-      label: 'Varumärke'
-      width: 100
-      type: 'combo'
-    },
-    {
-      label: 'Tillverkare'
-      width: 70
-      type: 'combo'
-    },
-    {
-      label: 'Produktgrupp'
-      width: 120
-      type: 'combo'
-    },
-    {
-      label: 'Axet'
-      width: 70
-      type: 'ed'
-    },
-    {
-      label: 'Citymarket Stenhaga'
-      width: 70
-      type: 'ed'
-    },
-    {
-      label: 'Minimani'
-      width: 70
-      type: 'ed'
-    },
-    {
-      label: 'Prisma'
-      width: 70
-      type: 'ed'
-    }
-  ]
   
-  gridColumnHeaders: [
-    '#text_filter'
-    ''
-    '#cspan'
-    '#combo_filter'
-    '#combo_filter'
-    '#combo_filter'
-    '#rspan'
-    '#rspan'
-    '#rspan'
-    '#rspan'
-  ]
+  showProductGroup: (groupSlug) ->
+    if @allItems
+      @filterItems(groupSlug)
+      @renderProductRows()
+      return
 
-  columnIds: [
-    'name'
-    'qty'
-    'unitOfMeasure'
-    'brand'
-    'manufacturer'
-    'productGroup'
-    'prices.axet'
-    'prices.citymarket'
-    'prices.minimani'
-    'prices.prisma'
-  ]
-
-  showProductGroup: (group) ->
     $('#nonSpinnerContent').hide()
     App.Spinner.startSpinning('spinnerContent')
 
     $.ajax(
       type: 'GET'
       cache: false
-      url: "/api/products/#{group}"
+      url: '/api/products'
       
       success: (result) =>
-        items = eval result
+        @allItems = eval result
+        @filterItems(groupSlug)
 
         App.Spinner.stopSpinning('spinnerContent')
-        @renderProductRows(items)
+        @renderProductRows()
         $('#nonSpinnerContent').show()
       
       failure: (errMsg) =>
         $('#nonSpinnerContent').show()
     )
 
-  renderProductRows: (items) ->
+  filterItems: (groupSlug) ->
+    @items = _.select(@allItems, (item) =>
+      @slugify(item.productGroup) == groupSlug
+    )
+
+  renderProductRows: () ->
+    html = App.renderTemplate('views/edit_products/edit_products_rows_view', this)
+    $('#productRowsContainer').html(html).show()
+
+    # Must be set up after the DOM is completely populated.
     @setupEventHandlers()
 
-    @grid = new dhtmlXGridObject(
-      parent: 'productsGrid'
-      image_path: 'assets/dhtmlx/imgs/'
-      skin: 'dhx_skyblue'
-      columns: @gridColumns
-      headers: [ @gridColumnHeaders ]
-    )
-    @grid.setColumnIds(@columnIds.join(','))
-    @grid.attachEvent('onSelectStateChanged', (id) ->
-      $('.deleteRowButton').removeAttr('disabled')
-    )
-    @grid.attachEvent('onAfterRowDeleted', (id, pid) ->
-      $('.deleteRowButton').attr('disabled', 'true')
-    )
-    @grid.enableAutoWidth(true)
-    @grid.enableAutoHeight(true)
-
-    processor = new dataProcessor('api/product')
-    processor.setTransactionMode('POST')
-    processor.enableDataNames(true)
-    processor.init(@grid);
-
-    @loadData(items)
-
-  loadData: (items) ->
-    # The dhtmlxGrid requires the data to follow a certain form, so we map it to that here.
-    data = {
-      rows: _.map(items, (item) ->
-        {
-          id: item.objectId
-          data: [
-            item.name
-            item.qty
-            item.unitOfMeasure
-            item.brand
-            item.manufacturer
-            item.productGroup
-            item.prices?.axet
-            item.prices?.citymarket
-            item.prices?.minimani
-            item.prices?.prisma
-          ]
-        }
-      )
-    }
-
-    @grid.parse(data, 'json')
+    # TODO: Support these again.
+#    @grid.attachEvent('onSelectStateChanged', (id) ->
+#      $('.deleteRowButton').removeAttr('disabled')
+#    )
+#    @grid.attachEvent('onAfterRowDeleted', (id, pid) ->
+#      $('.deleteRowButton').attr('disabled', 'true')
+#    )
 
   setupEventHandlers: () ->
     viewModel = @
@@ -180,6 +77,34 @@ class App.Views.EditProducts.EditProductsViewModel
       )
     )
 
+    $('.editUnitOfMeasure').typeahead(
+      source: @unitOfMeasures
+    )
+
+    $('.editBrand').typeahead(
+      source: (query) =>
+        _.chain(@allItems)
+            .pluck('brand')
+            .uniq()
+            .value()
+    )
+
+    $('.editManufacturer').typeahead(
+      source: (query) =>
+        _.chain(@allItems)
+            .pluck('manufacturer')
+            .reject((item) ->
+              item == undefined
+            )
+            .uniq()
+            .value()
+    )
+
+    $('.editProductGroup').typeahead(
+      source: (query) =>
+        _.pluck(@globalData.productGroups, 'name')
+    )
+
   addNewRow: () ->
     @grid.addRow(@grid.uid(), [])
     @grid.selectCell(@grid.getRowsNum() - 1, 0, false, false, true)
@@ -188,6 +113,14 @@ class App.Views.EditProducts.EditProductsViewModel
     if confirm("Är det säkert att du vill ta bort '" + @grid.cells(@grid.getSelectedRowId(), 0).getValue() + "'?")
       @grid.deleteSelectedRows()
   )
+
+  slugify: (str) ->
+    str.replace(/\ /g, '_')
+      .replace(/&/g, 'och')
+      .replace(/å/g, 'a')
+      .replace(/ä/g, 'a')
+      .replace(/ö/g, 'o')
+      .toLowerCase()
 
 class App.Views.EditProducts.EditProductsView
   templateName: 'views/edit_products/edit_products_view'
