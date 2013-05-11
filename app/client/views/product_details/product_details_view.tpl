@@ -14,7 +14,7 @@
   <table class="table table-striped table-hover table-condensed">
     <thead>
       <tr>
-        <th>Axet</th>
+        <th>Sale Solf</th>
         <th>Citymarket</th>
         <th>Minimani</th>
         <th>Prisma</th>
@@ -24,7 +24,7 @@
   <tbody>
     <tr>
       <% if (dataContext.product.prices) { %>
-      <td><%= dataContext.product.prices.axet %></td>
+      <td><%= dataContext.product.prices.saleSolf %></td>
       <td><%= dataContext.product.prices.citymarket %></td>
       <td><%= dataContext.product.prices.minimani %></td>
       <td><%= dataContext.product.prices.prisma %></td>
