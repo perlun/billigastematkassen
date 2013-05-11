@@ -38,6 +38,11 @@
           <span id="itemCountContainer" style="display: none;">(<span id="itemCount">0</span> artiklar)</span>
         </li>
       </ul>
+      <div id="extraNavigationPlaceholder">
+        <ul class="nav nav-list">
+          <li class="nav-header">Undergrupper</li>
+        </ul>
+      </div>
     </div>
     <div class="span10">
       <div id="content" style="min-height: 300px;"/>
