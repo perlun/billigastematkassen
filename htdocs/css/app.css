@@ -14,6 +14,11 @@ body {
     height: 200px;
 }
 
+#extraNavigationPlaceholder {
+    margin-top: 9px;
+    display: none;
+}
+
 .navbar-fixed-top, #footer {
    opacity: 0.85;
  }
@@ -46,22 +51,24 @@ input[type=text] {
     width: 130px;
 }
 
-.editBrand {
-    width: 100px;
+.editBrand, .editManufacturer {
+    width: 80px;
 }
 
 .editQty {
-    width: 20px;
-    padding: 0 6px;
+    width: 35px;
 }
 
-.editMoney {
+.editUnitOfMeasure {
+    width: 20px;
+}
+
+.editPrice {
     width: 60px;
-    padding: 0 6px;
 }
 
 .editProductGroup {
-    width: 110px;
+    width: 80px;
 }
 
 td.price, th.price {
@@ -70,6 +77,10 @@ td.price, th.price {
 
 td.lowestPrice, th.lowestPrice {
     color: red;
+}
+
+.table thead th {
+    vertical-align: top;
 }
 
 .thumbnailImageContainer {
