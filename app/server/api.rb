@@ -23,10 +23,6 @@ class App < Sinatra::Base
     return_json(get_products.to_json)
   end
 
-  get '/api/products/:product_group' do
-    return_json(get_products(params[:product_group]).to_json) 
-  end
-
   post '/api/product' do
     post_product(request)
   end
@@ -40,17 +36,16 @@ private
     end
   end
 
-  def get_products(product_group = nil)
+  def get_products
     redis = Redis.new
     products = redis.hgetall('products')
 
     products = products.map do |key, value|
       product = parse_json(value)
       product[:objectId] = key
+      product[:prices] ||= {}
       product
     end
-
-    products = products.select { |product| slugify(product[:productGroup]) == product_group } if product_group
 
     products.each do |product|
       add_extra_product_data(product)
