@@ -30,8 +30,8 @@ class Routing
         console.error 'Error fetching product groups' if productGroupsResult.constructor == String
         console.error 'Error fetching basket' if basketResult.constructor  == String
 
-        App.Spinner.stopSpinning('content')
-        $('#content')
+        App.Spinner.stopSpinning('placeholderContent')
+        $('#placeholderContent')
             .html(
               '<div class="alert alert-error">' +
               '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
