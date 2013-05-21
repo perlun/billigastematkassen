@@ -46,8 +46,17 @@ class App.Views.EditProducts.EditProductsViewModel
         @renderProductRows()
         $('#nonSpinnerContent').show()
       
-      failure: (errMsg) =>
-        $('#nonSpinnerContent').show()
+      error: (jqXHR, textStatus, errorThrown) =>
+        App.Spinner.stopSpinning('spinnerContent')
+
+        $('#nonSpinnerContent')
+          .html(
+            '<div class="alert alert-error">' +
+            '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
+            '<h2>Fel</h2>' +
+            "Produktlistan kunde inte hämtas. Felmeddelande: #{errorThrown}.</div>"
+          )
+          .show()
     )
 
   filterItems: (groupSlug) ->
@@ -122,19 +131,22 @@ class App.Views.EditProducts.EditProductsViewModel
     )
 
   addNewRow: () ->
+    item = {
+      name: 'Ny produkt'
+      productGroup: @activeProductGroup.name
+      prices: {
+      }
+    }
+
     $.ajax(
       type: 'POST'
       url: '/api/product/new'
       contentType: 'application/json'
+      data: JSON.stringify(item)
 
       success: (result) =>
-        item = {
-          name: 'Ny produkt'
-          objectId: _.first(result[2]).objectId
-          productGroup: @activeProductGroup.name
-          prices: {
-          }
-        }
+        item.objectId = _.first(result[2]).objectId
+
         @allItems.push(item)
         @items.push(item)
 

@@ -24,7 +24,7 @@ class App < Sinatra::Base
   end
 
   post '/api/product/new' do
-    return_json create_product.to_json
+    return_json create_product(request).to_json
   end
 
   put '/api/product/:item_id' do
@@ -52,6 +52,8 @@ private
       product = parse_json(value)
       product[:objectId] = key
       product[:prices] ||= {}
+      product[:brand] ||= ''
+      puts product
       product
     end
 
@@ -66,14 +68,18 @@ private
      products
   end
 
-  def create_product
-    # We don't actually do the insert here, but wait until we have some data (since we know that we always populate rows with
-    # empty columns first)
+  def create_product(request)
+    request.body.rewind
+    product = parse_json request.body.read
+
     object_id = BSON::ObjectId.new.to_s
 
-    return_json({
+    redis = Redis.new
+    redis.hset('products', object_id, product.to_json)
+
+    return_json(
       'objectId' => object_id
-    })
+    )
   end
 
   def update_product(request)
