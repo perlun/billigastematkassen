@@ -32,7 +32,10 @@ class App < Sinatra::Base
   end
 
   delete '/api/product/:item_id' do
-    # TODO: fix
+    delete_product params[:item_id]
+    return_json({
+      :result => 'Success'
+    }.to_json)
   end
 
 private
@@ -53,7 +56,6 @@ private
       product[:objectId] = key
       product[:prices] ||= {}
       product[:brand] ||= ''
-      puts product
       product
     end
 
@@ -82,16 +84,9 @@ private
     )
   end
 
-  def update_product(request)
+  def delete_product(product_id)
     redis = Redis.new
-    
-    if mode == 'deleted'
-      target_id = source_id
-      redis.hdel('products', target_id)
-    elsif mode == 'updated'
-      update_product(redis, source_id, request.params)
-      target_id = source_id
-    end
+    redis.hdel('products', product_id)
   end
 
   def update_product(redis, source_id, params)
@@ -170,18 +165,6 @@ private
       },
       [
         json
-      ]
-    ]
-  end
-
-  def return_xml(xml)
-    [
-      200,
-      {
-        'Content-Type' => 'text/xml'
-      },
-      [
-        xml.strip
       ]
     ]
   end
