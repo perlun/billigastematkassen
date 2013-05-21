@@ -25,6 +25,7 @@
         <td><input type="text" class="editPrice" value="<%= item.prices.citymarket %>"/></td>
         <td><input type="text" class="editPrice" value="<%= item.prices.minimani %>"/></td>
         <td><input type="text" class="editPrice" value="<%= item.prices.prisma %>"/></td>
+        <td><a href="#" data-row-command="deleteRow"><i class="icon-trash"></i></a></td>
       </tr>
       <% }); %>
     </tbody>

@@ -19,12 +19,6 @@
            class="btn"
            data-command="addNewRow"
            value="Ny rad" />
-    <input type="button"
-           class="btn deleteRowButton"
-           data-command="deleteRow"
-           value="Ta bort rad"
-           style="margin-left: 12px;"
-           disabled="true" />
   </div>
 
   <div id="productRowsContainer"></div>
@@ -34,11 +28,5 @@
            class="btn"
            data-command="addNewRow"
            value="Ny rad" />
-    <input type="button"
-           class="btn deleteRowButton"
-           data-command="deleteRow"
-           value="Ta bort rad"
-           style="margin-left: 12px;"
-           disabled="true" />
   </div>
 </div>

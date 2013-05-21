@@ -19,7 +19,12 @@ class App.Views.EditProducts.EditProductsViewModel
     'st'
   ]
   
+  refresh: () ->
+    @setupEventHandlers()
+
   showProductGroup: (groupSlug) ->
+    @activeProductGroup = _.find(@globalData.productGroups, (g) -> g.slug == groupSlug)
+
     if @allItems
       @filterItems(groupSlug)
       @renderProductRows()
@@ -54,8 +59,7 @@ class App.Views.EditProducts.EditProductsViewModel
     html = App.renderTemplate('views/edit_products/edit_products_rows_view', this)
     $('#productRowsContainer').html(html).show()
 
-    # Must be set up after the DOM is completely populated.
-    @setupEventHandlers()
+    @setupRowsEventHandlers()
 
     # TODO: Support these again.
 #    @grid.attachEvent('onSelectStateChanged', (id) ->
@@ -71,6 +75,18 @@ class App.Views.EditProducts.EditProductsViewModel
     $('[data-command]').each(() ->
       obj = $(this)
       commandHandler = obj.attr('data-command')
+      obj.click(() ->
+        viewModel[commandHandler](obj)
+        false
+      )
+    )
+
+  setupRowsEventHandlers: () ->
+    viewModel = @
+
+    $('[data-row-command]').each(() ->
+      obj = $(this)
+      commandHandler = obj.attr('data-row-command')
       obj.click(() ->
         viewModel[commandHandler](obj)
         false
@@ -106,13 +122,41 @@ class App.Views.EditProducts.EditProductsViewModel
     )
 
   addNewRow: () ->
-    @grid.addRow(@grid.uid(), [])
-    @grid.selectCell(@grid.getRowsNum() - 1, 0, false, false, true)
+    $.ajax(
+      type: 'POST'
+      url: '/api/product/new'
+      contentType: 'application/json'
 
-  deleteRow: ((obj) ->
-    if confirm("Är det säkert att du vill ta bort '" + @grid.cells(@grid.getSelectedRowId(), 0).getValue() + "'?")
-      @grid.deleteSelectedRows()
-  )
+      success: (result) =>
+        item = {
+          name: 'Ny produkt'
+          objectId: _.first(result[2]).objectId
+          productGroup: @activeProductGroup.name
+          prices: {
+          }
+        }
+        @allItems.push(item)
+        @items.push(item)
+
+        # Slightly inefficient to rerender it all, but...
+        @renderProductRows()
+
+      error: (result) ->
+        alert("Det gick inte att spara varukorgen. Felmeddelande: #{result.status} #{result.statusText}")
+    )
+
+  deleteRow: (obj) ->
+    itemId = obj.parents('tr').attr('data-itemId')
+    item = _.find(@items, (item) -> item.objectId == itemId)
+
+    if confirm("Är det säkert att du vill ta bort '#{item.name}'?")
+      $.ajax(
+        type: 'DELETE'
+        url: '/api/product/' + itemId
+        success: (result) =>
+          @items.splice(@items.indexOf(item), 1)
+          @renderProductRows()
+      )
 
   slugify: (str) ->
     str.replace(/\ /g, '_')
@@ -126,6 +170,8 @@ class App.Views.EditProducts.EditProductsView
   templateName: 'views/edit_products/edit_products_view'
 
   didInsertElement: () ->
+    @dataContext.refresh()
+
     $('a[data-toggle="tab"]').on('show', (e) =>
       anchor = $.url(e.target.href).attr('anchor')
       @dataContext.showProductGroup(anchor)

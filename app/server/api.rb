@@ -16,15 +16,23 @@ class App < Sinatra::Base
   end
 
   get '/api/productGroups' do
-    return_json(get_product_groups.to_json)
+    return_json get_product_groups.to_json
   end
   
   get '/api/products' do
-    return_json(get_products.to_json)
+    return_json get_products.to_json
   end
 
-  post '/api/product' do
-    post_product(request)
+  post '/api/product/new' do
+    return_json create_product.to_json
+  end
+
+  put '/api/product/:item_id' do
+    # TODO: fix
+  end
+
+  delete '/api/product/:item_id' do
+    # TODO: fix
   end
 
 private
@@ -58,33 +66,26 @@ private
      products
   end
 
-  def post_product(request)
+  def create_product
+    # We don't actually do the insert here, but wait until we have some data (since we know that we always populate rows with
+    # empty columns first)
+    object_id = BSON::ObjectId.new.to_s
+
+    return_json({
+      'objectId' => object_id
+    })
+  end
+
+  def update_product(request)
     redis = Redis.new
-
-    # The code below is written to work with dhtmlxDataProcessor, http://docs.dhtmlx.com/doku.php?id=dhtmlxgrid:dataprocessor
-    mode = request.params['!nativeeditor_status']
-    source_id = request.params['gr_id']
-
-    if mode == 'inserted'
-      # We don't actually do the insert here, but wait until we have some data (since we know that we always populate rows with
-      # empty columns first)
-      target_id = BSON::ObjectId.new
-      action = 'insert'
-    elsif mode == 'deleted'
+    
+    if mode == 'deleted'
       target_id = source_id
       redis.hdel('products', target_id)
-      action = 'delete'
     elsif mode == 'updated'
       update_product(redis, source_id, request.params)
       target_id = source_id
-      action = 'update'
     end
-
-    return_xml "
-      <?xml version='1.0' encoding='utf-8'?>
-      <data>
-        <action type='#{action}' sid='#{source_id}' tid='#{target_id}'/>
-      </data>"
   end
 
   def update_product(redis, source_id, params)
