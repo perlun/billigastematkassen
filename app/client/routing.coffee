@@ -32,13 +32,13 @@ class Routing
 
         App.Spinner.stopSpinning('placeholderContent')
         $('#placeholderContent')
-            .html(
-              '<div class="alert alert-error">' +
-              '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
-              '<h2>Fel</h2>' +
-              'Applikationen kunde inte startas.</div>'
-            )
-            .show()
+          .html(
+            '<div class="alert alert-error">' +
+            '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
+            '<h2>Fel</h2>' +
+            'Applikationen kunde inte startas.</div>'
+          )
+          .show()
       )
 
   # MVVM/history micro-"framework"...
