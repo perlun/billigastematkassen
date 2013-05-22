@@ -28,7 +28,8 @@ class App < Sinatra::Base
   end
 
   put '/api/product/:item_id' do
-    # TODO: fix
+    update_product(params[:item_id], request)
+    return_json '"Success"'
   end
 
   delete '/api/product/:item_id' do
@@ -89,18 +90,14 @@ private
     redis.hdel('products', product_id)
   end
 
-  def update_product(redis, source_id, params)
-    product_data = redis.hget('products', source_id)
-    product = (parse_json(product_data) if product_data) || {}
-
-    %w(name qty unitOfMeasure brand manufacturer productGroup).each do |field|
-      product[field.to_sym] = params[field]
-    end
+  def update_product(product_id, request)
+    request.body.rewind
+    product = parse_json request.body.read
 
     product[:prices] ||= {}
-    %w(axet citymarket minimani prisma).each do |price_field|
-      price = params['prices.' + price_field]
-      price = price.sub(',', '.')   # Handle comma as decimal separator
+    %w(saleSolf citymarket minimani prisma).each do |price_field|
+      price = product[:prices][price_field.to_sym]
+      price = (price || '').sub(',', '.')   # Handle comma as decimal separator
 
       if price.empty?
         price = nil
@@ -111,8 +108,8 @@ private
       product[:prices][price_field.to_sym] = price
     end
 
-    target_id = source_id
-    redis.hset('products', target_id, product.to_json)
+    redis = Redis.new
+    redis.hset('products', product_id, product.to_json)
   end
 
   def add_extra_product_data(product)

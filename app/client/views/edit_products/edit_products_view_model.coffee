@@ -102,6 +102,20 @@ class App.Views.EditProducts.EditProductsViewModel
       )
     )
 
+    $('[data-property]').each(() ->
+      obj = $(this)
+      propertyName = obj.attr('data-property')
+      obj.blur(() ->
+        item = viewModel.findItem(obj)
+        newValue = obj.val()
+
+        if item[propertyName] != newValue
+          item[propertyName] = obj.val()
+
+          viewModel.saveProduct(item)
+      )
+    )
+
     $('.editUnitOfMeasure').typeahead(
       source: @unitOfMeasures
     )
@@ -154,12 +168,11 @@ class App.Views.EditProducts.EditProductsViewModel
         @renderProductRows()
 
       error: (result) ->
-        alert("Det gick inte att spara varukorgen. Felmeddelande: #{result.status} #{result.statusText}")
+        alert("Det gick inte att skapa en ny produkt. Felmeddelande: #{result.status} #{result.statusText}")
     )
 
   deleteRow: (obj) ->
-    itemId = obj.parents('tr').attr('data-itemId')
-    item = _.find(@items, (item) -> item.objectId == itemId)
+    item = @findItem(obj)
 
     if confirm("Är det säkert att du vill ta bort '#{item.name}'?")
       $.ajax(
@@ -169,6 +182,21 @@ class App.Views.EditProducts.EditProductsViewModel
           @items.splice(@items.indexOf(item), 1)
           @renderProductRows()
       )
+
+  saveProduct: (product) ->
+    $.ajax(
+      type: 'PUT'
+      url: "/api/product/#{product.objectId}"
+      contentType: 'application/json'
+      data: JSON.stringify(product)
+
+      error: (result) ->
+        alert("Det gick inte att spara produkten. Felmeddelande: #{result.status} #{result.statusText}")
+    )
+
+  findItem: (obj) ->
+    itemId = obj.parents('tr').attr('data-itemId')
+    _.find(@items, (item) -> item.objectId == itemId)
 
   slugify: (str) ->
     str.replace(/\ /g, '_')

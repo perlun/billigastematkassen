@@ -15,13 +15,14 @@
     <tbody>
       <% _.each(dataContext.items, function(item) { %>
       <tr data-itemId="<%= item.objectId %>">
-        <td><input type="text" class="editName" value="<%= item.name %>"/></td>
-        <td><input type="text" class="editQty" value="<%= item.qty %>"/></td>
-        <td><input type="text" class="editUnitOfMeasure" value="<%= item.unitOfMeasure %>"/></td>
-        <td><input type="text" class="editBrand" value="<%= item.brand %>"/></td>
-        <td><input type="text" class="editManufacturer" value="<%= item.manufacturer %>"/></td>
-        <td><input type="text" class="editProductGroup" value="<%= item.productGroup %>"/></td>
-        <td><input type="text" class="editPrice" value="<%= item.prices.saleSolf %>"/></td>
+        <td><input type="text" class="editName" value="<%= item.name %>" data-property="name" /></td>
+        <td><input type="text" class="editQty" value="<%= item.qty %>" data-property="qty" /></td>
+        <td><input type="text" class="editUnitOfMeasure" value="<%= item.unitOfMeasure %>" data-property="unitOfMeasure" /></td>
+        <td><input type="text" class="editBrand" value="<%= item.brand %>" data-property="brand" /></td>
+        <td><input type="text" class="editManufacturer" value="<%= item.manufacturer %>" data-property="manufacturer" /></td>
+        <td><input type="text" class="editProductGroup" value="<%= item.productGroup %>" data-property="productGroup" /></td>
+        <!-- TODO: Defunct at the moment, since property assignment with child.property syntax doesn't work out of the box -->
+        <td><input type="text" class="editPrice" value="<%= item.prices.saleSolf %>" data-property="prices.saleSolf" /></td>
         <td><input type="text" class="editPrice" value="<%= item.prices.citymarket %>"/></td>
         <td><input type="text" class="editPrice" value="<%= item.prices.minimani %>"/></td>
         <td><input type="text" class="editPrice" value="<%= item.prices.prisma %>"/></td>
