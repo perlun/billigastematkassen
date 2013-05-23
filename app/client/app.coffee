@@ -53,15 +53,17 @@ class App
     path = path.split('.')
     parent = obj
 
-    parent = parent[path[i]] for i in [0..path.length - 2]
-
+    if path.length > 1
+      parent = parent[path[i]] for i in [0..path.length - 2]
+      
     parent?[path[path.length - 1]]
 
   setPropertyByPath: (obj, path, value) ->
     path = path.split('.')
     parent = obj
 
-    parent = (parent[path[i]] ||= {}) for i in [0..path.length - 2]
+    if path.length > 1
+      parent = (parent[path[i]] ||= {}) for i in [0..path.length - 2]
 
     parent[path[path.length - 1]] = value
 
