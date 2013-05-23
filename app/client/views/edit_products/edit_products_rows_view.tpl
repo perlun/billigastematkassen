@@ -21,11 +21,10 @@
         <td><input type="text" class="editBrand" value="<%= item.brand %>" data-property="brand" /></td>
         <td><input type="text" class="editManufacturer" value="<%= item.manufacturer %>" data-property="manufacturer" /></td>
         <td><input type="text" class="editProductGroup" value="<%= item.productGroup %>" data-property="productGroup" /></td>
-        <!-- TODO: Defunct at the moment, since property assignment with child.property syntax doesn't work out of the box -->
         <td><input type="text" class="editPrice" value="<%= item.prices.saleSolf %>" data-property="prices.saleSolf" /></td>
-        <td><input type="text" class="editPrice" value="<%= item.prices.citymarket %>"/></td>
-        <td><input type="text" class="editPrice" value="<%= item.prices.minimani %>"/></td>
-        <td><input type="text" class="editPrice" value="<%= item.prices.prisma %>"/></td>
+        <td><input type="text" class="editPrice" value="<%= item.prices.citymarket %>" data-property="prices.citymarket" /></td>
+        <td><input type="text" class="editPrice" value="<%= item.prices.minimani %>" data-property="prices.minimani" /></td>
+        <td><input type="text" class="editPrice" value="<%= item.prices.prisma %>" data-property="prices.prisma" /></td>
         <td><a href="#" data-row-command="deleteRow"><i class="icon-trash"></i></a></td>
       </tr>
       <% }); %>
