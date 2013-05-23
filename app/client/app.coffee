@@ -49,4 +49,20 @@ class App
 
     viewModel.setParameters(parameters) if viewModel?.setParameters?
 
+  getPropertyByPath: (obj, path) ->
+    path = path.split('.')
+    parent = obj
+
+    parent = parent[path[i]] for i in [0..path.length - 2]
+
+    parent?[path[path.length - 1]]
+
+  setPropertyByPath: (obj, path, value) ->
+    path = path.split('.')
+    parent = obj
+
+    parent = (parent[path[i]] ||= {}) for i in [0..path.length - 2]
+
+    parent[path[path.length - 1]] = value
+
 window.App = new App()
