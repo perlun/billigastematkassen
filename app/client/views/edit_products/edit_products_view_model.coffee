@@ -70,14 +70,6 @@ class App.Views.EditProducts.EditProductsViewModel
 
     @setupRowsEventHandlers()
 
-    # TODO: Support these again.
-#    @grid.attachEvent('onSelectStateChanged', (id) ->
-#      $('.deleteRowButton').removeAttr('disabled')
-#    )
-#    @grid.attachEvent('onAfterRowDeleted', (id, pid) ->
-#      $('.deleteRowButton').attr('disabled', 'true')
-#    )
-
   setupEventHandlers: () ->
     viewModel = @
 
