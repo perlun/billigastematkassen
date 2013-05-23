@@ -101,8 +101,8 @@ class App.Views.EditProducts.EditProductsViewModel
         item = viewModel.findItem(obj)
         newValue = obj.val()
 
-        if item[propertyName] != newValue
-          item[propertyName] = obj.val()
+        if App.getPropertyByPath(item, propertyName) != newValue
+          App.setPropertyByPath(item, propertyName, newValue)
 
           viewModel.saveProduct(item)
       )
