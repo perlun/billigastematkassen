@@ -52,7 +52,7 @@
   <footer id="footer">
     <div>
       <small>
-        :: <span>Klient: <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap</a> | <a href="http://bootswatch.com/simplex/">Simplex</a> | <a href="http://www.coffeescript">CoffeeScript</a> | <a href="http://www.dhtmlx.com">dhtmlxGrid</a></span> ::
+        :: <span>Klient: <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap</a> | <a href="http://bootswatch.com/simplex/">Simplex</a> | <a href="http://www.coffeescript">CoffeeScript</a></span> ::
         <span>Server: <a href="http://www.sinatrarb.com">Sinatra</a> | <a href="http://www.jruby.org">JRuby</a> | <a href="http://www.redis.io">Redis</a></span> ::
       </small>
     </div>
