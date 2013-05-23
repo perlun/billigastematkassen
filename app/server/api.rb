@@ -97,9 +97,11 @@ private
     product[:prices] ||= {}
     %w(saleSolf citymarket minimani prisma).each do |price_field|
       price = product[:prices][price_field.to_sym]
-      price = (price || '').sub(',', '.')   # Handle comma as decimal separator
+      price ||= ''
 
-      if price.empty?
+      price.sub!(',', '.') if price.respond_to? 'sub'
+             
+      if price.to_s.empty?
         price = nil
       else
         price = price.to_f
