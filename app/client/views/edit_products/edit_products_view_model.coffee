@@ -61,7 +61,7 @@ class App.Views.EditProducts.EditProductsViewModel
 
   filterItems: (groupSlug) ->
     @items = _.select(@allItems, (item) =>
-      @slugify(item.productGroup) == groupSlug
+      App.slugify(item.productGroup) == groupSlug
     )
 
   renderProductRows: () ->
@@ -193,14 +193,6 @@ class App.Views.EditProducts.EditProductsViewModel
   findItem: (obj) ->
     itemId = obj.parents('tr').attr('data-itemId')
     _.find(@items, (item) -> item.objectId == itemId)
-
-  slugify: (str) ->
-    str.replace(/\ /g, '_')
-      .replace(/&/g, 'och')
-      .replace(/å/g, 'a')
-      .replace(/ä/g, 'a')
-      .replace(/ö/g, 'o')
-      .toLowerCase()
 
 class App.Views.EditProducts.EditProductsView
   templateName: 'views/edit_products/edit_products_view'

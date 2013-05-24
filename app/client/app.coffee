@@ -75,4 +75,12 @@ class App
 
     parent[path[path.length - 1]] = value
 
+  slugify: (str) ->
+    str.replace(/\ /g, '_')
+      .replace(/&/g, 'och')
+      .replace(/å/g, 'a')
+      .replace(/ä/g, 'a')
+      .replace(/ö/g, 'o')
+      .toLowerCase()    
+
 window.App = new App()
