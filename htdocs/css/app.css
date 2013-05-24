@@ -2,6 +2,11 @@ body {
     padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
 }
 
+/* To avoid content "jumping" when switching from a longer page (w/ scrollbar) and a shorter (w/o scrollbar) */
+html {
+    overflow-y: scroll;
+}
+
 #placeholderContent {
     left: 50%;
     top: 50%;
@@ -37,6 +42,10 @@ body {
     text-align: center;
     width: 100%;
     font-family: 'Droid Sans Mono', sans-serif;
+}
+
+.thumbnails > li {
+    margin: 10px;
 }
 
 /* To get rid of spinners in Chrome. */
