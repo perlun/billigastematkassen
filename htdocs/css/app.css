@@ -71,7 +71,7 @@ input[type=text] {
     width: 60px;
 }
 
-.editProductGroup {
+.editProductGroup, .editProductSubGroup {
     width: 80px;
 }
 
@@ -89,7 +89,7 @@ td.lowestPrice, th.lowestPrice {
 
 .thumbnailImageContainer {
     height: 130px;
-    margin-top: 0px;
+    margin-top: 0;
 
     position: relative;
 }
@@ -106,7 +106,7 @@ td.lowestPrice, th.lowestPrice {
         margin: auto  
     }
 
-    .thumbnail div.name {
+    .thumbnail .name {
         font-weight: bold;
         overflow: hidden;
         text-overflow: clip;

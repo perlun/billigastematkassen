@@ -6,6 +6,7 @@
         <th>Varumärke</th>
         <th>Tillverkare</th>
         <th>Produktgrupp</th>
+        <th>Undergrupp</th>
         <th>Sale Solf</th>
         <th>Citymarket<br/>Stenhaga</th>
         <th>Minimani</th>
@@ -21,6 +22,7 @@
         <td><input type="text" class="editBrand" value="<%= item.brand %>" data-property="brand" /></td>
         <td><input type="text" class="editManufacturer" value="<%= item.manufacturer %>" data-property="manufacturer" /></td>
         <td><input type="text" class="editProductGroup" value="<%= item.productGroup %>" data-property="productGroup" /></td>
+        <td><input type="text" class="editProductSubGroup" value="<%= item.productSubGroup %>" data-property="productSubGroup" /></td>
         <td><input type="text" class="editPrice" value="<%= item.prices.saleSolf %>" data-property="prices.saleSolf" /></td>
         <td><input type="text" class="editPrice" value="<%= item.prices.citymarket %>" data-property="prices.citymarket" /></td>
         <td><input type="text" class="editPrice" value="<%= item.prices.minimani %>" data-property="prices.minimani" /></td>

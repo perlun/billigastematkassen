@@ -136,6 +136,10 @@ class App.Views.EditProducts.EditProductsViewModel
         _.pluck(@globalData.productGroups, 'name')
     )
 
+    $('.editProductSubGroup').typeahead(
+      source: @activeProductGroup.subGroups
+    )
+
   addNewRow: () ->
     item = {
       name: 'Ny produkt'
