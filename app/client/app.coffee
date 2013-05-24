@@ -1,5 +1,7 @@
 class App
   elementViewModels: {}
+  elementViews: {}
+
   Views: {}
 
   Spinner: {
@@ -45,7 +47,13 @@ class App
       view.willInsertElement() if view.willInsertElement?
       $(elementName).html(@renderTemplate(view.templateName, viewModel)).show()
       view.didInsertElement() if view.didInsertElement?
+
+      previousView = @elementViews[elementName]
+      if previousView != view && previousView?.didRemoveElement
+        previousView.didRemoveElement()
+
       @elementViewModels[elementName] = viewModel
+      @elementViews[elementName] = view
 
     viewModel.setParameters(parameters) if viewModel?.setParameters?
 
