@@ -1,5 +1,6 @@
 #= require views/list_products/list_products_view
 #= require views/list_products/list_products_rows_view
+#= require views/list_products/product_sub_groups_view
 #= require views/product_details/product_details_view_model
 
 App = window.App
@@ -11,7 +12,7 @@ class App.Views.ListProducts.ListProductsViewModel
   allItems: null
   filteredItems: []
   globalData: App.GlobalData
-  groupName: null
+  productGroup: null
   spinner: null
 
   refresh: () ->
@@ -29,28 +30,31 @@ class App.Views.ListProducts.ListProductsViewModel
         )
 
         @allItems = items
-        @showOnlyProductsInGroup @groupName
-
         App.Spinner.stopSpinning('productRowsContainer')
-        @renderProductRows()
+
+        @showProductGroup()
     )
 
   setParameters: (parameters) ->
     groupSlug = _.first(parameters)
 
-    @groupName = _.find(@globalData.productGroups, (g) ->
+    @productGroup = _.find(@globalData.productGroups, (g) ->
       g.slug == groupSlug
-    )?.name
+    )
 
     # We may or may not have data at this point.
     if @allItems
-      @showOnlyProductsInGroup @groupName
-      @renderProductRows()
+      @showProductGroup()
 
-  showOnlyProductsInGroup: (groupName) ->
-    @filteredItems = _.select(@allItems, (i) ->
-      i.productGroup == groupName
+  showProductGroup: () ->
+    @filteredItems = _.select(@allItems, (i) =>
+      i.productGroup == @productGroup.name
     )
+
+    $('#extraNavigationPlaceholder')
+      .html(App.renderTemplate('views/list_products/product_sub_groups_view', @))
+      .show()
+    @renderProductRows()
 
   renderProductRows: () ->
     html = App.renderTemplate('views/list_products/list_products_rows_view', this)
@@ -95,3 +99,6 @@ class App.Views.ListProducts.ListProductsView
 
   didInsertElement: () ->
     @dataContext.refresh()
+
+  didRemoveElement: () ->
+    $('#extraNavigationPlaceholder').hide()
