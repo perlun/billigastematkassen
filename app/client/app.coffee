@@ -55,7 +55,7 @@ class App
       @elementViewModels[elementName] = viewModel
       @elementViews[elementName] = view
 
-    viewModel.setParameters(parameters) if viewModel?.setParameters?
+    viewModel.setParameters(parameters...) if viewModel?.setParameters?
 
   getPropertyByPath: (obj, path) ->
     path = path.split('.')
@@ -76,7 +76,11 @@ class App
     parent[path[path.length - 1]] = value
 
   slugify: (str) ->
-    str.replace(/\ /g, '_')
+    return nil unless str?
+
+    str
+      .replace(/,/g, '')
+      .replace(/\ /g, '_')
       .replace(/&/g, 'och')
       .replace(/å/g, 'a')
       .replace(/ä/g, 'a')

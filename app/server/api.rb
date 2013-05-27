@@ -169,6 +169,7 @@ private
   end
 
   def slugify(str)
+    str = str.gsub(/,/, '')
     str = str.gsub(/ /, '_')
     str = str.gsub(/&/, 'och')
     str = str.tr('åäö', 'aao')
