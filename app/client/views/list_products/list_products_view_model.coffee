@@ -35,21 +35,26 @@ class App.Views.ListProducts.ListProductsViewModel
         @showProductGroup()
     )
 
-  setParameters: (parameters) ->
-    groupSlug = _.first(parameters)
-
+  setParameters: (productGroupSlug, productSubGroup) ->
     @productGroup = _.find(@globalData.productGroups, (g) ->
-      g.slug == groupSlug
+      g.slug == productGroupSlug
     )
+
+    @productSubGroup = productSubGroup
 
     # We may or may not have data at this point.
     if @allItems
       @showProductGroup()
 
   showProductGroup: () ->
+    return unless @productGroup?
+
     @filteredItems = _.select(@allItems, (i) =>
       i.productGroup == @productGroup.name
     )
+
+    if @productSubGroup
+      @filteredItems = _.select(@filteredItems, (i) => App.slugify(i.productSubGroup) == @productSubGroup)
 
     $('#extraNavigationPlaceholder')
       .html(App.renderTemplate('views/list_products/product_sub_groups_view', @))

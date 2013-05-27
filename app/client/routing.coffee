@@ -44,10 +44,16 @@ class Routing
   # MVVM/history micro-"framework"...
   handleHashChange: () ->
     if location.hash.indexOf('#/produkter/') != -1
-      match = productGroup = /#\/produkter\/(.*)/.exec location.hash
-      product_group = match[1]
+      match = productGroup = /#\/produkter\/(.*)\/(.*)/.exec location.hash
 
-      App.activate(App.Views.ListProducts.ListProductsView, App.Views.ListProducts.ListProductsViewModel, null, product_group)
+      if match
+        productGroup = match[1]
+        productSubGroup = match[2]
+      else
+        match  = /#\/produkter\/(.*)/.exec location.hash
+        productGroup = match[1]
+
+      App.activate(App.Views.ListProducts.ListProductsView, App.Views.ListProducts.ListProductsViewModel, null, productGroup, productSubGroup)
     else if location.hash == '#/redigera'
       App.activate(App.Views.EditProducts.EditProductsView, App.Views.EditProducts.EditProductsViewModel)
     else if location.hash == '#/varukorg'
