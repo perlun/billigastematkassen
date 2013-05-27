@@ -76,7 +76,7 @@ class App
     parent[path[path.length - 1]] = value
 
   slugify: (str) ->
-    return nil unless str?
+    return null unless str?
 
     str
       .replace(/,/g, '')
