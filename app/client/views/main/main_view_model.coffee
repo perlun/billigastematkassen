@@ -11,7 +11,11 @@ class App.Views.Main.MainViewModel
 
   handleHashChange: () ->
     $('.nav-collapse > .nav > li').removeClass('active')
+    $('.nav-list > li').removeClass('active')
     $(".nav-collapse > .nav > li > a[href='#{location.hash}']").each((i, el) ->
+      $(el).parent().addClass('active')
+    )
+    $(".nav-list > li > a[href='#{location.hash}']").each((i, el) ->
       $(el).parent().addClass('active')
     )
 
