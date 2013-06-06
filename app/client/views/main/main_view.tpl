@@ -24,7 +24,7 @@
     <div class="span2">
     </div>
     <!-- "Real" sidebar -->
-    <div style="position: fixed;">
+    <div class="sidebar">
       <ul class="nav nav-list">
         <li class="nav-header">Innehåll</li>
         <li>

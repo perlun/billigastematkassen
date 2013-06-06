@@ -44,6 +44,12 @@ html {
     font-family: 'Droid Sans Mono', sans-serif;
 }
 
+.sidebar {
+    position: fixed;
+    background: white;
+    height: 100%;
+}
+
 .thumbnails > li {
     margin: 10px;
 }
