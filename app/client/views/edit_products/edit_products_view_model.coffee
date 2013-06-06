@@ -173,7 +173,8 @@ class App.Views.EditProducts.EditProductsViewModel
     if confirm("Är det säkert att du vill ta bort '#{item.name}'?")
       $.ajax(
         type: 'DELETE'
-        url: '/api/product/' + itemId
+        url: '/api/product/' + item.objectId
+ 
         success: (result) =>
           @items.splice(@items.indexOf(item), 1)
           @renderProductRows()
