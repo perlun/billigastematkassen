@@ -44,6 +44,13 @@ html {
     font-family: 'Droid Sans Mono', sans-serif;
 }
 
+@media print
+{
+    #footer {
+        display: none;
+    }
+}
+
 .sidebar {
     position: fixed;
     background: white;
