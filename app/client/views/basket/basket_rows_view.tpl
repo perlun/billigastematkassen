@@ -46,4 +46,5 @@
 
 <div>
   <input type="button" class="btn" value="Töm varukorgen" data-command="clearBasket"/>
+  <input type="button" class="btn" style="float:right;" value="Skriv ut en inköpslista" data-command="printShoppingList"/>
 </div>
