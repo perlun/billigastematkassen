@@ -22,6 +22,10 @@ class App.Views.EditProducts.EditProductsViewModel
   refresh: () ->
     @setupEventHandlers()
 
+  setParameters: (mode) ->
+    @mode = mode
+    @renderProductRows()
+
   showProductGroup: (groupSlug) ->
     @activeProductGroup = _.find(@globalData.productGroups, (g) -> g.slug == groupSlug)
 
@@ -65,6 +69,8 @@ class App.Views.EditProducts.EditProductsViewModel
     )
 
   renderProductRows: () ->
+    return unless @mode
+
     html = App.renderTemplate('views/edit_products/edit_products_rows_view', this)
     $('#productRowsContainer').html(html).show()
 

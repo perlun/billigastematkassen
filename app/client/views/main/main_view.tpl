@@ -31,7 +31,10 @@
           <a href="#/start">Om sidan</a>
         </li>
         <li>
-          <a href="#/redigera">Redigera</a>
+          <a href="#/redigera/produkter">Redigera produkter</a>
+        </li>
+        <li>
+          <a href="#/redigera/priser">Redigera priser</a>
         </li>
         <li>
           <a href="#/varukorg">Varukorg</a>

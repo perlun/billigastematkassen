@@ -54,8 +54,10 @@ class Routing
         productGroup = match[1]
 
       App.activate(App.Views.ListProducts.ListProductsView, App.Views.ListProducts.ListProductsViewModel, null, productGroup, productSubGroup)
-    else if location.hash == '#/redigera'
-      App.activate(App.Views.EditProducts.EditProductsView, App.Views.EditProducts.EditProductsViewModel)
+    else if location.hash == '#/redigera/produkter'
+      App.activate(App.Views.EditProducts.EditProductsView, App.Views.EditProducts.EditProductsViewModel, null, 'products')
+    else if location.hash == '#/redigera/priser'
+      App.activate(App.Views.EditProducts.EditProductsView, App.Views.EditProducts.EditProductsViewModel, null, 'prices')
     else if location.hash == '#/varukorg'
       App.activate(App.Views.Basket.BasketView, App.Views.Basket.BasketViewModel)
     else if location.hash == '#/start'
