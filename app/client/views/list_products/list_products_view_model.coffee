@@ -64,24 +64,7 @@ class App.Views.ListProducts.ListProductsViewModel
   renderProductRows: () ->
     html = App.renderTemplate('views/list_products/list_products_rows_view', this)
     $('#productRowsContainer').html(html).show()
-    @setupEventHandlers()
-
-  setupEventHandlers: (parent) ->
-    viewModel = @
-
-    (parent || $('body')).find('[data-command]').each(() ->
-      obj = $(this)
-      commandHandler = obj.attr('data-command')
-      obj.click(() ->
-        func = viewModel[commandHandler]
-
-        if func
-          func.call(viewModel, obj)
-        else
-          console.error "No '#{commandHandler}' method defined in '#{viewModel}'"
-        false
-      )
-    )
+    App.setupCommandHandlers(@)
 
   addToBasket: (param) ->
     # The parameter can be either a DOM element or an itemId, so we need to perform some 'duck-typing'-style detection to
@@ -111,7 +94,7 @@ class App.Views.ListProducts.ListProductsViewModel
     item = _.find(@allItems, (item) -> item.objectId == itemId)
     elementName = @productDetailsViewModel.showProductDetails(item, view.templateName)
 
-    @setupEventHandlers($(elementName))
+    App.setupCommandHandlers(@, $(elementName))
 
     false
 

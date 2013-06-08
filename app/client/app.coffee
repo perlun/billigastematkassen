@@ -57,6 +57,22 @@ class App
 
     viewModel.setParameters(parameters...) if viewModel?.setParameters?
 
+  setupCommandHandlers: (viewModel, parent) ->
+    (parent || $('body')).find('[data-command]').each(() ->
+      obj = $(this)
+      commandHandler = obj.attr('data-command')
+      
+      obj.click(() ->
+        func = viewModel[commandHandler]
+
+        if func
+          func.call(viewModel, obj)
+        else
+          console.error "No '#{commandHandler}' method defined in '#{viewModel}'"
+        false
+      )
+    )
+
   getPropertyByPath: (obj, path) ->
     path = path.split('.')
     parent = obj
