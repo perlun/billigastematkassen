@@ -5,11 +5,6 @@ require 'json'
 require 'redis'
 require 'unicode_utils/downcase'
 
-require 'java'
-require 'jars/thumbnailator-0.4.4.jar'
-
-java_import 'net.coobird.thumbnailator.Thumbnails'
-
 class App < Sinatra::Base
   get '/api/basket' do
     return_json get_basket(request, env)
@@ -49,10 +44,7 @@ class App < Sinatra::Base
     thumbnail_file_name = file_name.sub('.jpg', '.thumb.jpg')
 
     unless File.exist? thumbnail_file_name
-      Thumbnails
-        .of(file_name)
-        .size(params[:width].to_i, params[:height].to_i)
-        .to_file(thumbnail_file_name)
+      system "convert \"#{file_name}\" -resize #{params[:width]}x#{params[:height]} \"#{thumbnail_file_name}\""
     end
 
     [
