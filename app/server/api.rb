@@ -1,10 +1,14 @@
 # coding: utf-8
 
 require 'bson'
-require 'imgry'
 require 'json'
 require 'redis'
 require 'unicode_utils/downcase'
+
+require 'java'
+require 'jars/thumbnailator-0.4.4.jar'
+
+java_import 'net.coobird.thumbnailator.Thumbnails'
 
 class App < Sinatra::Base
   get '/api/basket' do
@@ -41,9 +45,15 @@ class App < Sinatra::Base
   end
 
   get '/thumbnail/*' do
-    # TODO: Could cache the results from these to improve performance.
-    img = Imgry.from_file(settings.public_folder + '/' + params[:splat].first)
-    img.resize!('117x130')
+    file_name = settings.public_folder + '/' + params[:splat].first
+    thumbnail_file_name = file_name.sub('.jpg', '.thumb.jpg')
+
+    unless File.exist? thumbnail_file_name
+      Thumbnails
+        .of(file_name)
+        .size(params[:width].to_i, params[:height].to_i)
+        .to_file(thumbnail_file_name)
+    end
 
     [
       200,
@@ -51,7 +61,7 @@ class App < Sinatra::Base
         'Content-Type' => 'image/jpeg'
       },
       [
-        img.to_blob
+        IO.read(thumbnail_file_name)
       ]
     ]
   end
