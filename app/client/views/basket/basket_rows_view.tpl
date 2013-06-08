@@ -1,3 +1,8 @@
+<div style="margin: 24px 0 12px 0;">
+  <input type="button" class="btn" value="Töm varukorgen" data-command="clearBasket"/>
+  <input type="button" class="btn" style="float:right;" value="Skriv ut en inköpslista" data-command="printShoppingList"/>
+</div>
+
 <table class="table table-striped table-hover table-condensed">
   <thead>
     <tr>
@@ -44,7 +49,7 @@
   </tfoot>
 </table>
 
-<div>
+<div style="margin-bottom: 12px;">
   <input type="button" class="btn" value="Töm varukorgen" data-command="clearBasket"/>
   <input type="button" class="btn" style="float:right;" value="Skriv ut en inköpslista" data-command="printShoppingList"/>
 </div>
