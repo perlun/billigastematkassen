@@ -35,4 +35,6 @@ class App < Sinatra::Base
     puts env['sinatra.error'].backtrace.first(10)
     500
   end
+
+  # The rest of the routes are in api.rb
 end
