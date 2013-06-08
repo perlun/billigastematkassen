@@ -76,7 +76,7 @@ class App.Views.ListProducts.ListProductsViewModel
         func = viewModel[commandHandler]
 
         if func
-          func(obj)
+          func.call(viewModel, obj)
         else
           console.error "No '#{commandHandler}' method defined in '#{viewModel}'"
         false
