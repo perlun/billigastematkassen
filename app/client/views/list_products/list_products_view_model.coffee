@@ -73,7 +73,12 @@ class App.Views.ListProducts.ListProductsViewModel
       obj = $(this)
       commandHandler = obj.attr('data-command')
       obj.click(() ->
-        viewModel[commandHandler](obj)
+        func = viewModel[commandHandler]
+
+        if func
+          func(obj)
+        else
+          console.error "No '#{commandHandler}' method defined in '#{viewModel}'"
         false
       )
     )
