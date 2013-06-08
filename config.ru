@@ -1,5 +1,6 @@
 #\ -p 8082 -s mizuno
 
+require 'bundler'
 require './app/server/app.rb'
 
 app = App.new

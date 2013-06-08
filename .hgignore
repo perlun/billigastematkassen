@@ -1,4 +1,5 @@
 syntax: regexp
+bundle/
 db/prices\.json
 img/items
 Thumbs\.db

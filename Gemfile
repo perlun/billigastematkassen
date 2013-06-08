@@ -1,0 +1,6 @@
+source 'https://rubygems.org'
+gem 'bson'
+gem 'imgry'
+gem 'json'
+gem 'redis'
+gem 'unicode_utils'
