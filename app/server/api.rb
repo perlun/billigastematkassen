@@ -1,6 +1,7 @@
 # coding: utf-8
 
 require 'bson'
+require 'imgry'
 require 'json'
 require 'redis'
 require 'unicode_utils/downcase'
@@ -37,6 +38,22 @@ class App < Sinatra::Base
     return_json({
       :result => 'Success'
     }.to_json)
+  end
+
+  get '/thumbnail/*' do
+    # TODO: Could cache the results from these to improve performance.
+    img = Imgry.from_file(settings.public_folder + '/' + params[:splat].first)
+    img.resize!('117x130')
+
+    [
+      200,
+      {
+        'Content-Type' => 'image/jpeg'
+      },
+      [
+        img.to_blob
+      ]
+    ]
   end
 
 private

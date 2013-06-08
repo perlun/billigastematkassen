@@ -7,7 +7,7 @@
       <a href="#" style="color: black;" data-command="showProductDetails" data-itemId="<%= item.objectId %>">
         <% if (item.imageUrl) { %>
         <div class="thumbnailImageContainer">
-          <img src="<%= item.imageUrl %>"/>
+          <img src="thumbnail<%= item.imageUrl %>?width=117&amp;height=130"/>
         </div>
         <% } else { %>
         <div style="margin-bottom: 12px; text-align: center;">
