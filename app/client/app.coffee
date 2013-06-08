@@ -68,7 +68,7 @@ class App
         if func
           func.call(viewModel, obj)
         else
-          console.error "No '#{commandHandler}' method defined in '#{viewModel}'"
+          console.error "No '#{commandHandler}' method defined in '#{viewModel.constructor.name}'"
         false
       )
     )
