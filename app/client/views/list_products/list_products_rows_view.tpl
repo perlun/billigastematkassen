@@ -1,3 +1,5 @@
+<input type="button" class="btn" value="Lägg till alla" data-command="addAllToBasket"/>
+
 <ul class="thumbnails">
   <% _.each(dataContext.filteredItems, function(item) { %>
   <li class="span2">

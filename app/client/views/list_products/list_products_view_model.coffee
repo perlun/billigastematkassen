@@ -83,14 +83,25 @@ class App.Views.ListProducts.ListProductsViewModel
       )
     )
 
-  addToBasket: (obj) ->
-    itemId = obj.attr('data-itemId')
+  addToBasket: (param) ->
+    # The parameter can be either a DOM element or an itemId, so we need to perform some 'duck-typing'-style detection to
+    # support both cases.
+    if param.attr?
+      itemId = param.attr('data-itemId')
+    else
+      itemId = param
+
     App.BasketService.addToBasket(itemId)
     false
 
-  addToBasketAndCloseOverlay: (obj) ->
-    @addToBasket(obj)
+  addToBasketAndCloseOverlay: (element) ->
+    @addToBasket(element)
     @productDetailsViewModel.closeOverlay()
+
+  addAllToBasket: () ->
+    _.each(@filteredItems, (item) =>
+      @addToBasket(item.objectId)
+    )
 
   showProductDetails: (obj) ->
     @productDetailsViewModel = new App.Views.ProductDetails.ProductDetailsViewModel()
