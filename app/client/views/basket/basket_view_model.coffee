@@ -5,7 +5,6 @@ App = window.App
 App.Views.Basket = {}
 
 class App.Views.Basket.BasketViewModel
-  globalData: App.GlobalData
   items: []
 
   refresh: () ->
@@ -40,20 +39,12 @@ class App.Views.Basket.BasketViewModel
     @setupEventHandlers()
 
   setupEventHandlers: () ->
-    viewModel = @
-
-    $('[data-command]').each(() ->
-      obj = $(this)
-      commandHandler = obj.attr('data-command')
-      obj.click(() ->
-        viewModel[commandHandler](obj)
-        false
-      )
-    )
+    App.setupCommandHandlers(@)
 
     viewModel = @
     $('[data-count]').each(() ->
       obj = $(this)
+
       obj.change(() ->
         count = parseInt(obj.val(), 10)
         return if isNaN(count)
@@ -131,6 +122,9 @@ class App.Views.Basket.BasketViewModel
       @updateSummaries()
 
     false
+
+  printShoppingList: () ->
+    window.open('#/inköpslista/skriv_ut')
 
 class App.Views.Basket.BasketView
   templateName: 'views/basket/basket_view'

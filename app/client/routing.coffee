@@ -3,6 +3,7 @@
 #= require views/main/main_view_model
 #= require views/edit_products/edit_products_view_model
 #= require views/list_products/list_products_view_model
+#= require views/print_shopping_list/print_shopping_list_view_model
 
 App = window.App
 
@@ -17,7 +18,9 @@ class Routing
       .then((productGroupsResult, basketResult) =>
         App.GlobalData.productGroups = productGroupsResult[0]
 
-        App.activate(App.Views.Main.MainView, App.Views.Main.MainViewModel, '#bodyContent')
+        if location.hash != '#/inköpslista/skriv_ut'
+          App.activate(App.Views.Main.MainView, App.Views.Main.MainViewModel, '#bodyContent')
+
         App.BasketService.getBasketCompleted(basketResult[0])
 
         # TODO: Mixing up the data loading and the initial routing like this isn't so fanciful. We should probably raise some form
@@ -62,6 +65,8 @@ class Routing
       App.activate(App.Views.Basket.BasketView, App.Views.Basket.BasketViewModel)
     else if location.hash == '#/start'
       App.activate(App.Views.Home.HomeView, null)
+    else if location.hash == '#/inköpslista/skriv_ut'
+      App.activate(App.Views.PrintShoppingList.PrintShoppingListView, App.Views.PrintShoppingList.PrintShoppingListViewModel, '#bodyContent')
     else
       location.hash = '#/start'
 
