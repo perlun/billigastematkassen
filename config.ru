@@ -1,4 +1,4 @@
-#\ -p 8082 -s mizuno
+#\ -p 8082
 
 require 'bundler/setup'
 require './app/server/app.rb'

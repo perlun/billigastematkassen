@@ -1,14 +1,11 @@
 #!/usr/bin/env jruby
 
 require 'coffee_script'
-require 'rack/handler/mizuno'
 require 'sinatra/base'
 require 'sprockets'
 require_relative 'api'
 
 class App < Sinatra::Base
-  set :server, 'mizuno'
-
   set :port, 8082
   set :root, Dir.pwd
   set :public_folder, settings.root + '/htdocs'
