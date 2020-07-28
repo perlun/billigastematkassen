@@ -24,7 +24,7 @@ GEM
       ffi
       guard (~> 2.3)
       spoon
-    json (2.1.0)
+    json (2.3.0)
     libv8 (3.16.14.19)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
